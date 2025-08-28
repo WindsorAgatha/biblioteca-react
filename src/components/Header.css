@@ -1,0 +1,316 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    background-color: #579BB1;
+}
+
+/* Evita que elementos cresçam além da largura */
+* {
+    box-sizing: border-box;
+}
+
+/* Header padrão */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 120px;
+    background: rgba(10, 38, 71, 0.85);
+    box-shadow: 0 4px 18px rgba(10, 38, 71, 0.12);
+    border-radius: 0 0 6px 6px;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+}
+
+/* Centraliza o menu */
+.center-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* Lista de links de navegação */
+.menu-list {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu-list a {
+    text-decoration: none;
+    color: #e0e7ff;
+    font-family: 'Merriweather', serif;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.menu-list a:hover,
+.menu-list a:focus {
+    color: #fff;
+    text-shadow: 0 2px 8px #6366f1;
+}
+
+/* Container do login */
+.login-container {
+    display: flex;
+    align-items: center;
+    min-width: 160px;
+    justify-content: flex-end;
+}
+
+.login-container a {
+    color: #e0e7ff;
+    font-family: 'Merriweather', serif;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.login-container a:hover,
+.login-container a:focus {
+    color: #fff;
+    text-shadow: 0 2px 8px #6366f1;
+}
+
+.login {
+    height: 26px;
+    width: 26px;
+    margin-right: 2px;
+    filter: drop-shadow(0 2px 4px #6366f1aa);
+    transition: filter 0.2s;
+}
+
+.login-container:hover .login {
+    filter: drop-shadow(0 4px 8px #6366f1cc) brightness(1.2);
+}
+
+/* Ícones da navbar */
+.menu-list img,
+.img-nav img,
+.login-container img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    margin-right: 2px;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    transition: filter 0.2s, opacity 0.2s, background 0.2s;
+}
+
+/* Hover nos ícones */
+.img-nav:hover img,
+.login-container:hover img {
+    filter: brightness(1.2) invert(1) drop-shadow(0 2px 8px #6366f1cc);
+    opacity: 1;
+    background: rgba(99,102,241,0.08);
+}
+
+/* Modo escuro do header */
+.theme-container {
+    background-color: #579BB1;
+    transition: all 400ms ease;
+}
+
+.night-mode .theme-container {
+    background-color: #0A2647;
+    transition: all 400ms ease;
+}
+
+.night-mode .genre-container {
+    background-color: #144272;
+}
+
+/* Menu responsivo (dropdown) */
+.drop-down-menu {
+    display: none;
+    background: #0A2647;
+    padding: 0 16px;
+    box-shadow: 0 4px 18px rgba(10, 38, 71, 0.12);
+    position: relative;
+    z-index: 100;
+}
+
+.drop-down-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: relative;
+}
+
+.logo-drop-down {
+    height: 48px;
+    width: 48px;
+    border-radius: 100%;
+}
+
+.drop-down-toggle {
+    background: none;
+    border: none;
+    color: #c5c5c5;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.4s cubic-bezier(.4,0,.2,1);
+    margin-left: auto;
+}
+
+.drop-down-toggle.rotated {
+    transform: rotate(90deg);
+}
+
+.drop-down-list {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100vw;
+    background: #0A2647;
+    box-shadow: 0 8px 24px rgba(10, 38, 71, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 0;
+    list-style: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: opacity 0.2s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.drop-down-list.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.drop-down-list li a {
+    color: #e0e7ff;
+    font-family: 'Merriweather', serif;
+    font-size: 1.08rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+}
+
+.drop-down-list li a:hover,
+.drop-down-list li a:focus {
+    background: rgba(99,102,241,0.14);
+    color: #fff;
+}
+
+/* Ícones SVG monocromáticos na navbar */
+.navbar-icon svg {
+    stroke: #e0e7ff;
+    fill: none;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    transition: stroke 0.2s, filter 0.2s;
+    filter: drop-shadow(0 1px 4px #6366f1aa);
+}
+
+.img-nav:hover .navbar-icon svg,
+.login-container:hover .navbar-icon svg {
+    stroke: #fff;
+    filter: drop-shadow(0 2px 8px #6366f1cc);
+}
+
+/* Responsividade para esconder navbar e mostrar drop-down */
+@media (max-width: 768px) {
+    .navbar {
+        display: none;
+    }
+
+    .drop-down-menu {
+        display: block;
+    }
+
+    .logo-drop-down {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        padding: 0 10px;
+    }
+
+    .menu-list {
+        gap: 12px;
+    }
+
+    .img-nav {
+        padding: 4px 6px;
+    }
+
+    .img-nav a {
+        font-size: 0.98rem;
+    }
+}
+
+/* Acessório visual: toggle de modo escuro */
+.theme-toggle-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 2px;
+    position: absolute;
+    z-index: 100;
+    right: 20px;
+}
+
+.button-container {
+    height: 25px;
+    width: 80px;
+    background-color: #F8F4EA;
+    border-radius: 20px 20px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    border: #147c86 2px solid;
+}
+
+.button-container button {
+    border-radius: 100%;
+    height: 22px;
+    width: 22px;
+    background-color: #0A2647;
+    border: 2px solid black;
+    transition: all 400ms ease;
+}
+
+.night-mode #btn {
+    transform: translate(57px);
+    background-color: #579BB1;
+    border: 2px solid rgb(75, 134, 161);
+}
