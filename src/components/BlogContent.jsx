@@ -64,24 +64,6 @@ function BlogContent() {
                     </li>
                 </ul>
             </section>
-            <section className="genre-container" aria-label="Gêneros">
-                <div className="genre-grid" aria-label="Gêneros literários">
-                    <h2 className="genre-title">Gêneros Literários</h2>
-                    <div className="genre-boxes">
-                        <a href="#" className="genre-box">Aventura</a>
-                        <a href="#" className="genre-box">Romance</a>
-                        <a href="#" className="genre-box">Fantasia</a>
-                        <a href="#" className="genre-box">Suspense</a>
-                        <a href="#" className="genre-box">Clássicos</a>
-                        <a href="#" className="genre-box">Biografia</a>
-                        <a href="#" className="genre-box">Ficção Científica</a>
-                        <a href="#" className="genre-box">Drama</a>
-                        <a href="#" className="genre-box">Poesia</a>
-                        <a href="#" className="genre-box">Infantil</a>
-                        {/* Adicione mais gêneros conforme necessário */}
-                    </div>
-                </div>
-            </section>
             <section className="student-highlight" aria-label="Destaque do mês">
                 <h2 className="student-highlight-title">🌟 Destaque do Julho</h2>
                 <div className="student-highlight-card">
