@@ -1,107 +1,166 @@
-import './BlogContent.css'
-import WanderImg from "../assets/Recomendação dos professores.png"
-import classicImg from "../assets/Clássicos.png"
-import adventureImg from "../assets/Aventura.png"
-import fantasyImg from "../assets/Fantasia.png"
-import romanceImg from "../assets/Romance.png"
-import studentImg from "../assets/Gemini_Generated_Image_kca1ekkca1ekkca1.png"
-import hamlet from "../assets/hamlet.jpg"
-import anneFrank from "../assets/Anne Frank.jpg"
+import { useState } from "react"
+import ProfessorImg from "../assets/wander.png"
+import StudentImg from "../assets/Gemini_Generated_Image_kca1ekkca1ekkca1.png"
+import BookCover1 from "../assets/Anne Frank.jpg"
+import BookCover2 from "../assets/hamlet.jpg"
+import BookCover3 from "../assets/Aventura.png"
+
+const newBooks = [
+    { title: "Novo Livro 1", img: BookCover1 },
+    { title: "Novo Livro 2", img: BookCover2 },
+    { title: "Novo Livro 3", img: BookCover3 },
+    { title: "Novo Livro 4", img: BookCover1 },
+    { title: "Novo Livro 5", img: BookCover2 },
+]
+
+const mostRented = [
+    { title: "Anne Frank", img: BookCover1, medal: "gold" },
+    { title: "Hamlet", img: BookCover2, medal: "silver" },
+    { title: "Aventura", img: BookCover3, medal: "bronze" },
+]
 
 function BlogContent() {
+    const [start, setStart] = useState(0)
+
+    const nextSlide = () => setStart((prev) => (prev + 1) % newBooks.length)
+    const prevSlide = () =>
+        setStart((prev) => (prev - 1 + newBooks.length) % newBooks.length)
+
     return (
-        <main className="main">
-            <section className="modal-container" aria-label="Cadastro">
-                <div className="modal-sign-in">
-                    <form name="form" id="submit-form" autoComplete="off">
-                        <label htmlFor="nome-formulario">Nome de usuário</label>
-                        <input id="nome-formulario" type="text" required />
-                        <label htmlFor="senha-formulario">Crie sua senha</label>
-                        <input id="senha-formulario" type="password" required />
-                        <label htmlFor="confirmar-senha">Confirme sua senha</label>
-                        <input id="confirmar-senha" type="password" required />
-                        <label htmlFor="telefone-formulario">Telefone</label>
-                        <input id="telefone-formulario" type="tel" />
-                        <label htmlFor="email-formulario">Email</label>
-                        <input id="email-formulario" type="email" required />
-                        <label htmlFor="endereco-formulario">Endereço</label>
-                        <input id="endereco-formulario" type="text" />
-                        <button type="submit">Enviar</button>
-                    </form>
-                </div>
-            </section>
-            <section className="theme-toggle-container" aria-label="Alternar tema">
-                <div className="button-container">
-                    <button id="btn" aria-label="Alternar tema"></button>
-                </div>
-            </section>
-            <section className="slider-wrapper" aria-label="Destaques">
-                <ul className="slides-container" id="slides-container">
-                    <li className="slide" id="slide1">
-                        <div className="content-slide">
-                            <img src={WanderImg} alt="Recomendação dos professores" />
-                        </div>
-                    </li>
-                    <li className="slide" id="slide2">
-                        <div className="content-slide">
-                            <img src={classicImg} alt="Livros clássicos" />
-                        </div>
-                    </li>
-                    <li className="slide" id="slide3">
-                        <div className="content-slide">
-                            <img src={adventureImg} alt="Livros de aventura" />
-                        </div>
-                    </li>
-                    <li className="slide" id="slide4">
-                        <div className="content-slide">
-                            <img src={fantasyImg} alt="Livros de fantasia" />
-                        </div>
-                    </li>
-                    <li className="slide" id="slide5">
-                        <div className="content-slide">
-                            <img src={romanceImg} alt="Livros de romance" />
-                        </div>
-                    </li>
-                </ul>
-            </section>
-            <section className="student-highlight" aria-label="Destaque do mês">
-                <h2 className="student-highlight-title">🌟 Destaque do Julho</h2>
-                <div className="student-highlight-card">
-                    <div className="student-photo">
-                        <img src={studentImg} alt="Foto do aluno destaque" />
-                    </div>
-                    <div className="student-info">
-                        <h3 className="student-name">Fernanda da Silva</h3>
-                        <p className="student-achievement">Alugou <strong>5 livros </strong>no mês!</p>
-                        <span className="student-badge">Leitor(a) número 1</span>
-                    </div>
-                </div>
-            </section>
-            <section className="most-rented" aria-label="Mais alugados">
-                <h1 className="most-rented-title">📚 Mais Alugados do Mês</h1>
-                <div className="most-rented-container">
-                    <ul className="list-books">
-                        <li className="most-rented-card destaque">
-                            <div className="rank-badge gold">1</div>
-                            <img src={hamlet} alt="Capa do livro Hamlet" />
-                            <p className="book-title">Hamlet</p>
-                            <span className="badge-top">TOP 1</span>
+        <main className="bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8">
+
+            {/* Eventos + Desafio do Mês */}
+            <section className="grid md:grid-cols-2 gap-4">
+                <div className="bg-white rounded-lg shadow p-4">
+                    <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
+                    <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                        <li>
+                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                                Clube do Livro: Discussão sobre "O Hobbit" - 12 de Setembro
+                            </a>
                         </li>
-                        <li className="most-rented-card">
-                            <div className="rank-badge silver">2</div>
-                            <img src={anneFrank} alt="Capa do livro Anne Frank" />
-                            <p className="book-title">Anne Frank</p>
+                        <li>
+                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                                Oficina de Escrita Criativa - 20 de Setembro
+                            </a>
                         </li>
-                        <li className="most-rented-card">
-                            <div className="rank-badge bronze">3</div>
-                            <img src={hamlet} alt="Capa do livro Hamlet" />
-                            <p className="book-title">Hamlet</p>
+                        <li>
+                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                                Encontro com Autor: Lançamento de "Mistério na Biblioteca" - 28 de Setembro
+                            </a>
                         </li>
                     </ul>
                 </div>
+                <div className="bg-white rounded-lg shadow p-4">
+                    <h2 className="text-xl font-bold mb-2">🎯 Desafio do Mês</h2>
+                    <p className="text-gray-600 text-sm">
+                        Complete a leitura de <strong>3 livros de aventura</strong> e ganhe destaque na biblioteca!
+                    </p>
+                </div>
+
+            </section>
+            {/* Aluno Destaque */}
+            <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-lg p-4 gap-4">
+                <img
+                    src={StudentImg}
+                    alt="Aluno do mês"
+                    className="w-24 h-24 object-cover rounded-full"
+                />
+                <div className="flex-1">
+                    <h2 className="text-xl font-bold mb-1">🌟 Aluno Destaque do Mês</h2>
+                    <p className="text-gray-600 text-sm mb-1">Fernanda da Silva</p>
+                    <p className="text-gray-600 text-sm">
+                        Alugou <strong>5 livros</strong> este mês!
+                    </p>
+                </div>
+            </section>
+
+            {/* Indicações dos Professores */}
+            <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-lg p-4 gap-4">
+                <img
+                    src={ProfessorImg}
+                    alt="Professor segurando livro"
+                    className="w-40 h-28 object-cover rounded-lg border-gray-600 border-2"
+                />
+                <div className="flex-1">
+                    <h2 className="text-xl font-bold mb-1">📚 Indicações dos Professores</h2>
+                    <p className="text-gray-600 text-sm">
+                        Descubra livros recomendados pelos professores para ampliar seus horizontes!
+                    </p>
+                </div>
+            </section>
+
+            {/* Top 3 Mais Alugados (Pódio) */}
+            <section className="flex justify-center items-end gap-4 relative h-60">
+                <div className="flex flex-col items-center justify-end">
+                    <div className="w-20 h-32 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                        <img src={mostRented[1].img} alt={mostRented[1].title} className="w-16 h-24 object-cover rounded" />
+                    </div>
+                    <span className="mt-2 text-gray-700 font-bold">🥈 {mostRented[1].title}</span>
+                </div>
+
+                <div className="flex flex-col items-center justify-end">
+                    <div className="w-24 h-40 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                        <img src={mostRented[0].img} alt={mostRented[0].title} className="w-20 h-32 object-cover rounded" />
+                    </div>
+                    <span className="mt-2 text-gray-700 font-bold">🥇 {mostRented[0].title}</span>
+                </div>
+
+                <div className="flex flex-col items-center justify-end">
+                    <div className="w-20 h-28 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                        <img src={mostRented[2].img} alt={mostRented[2].title} className="w-16 h-20 object-cover rounded" />
+                    </div>
+                    <span className="mt-2 text-gray-700 font-bold">🥉 {mostRented[2].title}</span>
+                </div>
+            </section>
+
+            {/* Novos Livros (Slider) */}
+            <section>
+                <h2 className="text-xl font-bold mb-3">🆕 Novidades na Biblioteca</h2>
+                <div className="relative flex items-center">
+                    <button
+                        onClick={prevSlide}
+                        className="absolute left-0 z-10 bg-white text-gray-800 rounded-full p-1 shadow hover:bg-gray-200 transition"
+                    >
+                        ◀
+                    </button>
+
+                    <div className="overflow-hidden w-full">
+                        <div
+                            className="flex transition-transform duration-500"
+                            style={{ transform: `translateX(-${start * 33.33}%)`, width: `${newBooks.length * (100 / 3)}%` }}
+                        >
+                            {newBooks.map((book, idx) => (
+                                <div key={idx} className="w-1/3 flex-shrink-0 p-2">
+                                    <div className="bg-white rounded-lg shadow p-2 flex flex-col items-center">
+                                        <img src={book.img} alt={book.title} className="w-28 h-40 object-cover rounded mb-1" />
+                                        <p className="font-semibold text-sm text-center">{book.title}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={nextSlide}
+                        className="absolute right-0 z-10 bg-white text-gray-800 rounded-full p-1 shadow hover:bg-gray-200 transition"
+                    >
+                        ▶
+                    </button>
+                </div>
+            </section>
+
+            {/* Curiosidades Literárias */}
+            <section className="bg-white rounded-lg shadow p-4">
+                <h2 className="text-xl font-bold mb-1">💡 Curiosidades Literárias</h2>
+                <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                    <li>"Hamlet" foi escrito por William Shakespeare em 1600.</li>
+                    <li>"Anne Frank: O Diário" é um relato real da Segunda Guerra.</li>
+                    <li>O livro mais alugado do mês passado foi "O Pequeno Príncipe".</li>
+                </ul>
             </section>
         </main>
-    );
+    )
 }
 
-export default BlogContent;
+export default BlogContent
