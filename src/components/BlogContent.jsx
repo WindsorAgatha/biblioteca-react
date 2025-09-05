@@ -30,8 +30,8 @@ function BlogContent() {
         <main className="bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8">
 
             {/* Eventos + Desafio do Mês */}
-            <section className="grid md:grid-cols-2 gap-4">
-                <div className="bg-white rounded-lg shadow p-4">
+            <section className="flex flex-col md:flex-row gap-4">
+                <div className="bg-white rounded-lg shadow p-4 flex-1">
                     <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
                     <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
                         <li>
@@ -51,29 +51,60 @@ function BlogContent() {
                         </li>
                     </ul>
                 </div>
-                <div className="bg-white rounded-lg shadow p-4">
+                <div className="bg-white rounded-lg shadow p-4 flex-1">
                     <h2 className="text-xl font-bold mb-2">🎯 Desafio do Mês</h2>
                     <p className="text-gray-600 text-sm">
                         Complete a leitura de <strong>3 livros de aventura</strong> e ganhe destaque na biblioteca!
                     </p>
                 </div>
+            </section>
 
-            </section>
-            {/* Aluno Destaque */}
-            <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-lg p-4 gap-4">
-                <img
-                    src={StudentImg}
-                    alt="Aluno do mês"
-                    className="w-24 h-24 object-cover rounded-full"
-                />
-                <div className="flex-1">
-                    <h2 className="text-xl font-bold mb-1">🌟 Aluno Destaque do Mês</h2>
-                    <p className="text-gray-600 text-sm mb-1">Fernanda da Silva</p>
-                    <p className="text-gray-600 text-sm">
-                        Alugou <strong>5 livros</strong> este mês!
-                    </p>
-                </div>
-            </section>
+            {/* Aluno Destaque + Top 3 Mais Alugados (Pódio) alinhados centralizados no mobile */}
+            <div className="flex flex-col md:flex-row md:justify-center md:items-stretch gap-6 items-center">
+                {/* Aluno Destaque */}
+                <section className="flex flex-col items-center pt-16 bg-white shadow rounded-lg p-4 w-full max-w-xs md:max-w-md">
+                    <img
+                        src={StudentImg}
+                        alt="Aluno do mês"
+                        className="w-24 h-24 object-cover rounded-full mb-2"
+                    />
+                    <div className="flex-1 justify-between text-center">
+                        <h2 className="text-xl font-bold mb-1">🌟 Aluno Destaque do Mês</h2>
+                        <p className="text-gray-600 text-sm mb-1">Fernanda da Silva</p>
+                        <p className="text-gray-600 text-sm">
+                            Alugou <strong>5 livros</strong> este mês!
+                        </p>
+                    </div>
+                </section>
+
+                {/* Top 3 Mais Alugados (Pódio) */}
+                <section className="flex flex-col items-center rounded-lg p-4 w-full max-w-xs md:max-w-xl">
+                    <h2 className="text-xl font-bold mb-4 text-center">🏆 Top 3 Mais Alugados</h2>
+                    <div className="flex justify-center items-end gap-4 h-60">
+                        {/* 2º lugar */}
+                        <div className="flex flex-col items-center">
+                            <div className="w-24 h-36 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                                <img src={mostRented[1].img} alt={mostRented[1].title} className="w-20 h-32 object-cover rounded" />
+                            </div>
+                            <span className="mt-2 text-gray-700 font-bold text-lg">🥈 {mostRented[1].title}</span>
+                        </div>
+                        {/* 1º lugar */}
+                        <div className="flex flex-col items-center">
+                            <div className="w-28 h-44  bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                                <img src={mostRented[0].img} alt={mostRented[0].title} className="w-24 h-36 object-cover rounded" />
+                            </div>
+                            <span className="mt-2 text-gray-700 font-bold text-xl">🥇 {mostRented[0].title}</span>
+                        </div>
+                        {/* 3º lugar */}
+                        <div className="flex flex-col items-center">
+                            <div className="w-24 h-36 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                                <img src={mostRented[2].img} alt={mostRented[2].title} className="w-20 h-32 object-cover rounded" />
+                            </div>
+                            <span className="mt-2 text-gray-700 font-bold text-lg">🥉 {mostRented[2].title}</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
 
             {/* Indicações dos Professores */}
             <section className="flex flex-col md:flex-row items-center bg-white shadow rounded-lg p-4 gap-4">
@@ -90,29 +121,7 @@ function BlogContent() {
                 </div>
             </section>
 
-            {/* Top 3 Mais Alugados (Pódio) */}
-            <section className="flex justify-center items-end gap-4 relative h-60">
-                <div className="flex flex-col items-center justify-end">
-                    <div className="w-20 h-32 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
-                        <img src={mostRented[1].img} alt={mostRented[1].title} className="w-16 h-24 object-cover rounded" />
-                    </div>
-                    <span className="mt-2 text-gray-700 font-bold">🥈 {mostRented[1].title}</span>
-                </div>
-
-                <div className="flex flex-col items-center justify-end">
-                    <div className="w-24 h-40 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
-                        <img src={mostRented[0].img} alt={mostRented[0].title} className="w-20 h-32 object-cover rounded" />
-                    </div>
-                    <span className="mt-2 text-gray-700 font-bold">🥇 {mostRented[0].title}</span>
-                </div>
-
-                <div className="flex flex-col items-center justify-end">
-                    <div className="w-20 h-28 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
-                        <img src={mostRented[2].img} alt={mostRented[2].title} className="w-16 h-20 object-cover rounded" />
-                    </div>
-                    <span className="mt-2 text-gray-700 font-bold">🥉 {mostRented[2].title}</span>
-                </div>
-            </section>
+           
 
             {/* Novos Livros (Slider) */}
             <section>
