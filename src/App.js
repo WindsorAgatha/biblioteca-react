@@ -7,6 +7,7 @@ import Books from './components/Books';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
+import UserProfile from './components/UserProfile';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
         <Routes>
           <Route path="/livros" element={<Books />} />
           <Route path="/" element={<BlogContent />} />
-          <Route path="/administrador" element={<Dashboard />} /> 
+          <Route path="/administrador" element={<Dashboard />} />
+          <Route path="/perfil" element={<UserProfile />} />
         </Routes>
         <Footer />
       </BrowserRouter>
