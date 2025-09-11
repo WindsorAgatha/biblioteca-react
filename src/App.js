@@ -7,7 +7,8 @@ import Books from './components/Books';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-
+import RegisterModal from './components/RegisterModal';
+import UserProfile from './components/UserProfile';
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
           <Route path="/livros" element={<Books />} />
           <Route path="/" element={<BlogContent />} />
           <Route path="/administrador" element={<Dashboard />} />
-
+          <Route path="/perfil" element={<UserProfile />} />
         </Routes>
         <Footer />
       </BrowserRouter>
@@ -34,6 +35,6 @@ function App() {
   );
 }
 
-// arrumar o registro, nao esta rodando
+
 
 export default App;
