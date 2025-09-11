@@ -1,8 +1,6 @@
 import schoolLogo from '../assets/Capturar.png'
 import React, { useState } from 'react';
 
-function Header({ setOpen }) {
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header>
@@ -40,7 +38,7 @@ function Header({ setOpen }) {
             <a href="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</a>
           </li>
           <li className="px-4 py-2">
-            <a href="#" className="text-white hover:text-blue-300 transition-colors duration-300">Entrar/Cadastrar</a>
+
           </li>
         </ul>
       </nav>
@@ -72,12 +70,17 @@ function Header({ setOpen }) {
         </div>
 
         <div className="flex items-center min-w-[160px] justify-end">
-          <a
-            href="#"
-            onClick={() => setOpen(true)}
+
             className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
           >
-            Entrar/Cadastrar
+            Entrar
+          </a>
+          <a 
+            href="#" 
+            onClick={() => setRegisterOpen(true)} 
+            className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
+          >
+            Registrar
           </a>
         </div>
       </nav>
