@@ -39,39 +39,42 @@ export default function UserProfile() {
             </div>
 
             <hr className="my-6" />
+            <div className="flex-row ">
+                <section>
+                    <h3 className="text-lg font-semibold mb-2">Últimas Avaliações</h3>
+                    <ul className="list-disc ml-5 mb-4">
+                        {user.avaliacoes.map((a, i) => (
+                            <li key={i}>
+                                <span className="font-medium">{a.livro}</span>: {a.nota} <span className="text-yellow-500">⭐</span>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
 
-            <section>
-                <h3 className="text-lg font-semibold mb-2">Últimas Avaliações</h3>
-                <ul className="list-disc ml-5 mb-4">
-                    {user.avaliacoes.map((a, i) => (
-                        <li key={i}>
-                            <span className="font-medium">{a.livro}</span>: {a.nota} <span className="text-yellow-500">⭐</span>
-                        </li>
-                    ))}
-                </ul>
-            </section>
+                <section>
+                    <h3 className="text-lg font-semibold mb-2">Últimos Livros Alugados</h3>
+                    <ul className="list-disc ml-5 mb-4">
+                        {user.livrosAlugados.map((livro, i) => (
+                            <li key={i}>{livro}</li>
+                        ))}
+                    </ul>
+                </section>
 
-            <section>
-                <h3 className="text-lg font-semibold mb-2">Últimos Livros Alugados</h3>
-                <ul className="list-disc ml-5 mb-4">
-                    {user.livrosAlugados.map((livro, i) => (
-                        <li key={i}>{livro}</li>
-                    ))}
-                </ul>
-            </section>
-
-            <section>
-                <h3 className="text-lg font-semibold mb-2">Troféus</h3>
-                <ul className="flex gap-6 list-none p-0">
-                    {user.trofeus.map((t, i) => (
-                        <li key={i} className="flex flex-col items-center">
-                            <span className="text-3xl">{t.icone}</span>
-                            <span className="text-sm mt-1">{t.nome}</span>
-                        </li>
-                    ))}
-                </ul>
-            </section>
-            
+                <section>
+                    <h3 className="text-lg font-semibold mb-2">Troféus</h3>
+                    <ul className="flex gap-6 list-none p-0">
+                        {user.trofeus.map((t, i) => (
+                            <li key={i} className="flex flex-col items-center">
+                                <span className="text-3xl">{t.icone}</span>
+                                <span className="text-sm mt-1">{t.nome}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+                <section>
+                    <h3 ></h3>
+                </section>
+            </div>
         </div>
     )
-};
+}
