@@ -22,7 +22,21 @@ export default function Dashboard() {
     const [livrosList, setLivrosList] = useState(livros);
     const [usuariosList, setUsuariosList] = useState(usuarios);
 
-    // Mock handlers
+    // Eventos
+    const [eventos, setEventos] = useState([
+        { id: 1, nome: 'Feira do Livro', data: '15/09/2025', descricao: 'Venha participar da nossa feira anual!' },
+        { id: 2, nome: 'Encontro de Leitura', data: '22/09/2025', descricao: 'Leitura coletiva de clássicos.' },
+    ]);
+    const [novoEvento, setNovoEvento] = useState({ nome: '', data: '', descricao: '' });
+
+    // Desafios Semanais
+    const [desafios, setDesafios] = useState([
+        { id: 1, descricao: 'Ler um livro de aventura' },
+        { id: 2, descricao: 'Escrever uma resenha sobre seu livro favorito' },
+    ]);
+    const [novoDesafio, setNovoDesafio] = useState('');
+
+    // Mock handlers livros/usuarios
     const handleAddLivro = () => alert('Adicionar livro');
     const handleEditLivro = id => alert(`Editar livro ${id}`);
     const handleDeleteLivro = id => alert(`Excluir livro ${id}`);
@@ -30,9 +44,31 @@ export default function Dashboard() {
     const handleEditUsuario = id => alert(`Editar usuário ${id}`);
     const handleDeleteUsuario = id => alert(`Excluir usuário ${id}`);
 
+    // Eventos handlers
+    const handleAddEvento = () => {
+        if (novoEvento.nome && novoEvento.data && novoEvento.descricao) {
+            setEventos([...eventos, { id: Date.now(), ...novoEvento }]);
+            setNovoEvento({ nome: '', data: '', descricao: '' });
+        }
+    };
+    const handleDeleteEvento = id => {
+        setEventos(eventos.filter(e => e.id !== id));
+    };
+
+    // Desafios handlers
+    const handleAddDesafio = () => {
+        if (novoDesafio) {
+            setDesafios([...desafios, { id: Date.now(), descricao: novoDesafio }]);
+            setNovoDesafio('');
+        }
+    };
+    const handleDeleteDesafio = id => {
+        setDesafios(desafios.filter(d => d.id !== id));
+    };
+
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
-            <h1 className="text-3xl font-bold mb-8 text-gray-800">Dashboard Biblioteca</h1>
+            <h1 className="text-3xl font-bold mb-8 text-gray-800">Administrar</h1>
 
             {/* Estatísticas */}
             <div className="flex gap-8 mb-8 flex-wrap">
@@ -84,7 +120,7 @@ export default function Dashboard() {
                             <tr key={livro.id} className="border-b last:border-none">
                                 <td className="py-2 px-4">{livro.titulo}</td>
                                 <td className="py-2 px-4">{livro.alugado}</td>
-                                <td className="py-2 px-4 flex justify-end ">
+                                <td className="py-2 px-4 flex justify-end gap-2">
                                     <button
                                         className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                                         onClick={() => handleEditLivro(livro.id)}
@@ -109,7 +145,7 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-gray-700">Usuários</h2>
                     <button
-                        className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-green-700"
+                        className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700"
                         onClick={handleAddUsuario}
                     >
                         Adicionar Usuário
@@ -128,7 +164,7 @@ export default function Dashboard() {
                             <tr key={usuario.id} className="border-b last:border-none">
                                 <td className="py-2 px-4">{usuario.nome}</td>
                                 <td className="py-2 px-4">{usuario.turma}</td>
-                                <td className="py-2 px-4 flex justify-end">
+                                <td className="py-2 px-4 flex justify-end gap-2">
                                     <button
                                         className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                                         onClick={() => handleEditUsuario(usuario.id)}
@@ -138,6 +174,116 @@ export default function Dashboard() {
                                     <button
                                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                                         onClick={() => handleDeleteUsuario(usuario.id)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* CRUD Eventos */}
+            <div className="mb-8">
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold text-gray-700">Eventos</h2>
+                    <div className="flex gap-2">
+                        <input
+                            type="text"
+                            placeholder="Nome do evento"
+                            className="border rounded px-2 py-1"
+                            value={novoEvento.nome}
+                            onChange={e => setNovoEvento({ ...novoEvento, nome: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Data"
+                            className="border rounded px-2 py-1"
+                            value={novoEvento.data}
+                            onChange={e => setNovoEvento({ ...novoEvento, data: e.target.value })}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Descrição"
+                            className="border rounded px-2 py-1"
+                            value={novoEvento.descricao}
+                            onChange={e => setNovoEvento({ ...novoEvento, descricao: e.target.value })}
+                        />
+                        <button
+                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                            onClick={handleAddEvento}
+                        >
+                            Adicionar Evento
+                        </button>
+                    </div>
+                </div>
+                <table className="min-w-full bg-white rounded-lg shadow mb-2">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="py-3 px-4 text-left font-semibold text-gray-600">Nome</th>
+                            <th className="py-3 px-4 text-left font-semibold text-gray-600">Data</th>
+                            <th className="py-3 px-4 text-left font-semibold text-gray-600">Descrição</th>
+                            <th className="py-3 px-4 text-end font-semibold text-gray-600">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {eventos.map(evento => (
+                            <tr key={evento.id} className="border-b last:border-none">
+                                <td className="py-2 px-4">{evento.nome}</td>
+                                <td className="py-2 px-4">{evento.data}</td>
+                                <td className="py-2 px-4 block max-w-xl max-h-50 overflow-y-auto whitespace-pre-line">
+                                    {evento.descricao}
+                                </td>
+                                <td className="py-2 px-4 flex justify-end">
+                                    <button
+                                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                                        onClick={() => handleDeleteEvento(evento.id)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* CRUD Desafios Semanais */}
+            <div className="mb-8">
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold text-gray-700">Desafios Semanais</h2>
+                    <div className="flex gap-2">
+                        <input
+                            type="text"
+                            placeholder="Descrição do desafio"
+                            className="border rounded px-2 py-1"
+                            value={novoDesafio}
+                            onChange={e => setNovoDesafio(e.target.value)}
+                        />
+                        <button
+                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                            onClick={handleAddDesafio}
+                        >
+                            Adicionar Desafio
+                        </button>
+                    </div>
+                </div>
+                <table className="min-w-full bg-white rounded-lg shadow mb-2">
+                    <thead>
+                        <tr className="bg-gray-200">
+                            <th className="py-3 px-4 text-left font-semibold text-gray-600">Descrição</th>
+                            <th className="py-3 px-4 text-end font-semibold text-gray-600">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {desafios.map(desafio => (
+                            <tr key={desafio.id} className="border-b last:border-none">
+                                <td className="py-2 px-4">{desafio.descricao}</td>
+                                <td className="py-2 px-4 flex justify-end">
+                                    <button
+                                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                                        onClick={() => handleDeleteDesafio(desafio.id)}
                                     >
                                         Excluir
                                     </button>

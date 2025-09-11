@@ -7,27 +7,32 @@ import Books from './components/Books';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
+import RegisterModal from './components/RegisterModal';
 
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setRegisterOpen] = useState(false);
 
   return (
     <>
       <BrowserRouter>
-        <Header setOpen={setIsLoginOpen} />
+        <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} />
         <div className='w-full flex justify-center absolute z-40 top-60'>
-          <LoginModal setOpen={setIsLoginOpen} isOpen={isLoginOpen} />
+          <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
+          <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
         </div>
         <Routes>
           <Route path="/livros" element={<Books />} />
           <Route path="/" element={<BlogContent />} />
-          <Route path="/administrador" element={<Dashboard />} /> 
+          <Route path="/administrador" element={<Dashboard />} />
         </Routes>
         <Footer />
       </BrowserRouter>
     </>
   );
 }
+
+// arrumar o registro, nao esta rodando
 
 export default App;
