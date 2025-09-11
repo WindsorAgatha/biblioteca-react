@@ -35,6 +35,6 @@ function App() {
   );
 }
 
-// arrumar o registro, nao esta rodando
+
 
 export default App;
