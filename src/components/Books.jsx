@@ -36,20 +36,21 @@ function Livros() {
 
     return (
         <div className="p-8 bg-slate-300 min-h-screen">
+            {/* gêneros literários */}
             <section className="genre-container mb-10 bg-slate-300" aria-label="Gêneros">
-                <div className="genre-grid" aria-label="Gêneros literários ">
-                    <h2 className="genre-title text-slate-100">Gêneros Literários</h2>
-                    <div className="genre-boxes">
-                        <a href="#" className="genre-box">Aventura</a>
-                        <a href="#" className="genre-box">Romance</a>
-                        <a href="#" className="genre-box">Fantasia</a>
-                        <a href="#" className="genre-box">Suspense</a>
-                        <a href="#" className="genre-box">Clássicos</a>
-                        <a href="#" className="genre-box">Biografia</a>
-                        <a href="#" className="genre-box">Ficção Científica</a>
-                        <a href="#" className="genre-box">Drama</a>
-                        <a href="#" className="genre-box">Poesia</a>
-                        <a href="#" className="genre-box">Infantil</a>
+                <div className="genre-grid max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
+                    <h2 className="genre-title text-blue-900 text-2xl font-bold mb-4 text-center">Gêneros Literários</h2>
+                    <div className="genre-boxes grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Aventura</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Romance</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Fantasia</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Suspense</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Clássicos</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Biografia</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Ficção Científica</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Drama</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Poesia</a>
+                        <a href="#" className="genre-box block bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition">Infantil</a>
                     </div>
                 </div>
             </section>
