@@ -62,7 +62,7 @@ function BlogContent() {
             {/* Aluno Destaque + Top 3 Mais Alugados (Pódio) alinhados centralizados no mobile */}
             <div className="flex flex-col md:flex-row md:justify-center md:items-stretch gap-8 items-center w-auto">
                 {/* Aluno Destaque */}
-                <section className="flex flex-col items-center pt-16 bg-white shadow rounded-lg w-full max-w-xs md:max-w-xl flex-1">
+                <section className="flex flex-col items-center pt-16 max-md:p-6 bg-white shadow rounded-lg w-full max-w-xs md:max-w-xl flex-1">
                     <img
                         src={StudentImg}
                         alt="Aluno do mês"
@@ -78,7 +78,7 @@ function BlogContent() {
                 </section>
 
                 {/* Top 3 Mais Alugados (Pódio) */}
-                <section className="flex flex-col items-center rounded-lg p-4 w-full max-w-xs md:max-w-xl bg-white shadow flex-1">
+                <section className="flex flex-col items-center rounded-lg p-4 w-full max-md:p-8 max-w-xs md:max-w-xl bg-white shadow flex-1">
                     <h2 className="text-xl font-bold mb-4 text-center">🏆 Top 3 Mais Alugados</h2>
                     <div className="flex justify-center items-end gap-4 h-60">
                         {/* 2º lugar */}
