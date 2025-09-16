@@ -29,7 +29,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
         <ul
           className={`
             md:hidden absolute top-[70px] left-0 w-screen bg-[#0A2647] flex flex-col gap-3 m-0 py-6 list-none
-            transition-all duration-900 ease-in-out
+            transition-all duration-900 ease-in-out 
             ${menuOpen
               ? 'opacity-100 pointer-events-auto translate-y-0'
               : 'opacity-0 pointer-events-none -translate-y-5'}

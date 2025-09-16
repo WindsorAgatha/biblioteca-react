@@ -27,7 +27,7 @@ function BlogContent() {
         setStart((prev) => (prev - 1 + newBooks.length) % newBooks.length)
 
     return (
-        <main className="bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8">
+        <main className="bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8 max-md:w-screen">
 
             {/* Eventos + Desafio do Mês */}
             <section className="flex flex-col md:flex-row gap-4">

@@ -64,22 +64,22 @@ function Livros() {
                 />
                 <button
                     onClick={handleAddLivro}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition max-md:w-full"
                 >
                     Pesquisar
                 </button>
             </div>
 
-            <div className="flex gap-8">
+            <div className="gap-8 flex max-md:flex-col max-md:justify-center max-md:items-center  ">
                 {filteredLivros.map(livro => (
                     <div
                         key={livro.id}
-                        className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition"
+                        className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition max-md:w-96 max-md:h-48 max-md:flex max-md:items-center max-md:justify-center max-md:p-14  "
                     >
                         <img
                             src={livro.imagem}
                             alt={livro.nome}
-                            className="w-full h-64 object-cover rounded-md mb-4"
+                            className="w-full h-64 object-cover rounded-md mb-4 max-md:h-40 max-md:w-24 mx-auto"
                         />
                         <h3 className="text-lg font-semibold">{livro.nome}</h3>
                     </div>
