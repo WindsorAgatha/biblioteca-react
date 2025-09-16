@@ -22,6 +22,47 @@ export default function Dashboard() {
     const [livrosList, setLivrosList] = useState(livros);
     const [usuariosList, setUsuariosList] = useState(usuarios);
 
+    // Novo livro para POST
+    const [novoLivro, setNovoLivro] = useState({
+        publisher: '',
+        title: '',
+        isbn: '',
+        authors: [''],
+        publicationYear: '',
+        summary: '',
+        quantity: '',
+        literaryGenre: { id: '', name: '' }
+    });
+
+    // POST livro
+    const handleAddLivro = async () => {
+        try {
+            const response = await fetch('http://localhost:5287/api/Book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(novoLivro)
+            });
+            if (response.ok) {
+                const livroCriado = await response.json();
+                setLivrosList([...livrosList, livroCriado]);
+                setNovoLivro({
+                    publisher: '',
+                    title: '',
+                    isbn: '',
+                    authors: [''],
+                    publicationYear: '',
+                    summary: '',
+                    quantity: '',
+                    literaryGenre: { id: '', name: '' }
+                });
+            } else {
+                alert('Erro ao adicionar livro');
+            }
+        } catch (err) {
+            alert('Erro de conexão');
+        }
+    };
+
     // Eventos
     const [eventos, setEventos] = useState([
         { id: 1, nome: 'Feira do Livro', data: '15/09/2025', descricao: 'Venha participar da nossa feira anual!' },
@@ -37,7 +78,6 @@ export default function Dashboard() {
     const [novoDesafio, setNovoDesafio] = useState('');
 
     // Mock handlers livros/usuarios
-    const handleAddLivro = () => alert('Adicionar livro');
     const handleEditLivro = id => alert(`Editar livro ${id}`);
     const handleDeleteLivro = id => alert(`Excluir livro ${id}`);
     const handleAddUsuario = () => alert('Adicionar usuário');
@@ -69,6 +109,81 @@ export default function Dashboard() {
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-gray-800">Administrar</h1>
+
+            {/* Formulário para adicionar livro */}
+            <div className="mb-8 bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold text-gray-700 mb-4">Adicionar Livro</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input
+                        type="text"
+                        placeholder="Editora"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.publisher}
+                        onChange={e => setNovoLivro({ ...novoLivro, publisher: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Título"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.title}
+                        onChange={e => setNovoLivro({ ...novoLivro, title: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="ISBN"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.isbn}
+                        onChange={e => setNovoLivro({ ...novoLivro, isbn: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Autores (separados por vírgula)"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.authors.join(', ')}
+                        onChange={e => setNovoLivro({ ...novoLivro, authors: e.target.value.split(',').map(a => a.trim()) })}
+                    />
+                    <input
+                        type="number"
+                        placeholder="Ano de publicação"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.publicationYear}
+                        onChange={e => setNovoLivro({ ...novoLivro, publicationYear: e.target.value })}
+                    />
+                    <input
+                        type="number"
+                        placeholder="Quantidade"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.quantity}
+                        onChange={e => setNovoLivro({ ...novoLivro, quantity: e.target.value })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Gênero literário"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.literaryGenre.name}
+                        onChange={e => setNovoLivro({ ...novoLivro, literaryGenre: { ...novoLivro.literaryGenre, name: e.target.value } })}
+                    />
+                    <input
+                        type="text"
+                        placeholder="ID do gênero"
+                        className="border rounded px-2 py-1"
+                        value={novoLivro.literaryGenre.id}
+                        onChange={e => setNovoLivro({ ...novoLivro, literaryGenre: { ...novoLivro.literaryGenre, id: e.target.value } })}
+                    />
+                    <textarea
+                        placeholder="Resumo"
+                        className="border rounded px-2 py-1 col-span-1 md:col-span-2"
+                        value={novoLivro.summary}
+                        onChange={e => setNovoLivro({ ...novoLivro, summary: e.target.value })}
+                    />
+                </div>
+                <button
+                    className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    onClick={handleAddLivro}
+                >
+                    Salvar Livro
+                </button>
+            </div>
 
             {/* Estatísticas */}
             <div className="flex gap-8 mb-8 flex-wrap">
