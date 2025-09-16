@@ -4,10 +4,12 @@
 
 body {
   margin: 0;
+  height: auto;
   font-family: 'Merriweather', serif;
   background-repeat: repeat;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
