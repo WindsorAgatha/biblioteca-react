@@ -20,7 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} />
-        <div className='w-full flex justify-center absolute z-40 top-60'>
+        <div className='w-full flex justify-center absolute top-60 p-96'>
           <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
           <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
         </div>

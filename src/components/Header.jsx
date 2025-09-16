@@ -1,11 +1,17 @@
 import schoolLogo from '../assets/Capturar.png'
+import bgImg from '../assets/tijolinhos.jpg' 
 import { useState } from 'react';
 
 function Header({ setLoginOpen, setRegisterOpen }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header>
+    <header
+      style={{
+        backgroundImage: `url(${bgImg})`,
+        backgroundRepeat: 'repeat',
+      }}
+    >
       {/* Menu móvel */}
       <nav
         className="md:hidden bg-[#0A2647] px-4 shadow-[0_4px_18px_rgba(10,38,71,0.12)] z-[100] w-screen relative"
