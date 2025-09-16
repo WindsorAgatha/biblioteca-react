@@ -1,4 +1,4 @@
-import './LoginModal.css'
+
 
 function LoginModal({ isLoginOpen, setLoginOpen }) {
     return (
