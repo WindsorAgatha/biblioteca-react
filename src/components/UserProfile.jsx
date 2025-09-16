@@ -39,7 +39,8 @@ export default function UserProfile() {
             </div>
 
             <hr className="my-6" />
-            <div className="flex-row ">
+            <div className="flex-row bg-slate-800">.
+
                 <section>
                     <h3 className="text-lg font-semibold mb-2">Últimas Avaliações</h3>
                     <ul className="list-disc ml-5 mb-4">
@@ -71,9 +72,7 @@ export default function UserProfile() {
                         ))}
                     </ul>
                 </section>
-                <section>
-                    <h3 ></h3>
-                </section>
+
             </div>
         </div>
     )
