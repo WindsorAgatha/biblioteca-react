@@ -22,7 +22,7 @@ const user = {
 
 export default function UserProfile() {
     return (
-        <div className=" mx-auto w-4/5 mt-10 p-6 rounded-xl shadow-lg bg-gray-100">
+        <div className=" mx-auto w-4/5 m-10 p-6 rounded-xl shadow-lg  bg-slate-300 [height:70vh]">
 
             <div className="flex flex-row mb-4 justify-center items-center gap-8">
                 <div className="flex flex-row items-center">
@@ -39,41 +39,50 @@ export default function UserProfile() {
             </div>
 
             <hr className="my-6" />
-            <div className="flex-row bg-slate-800">.
+            <div className="flex justify-around ">
+                <div className="flex flex-col ">
+                    <section>
+                        <h3 className="text-lg font-semibold mb-2">Últimas Avaliações</h3>
+                        <ul className="list-disc ml-5 mb-4">
+                            {user.avaliacoes.map((a, i) => (
+                                <li key={i}>
+                                    <span className="font-medium">{a.livro}</span>: {a.nota} <span className="text-yellow-500">⭐</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
 
-                <section>
-                    <h3 className="text-lg font-semibold mb-2">Últimas Avaliações</h3>
+                    <section>
+                        <h3 className="text-lg font-semibold mb-2">Últimos Livros Alugados</h3>
+                        <ul className="list-disc ml-5 mb-4">
+                            {user.livrosAlugados.map((livro, i) => (
+                                <li key={i}>{livro}</li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3 className="text-lg font-semibold mb-2">Troféus</h3>
+                        <ul className="flex gap-6 list-none p-0">
+                            {user.trofeus.map((t, i) => (
+                                <li key={i} className="flex flex-col items-center">
+                                    <span className="text-3xl">{t.icone}</span>
+                                    <span className="text-sm mt-1">{t.nome}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                </div>
+                <div>
+                    <h3 className="text-lg font-semibold mb-2">Meus favoritos</h3>
                     <ul className="list-disc ml-5 mb-4">
-                        {user.avaliacoes.map((a, i) => (
-                            <li key={i}>
-                                <span className="font-medium">{a.livro}</span>: {a.nota} <span className="text-yellow-500">⭐</span>
-                            </li>
-                        ))}
+                        <li>O Senhor dos Anéis</li>
+                        <li>O Alquimista</li>
+                        <li>Orgulho e Preconceito</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-lg font-semibold mb-2">Últimos Livros Alugados</h3>
-                    <ul className="list-disc ml-5 mb-4">
-                        {user.livrosAlugados.map((livro, i) => (
-                            <li key={i}>{livro}</li>
-                        ))}
-                    </ul>
-                </section>
-
-                <section>
-                    <h3 className="text-lg font-semibold mb-2">Troféus</h3>
-                    <ul className="flex gap-6 list-none p-0">
-                        {user.trofeus.map((t, i) => (
-                            <li key={i} className="flex flex-col items-center">
-                                <span className="text-3xl">{t.icone}</span>
-                                <span className="text-sm mt-1">{t.nome}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-
+                </div>
             </div>
+
         </div>
     )
 }
