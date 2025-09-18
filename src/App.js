@@ -18,22 +18,25 @@ function App() {
 
   return (
     <>
+
       <HashRouter>
-        <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} />
-        <div className='w-full flex justify-center '>
-          <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
-          <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
+        <div className=''>
+          <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} />
+          <div className='w-full flex justify-center '>
+            <LoginModal  setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
+            <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
+          </div>
+          <div className='h-auto min-h-[calc(100vh-180px)]'>
+            <Routes>
+              <Route path="/livros" element={<Books />} />
+              <Route path="/" element={<BlogContent />} />
+              <Route path="/administrador" element={<Dashboard />} />
+              <Route path="/perfil" element={<UserProfile />} />
+              <Route path="/detalhelivro" element={<BookDetails />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <div className='h-auto min-h-[calc(100vh-180px)]'>
-          <Routes>
-            <Route path="/livros" element={<Books />} />
-            <Route path="/" element={<BlogContent />} />
-            <Route path="/administrador" element={<Dashboard />} />
-            <Route path="/perfil" element={<UserProfile />} />
-            <Route path="/detalhelivro" element={<BookDetails />} />
-          </Routes>
-        </div>
-        <Footer />
       </HashRouter>
     </>
   );
