@@ -1,5 +1,5 @@
 import schoolLogo from '../assets/Capturar.png'
-import bgImg from '../assets/tijolinhos.jpg' 
+import bgImg from '../assets/tijolinhos.jpg'
 import { useState } from 'react';
 
 function Header({ setLoginOpen, setRegisterOpen }) {
@@ -24,7 +24,8 @@ function Header({ setLoginOpen, setRegisterOpen }) {
             alt="Logo da escola"
           />
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen(!menuOpen)
+            }
             className={`bg-transparent border-0 text-[#c5c5c5] text-[2rem] cursor-pointer p-2 rounded-lg transition-transform duration-300 ease-in-out ml-auto
               ${menuOpen ? 'rotate-90' : 'rotate-0'}`}
             aria-label="Abrir menu"
@@ -53,19 +54,21 @@ function Header({ setLoginOpen, setRegisterOpen }) {
           </li>
           <li className="px-4 py-2 flex flex-col gap-2">
             <a href="#"
-            onClick={e =>{
-              e.preventDefault();
-              setLoginOpen(true);
-              setRegisterOpen(false);
-            }}  className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</a>
+              onClick={e => {
+                e.preventDefault();
+                setLoginOpen(true);
+                setRegisterOpen(false);
+                setMenuOpen(false)
+              }} className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</a>
 
-            <a href="#" 
-            onClick={e =>{
-              e.preventDefault();
-              setLoginOpen(false);
-              setRegisterOpen(true);
-            }} className="text-white hover:text-blue-300 transition-colors duration-300">Cadastrar</a>
-            
+            <a href="#"
+              onClick={e => {
+                e.preventDefault();
+                setLoginOpen(false);
+                setRegisterOpen(true);
+                setMenuOpen(false)
+              }} className="text-white hover:text-blue-300 transition-colors duration-300">Cadastrar</a>
+
           </li>
         </ul>
       </nav>
@@ -100,7 +103,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
         <div className="flex items-center min-w-[160px] justify-end">
           <a
             href="#"
-            onClick={e =>{
+            onClick={e => {
               e.preventDefault();
               setLoginOpen(true);
               setRegisterOpen(false);
@@ -111,7 +114,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
           </a>
           <a
             href="#"
-            onClick={e =>{
+            onClick={e => {
               e.preventDefault();
               setLoginOpen(false);
               setRegisterOpen(true);
