@@ -14,7 +14,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
     >
       {/* Menu móvel */}
       <nav
-        className="md:hidden bg-[#0A2647] px-4 shadow-[0_4px_18px_rgba(10,38,71,0.12)] z-[100] w-screen relative"
+        className="md:hidden bg-[#0A2647] px-4 shadow-[0_4px_18px_rgba(10,38,71,0.12)] z-[100] w-full relative"
         aria-label="Menu móvel"
       >
         <div className="flex items-center justify-between h-[70px]">
