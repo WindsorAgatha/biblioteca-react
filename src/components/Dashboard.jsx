@@ -35,6 +35,9 @@ export default function Dashboard() {
     });
 
     // POST livro
+
+    
+
     const handleAddLivro = async () => {
         try {
             const response = await fetch('http://localhost:5287/api/Book', {
@@ -55,11 +58,12 @@ export default function Dashboard() {
                     quantity: '',
                     literaryGenre: { id: '', name: '' }
                 });
+               alert('Sucesso ao adicionar livro');
             } else {
                 alert('Erro ao adicionar livro');
             }
         } catch (err) {
-            alert('Erro de conexão');
+            alert('Erro de conexão: '+ err.message);
         }
     };
 
