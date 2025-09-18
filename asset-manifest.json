@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/biblioteca-react/static/css/main.e9086d8e.css",
-    "main.js": "/biblioteca-react/static/js/main.15a4456e.js",
+    "main.css": "/biblioteca-react/static/css/main.a3800062.css",
+    "main.js": "/biblioteca-react/static/js/main.cabe6983.js",
     "static/media/Gemini_Generated_Image_kca1ekkca1ekkca1.png": "/biblioteca-react/static/media/Gemini_Generated_Image_kca1ekkca1ekkca1.5183a40cae8d7d00b3fa.png",
     "static/media/wander.png": "/biblioteca-react/static/media/wander.53886db424c8bb02fd91.png",
     "static/media/Aventura.png": "/biblioteca-react/static/media/Aventura.33db65eb0bffc6580c45.png",
@@ -10,11 +10,11 @@
     "static/media/hamlet.jpg": "/biblioteca-react/static/media/hamlet.3e2da0918d2c4f9e74d9.jpg",
     "static/media/Anne Frank.jpg": "/biblioteca-react/static/media/Anne Frank.bfe9b06957b85a43c5de.jpg",
     "index.html": "/biblioteca-react/index.html",
-    "main.e9086d8e.css.map": "/biblioteca-react/static/css/main.e9086d8e.css.map",
-    "main.15a4456e.js.map": "/biblioteca-react/static/js/main.15a4456e.js.map"
+    "main.a3800062.css.map": "/biblioteca-react/static/css/main.a3800062.css.map",
+    "main.cabe6983.js.map": "/biblioteca-react/static/js/main.cabe6983.js.map"
   },
   "entrypoints": [
-    "static/css/main.e9086d8e.css",
-    "static/js/main.15a4456e.js"
+    "static/css/main.a3800062.css",
+    "static/js/main.cabe6983.js"
   ]
 }
