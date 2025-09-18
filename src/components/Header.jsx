@@ -60,7 +60,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
 
       {/* Menu principal */}
       <nav
-        className="max-sm:hidden flex items-center justify-between w-full h-[120px] bg-[rgba(10,38,71,0.85)] shadow-[0_4px_18px_rgba(10,38,71,0.12)] rounded-b-md px-[30px] top-0 z-10"
+        className=" max-sm:hidden flex items-center justify-between w-full h-[120px] bg-[rgba(10,38,71,0.85)] shadow-[0_4px_18px_rgba(10,38,71,0.12)] rounded-b-md px-[30px] top-0 z-10"
         aria-label="Menu principal"
       >
         <div className="flex items-center min-w-[150px] mr-0">
@@ -88,14 +88,22 @@ function Header({ setLoginOpen, setRegisterOpen }) {
         <div className="flex items-center min-w-[160px] justify-end">
           <a
             href="#"
-            onClick={() => setLoginOpen(true)}
+            onClick={e =>{
+              e.preventDefault();
+              setLoginOpen(true);
+              setRegisterOpen(false);
+            }}
             className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
           >
             Entrar
           </a>
           <a
             href="#"
-            onClick={() => setRegisterOpen(true)}
+            onClick={e =>{
+              e.preventDefault();
+              setLoginOpen(false);
+              setRegisterOpen(true);
+            }}
             className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
           >
             Registrar
