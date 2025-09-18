@@ -110,7 +110,7 @@ function BlogContent() {
                 <img
                     src={ProfessorImg}
                     alt="Professor segurando livro"
-                    className="w-40 h-28 object-cover rounded-lg border-gray-600 border-2"
+                    className="w-70 h-40 object-cover rounded-lg border-gray-600 border-2"
                 />
                 <div className="flex-1">
                     <h2 className="text-xl font-bold mb-1">📚 Indicações dos Professores</h2>
