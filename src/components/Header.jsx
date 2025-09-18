@@ -52,8 +52,20 @@ function Header({ setLoginOpen, setRegisterOpen }) {
             <a href="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</a>
           </li>
           <li className="px-4 py-2 flex flex-col gap-2">
-            <a href="#" onClick={() => setLoginOpen(true)} className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</a>
-            <a href="#" onClick={() => setRegisterOpen(true)} className="text-white hover:text-blue-300 transition-colors duration-300">Cadastrar</a>
+            <a href="#"
+            onClick={e =>{
+              e.preventDefault();
+              setLoginOpen(true);
+              setRegisterOpen(false);
+            }}  className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</a>
+
+            <a href="#" 
+            onClick={e =>{
+              e.preventDefault();
+              setLoginOpen(false);
+              setRegisterOpen(true);
+            }} className="text-white hover:text-blue-300 transition-colors duration-300">Cadastrar</a>
+            
           </li>
         </ul>
       </nav>
