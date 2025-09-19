@@ -74,7 +74,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
           </li>
         </ul>
       </nav>
-
+      
       {/* Menu principal */}
       <nav
         className=" max-sm:hidden flex items-center justify-between w-full h-[120px] bg-[rgba(10,38,71,0.85)] shadow-[0_4px_18px_rgba(10,38,71,0.12)] rounded-b-md px-[30px] top-0 z-10"

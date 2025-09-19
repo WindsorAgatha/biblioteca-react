@@ -27,12 +27,11 @@ function App() {
           <div className='w-full flex justify-center '>
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
-
+            <CreateBookModal />
           </div>
           <div className='h-auto min-h-[calc(100vh-180px)]'>
             <Routes>
               <Route path="/livros" element={<Books />} />
-              <CreateBookModal />
               <Route />
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard />} />

@@ -36,7 +36,7 @@ export default function Dashboard() {
 
     // POST livro
 
-    
+
 
     const handleAddLivro = async () => {
         try {
@@ -58,12 +58,12 @@ export default function Dashboard() {
                     quantity: '',
                     literaryGenre: { id: '', name: '' }
                 });
-               alert('Sucesso ao adicionar livro');
+                alert('Sucesso ao adicionar livro');
             } else {
                 alert('Erro ao adicionar livro');
             }
         } catch (err) {
-            alert('Erro de conexão: '+ err.message);
+            alert('Erro de conexão: ' + err.message);
         }
     };
 
@@ -172,7 +172,13 @@ export default function Dashboard() {
                                     </button>
                                     <button
                                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
-                                        onClick={() => handleDeleteLivro(livro.id)}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleDeleteLivro(livro.id);
+                                            
+
+
+                                        }}
                                     >
                                         Excluir
                                     </button>
