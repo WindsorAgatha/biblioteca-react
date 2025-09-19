@@ -11,11 +11,13 @@ import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
+import BlurBg from './components/BlurBg';
 
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
+  const [blurBg, setBlurBg] = useState(false);
 
   return (
     <>
@@ -28,16 +30,16 @@ function App() {
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
             <CreateBookModal />
           </div>
-          <div className='h-auto min-h-[calc(100vh-180px)]'>
+          <BlurBg blurBg={blurBg} >
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route />
               <Route path="/" element={<BlogContent />} />
-              <Route path="/administrador" element={<Dashboard />} />
+              <Route path="/administrador" element={<Dashboard setBlurBg={setBlurBg}/>} />
               <Route path="/perfil" element={<UserProfile />} />
               <Route path="/detalhelivro" element={<BookDetails />} />
             </Routes>
-          </div>
+          </BlurBg>
           <Footer />
         </div>
       </HashRouter>
