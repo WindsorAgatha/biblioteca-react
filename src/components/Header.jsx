@@ -46,7 +46,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
           style={{ zIndex: 99 }}
         >
           <li className="px-4 py-2">
-            <Link to="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
+            <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
           </li>
           <li className="px-4 py-2">
             <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
@@ -91,7 +91,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
         <div className="flex flex-1 justify-center">
           <ul className="flex text-white gap-8 items-center m-0 p-0 list-none">
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
-              <Link to="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
+              <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
             </li>
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
               <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
