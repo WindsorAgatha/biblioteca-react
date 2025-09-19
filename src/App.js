@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import RegisterModal from './components/RegisterModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
+import Events from './components/Events';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/administrador" element={<Dashboard />} />
             <Route path="/perfil" element={<UserProfile />} />
             <Route path="/detalhelivro" element={<BookDetails />} />
+            <Route path="/eventos" element={<Events />} />
           </Routes>
         </div>
         <Footer />
