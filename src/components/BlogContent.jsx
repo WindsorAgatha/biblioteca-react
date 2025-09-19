@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from 'react-router-dom';
 import ProfessorImg from "../assets/wander.png"
 import StudentImg from "../assets/Gemini_Generated_Image_kca1ekkca1ekkca1.png"
 import BookCover1 from "../assets/Anne Frank.jpg"
@@ -34,19 +35,19 @@ function BlogContent() {
                     <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
                     <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
                         <li>
-                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Clube do Livro: Discussão sobre "O Hobbit" - 12 de Setembro
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Oficina de Escrita Criativa - 20 de Setembro
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Encontro com Autor: Lançamento de "Mistério na Biblioteca" - 28 de Setembro
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -110,7 +111,7 @@ function BlogContent() {
                 <img
                     src={ProfessorImg}
                     alt="Professor segurando livro"
-                    className="w-40 h-28 object-cover rounded-lg border-gray-600 border-2"
+                    className="w-70 h-40 object-cover rounded-lg border-gray-600 border-2"
                 />
                 <div className="flex-1">
                     <h2 className="text-xl font-bold mb-1">📚 Indicações dos Professores</h2>

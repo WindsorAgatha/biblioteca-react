@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const livrosMock = [
     {
@@ -41,16 +42,16 @@ function Livros() {
                 <div className="genre-grid max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
                     <h2 className="genre-title text-blue-900 text-2xl font-bold mb-4 text-center">Gêneros Literários</h2>
                     <div className="genre-boxes grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Aventura</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Romance</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Fantasia</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Suspense</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Clássicos</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Biografia</a>
-                        <a href="#" className="genre-box bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Ficção Científica</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Drama</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Poesia</a>
-                        <a href="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Infantil</a>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Aventura</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Romance</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Fantasia</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Suspense</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Clássicos</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Biografia</Link>
+                        <Link to="#" className="genre-box bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Ficção Científica</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Drama</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Poesia</Link>
+                        <Link to="#" className="genre-box  bg-blue-100 hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition text-pretty flex items-center justify-center">Infantil</Link>
                     </div>
                 </div>
             </section>
