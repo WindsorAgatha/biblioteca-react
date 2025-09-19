@@ -46,16 +46,16 @@ function Header({ setLoginOpen, setRegisterOpen }) {
           style={{ zIndex: 99 }}
         >
           <li className="px-4 py-2">
-            <Link href="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
+            <Link to="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
           </li>
           <li className="px-4 py-2">
-            <Link href="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
+            <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
           </li>
           <li className="px-4 py-2">
-            <Link href="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
+            <Link to="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
           </li>
           <li className="px-4 py-2 flex flex-col gap-2">
-            <Link href="#"
+            <Link to="#"
               onClick={e => {
                 e.preventDefault();
                 setLoginOpen(true);
@@ -63,7 +63,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
                 setMenuOpen(false)
               }} className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</Link>
 
-            <Link href="#"
+            <Link to="#"
               onClick={e => {
                 e.preventDefault();
                 setLoginOpen(false);
@@ -91,20 +91,20 @@ function Header({ setLoginOpen, setRegisterOpen }) {
         <div className="flex flex-1 justify-center">
           <ul className="flex text-white gap-8 items-center m-0 p-0 list-none">
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
-              <Link href="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
+              <Link to="/biblioteca-react" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
             </li>
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
-              <Link href="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
+              <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
             </li>
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
-              <Link href="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
+              <Link to="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
             </li>
           </ul>
         </div>
 
         <div className="flex items-center min-w-[160px] justify-end">
           <Link
-            href="#"
+            to="#"
             onClick={e => {
               e.preventDefault();
               setLoginOpen(true);
@@ -115,7 +115,7 @@ function Header({ setLoginOpen, setRegisterOpen }) {
             Entrar
           </Link>
           <Link
-            href="#"
+            to="#"
             onClick={e => {
               e.preventDefault();
               setLoginOpen(false);

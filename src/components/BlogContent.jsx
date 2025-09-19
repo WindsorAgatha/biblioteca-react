@@ -35,17 +35,17 @@ function BlogContent() {
                     <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
                     <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
                         <li>
-                            <Link href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Clube do Livro: Discussão sobre "O Hobbit" - 12 de Setembro
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Oficina de Escrita Criativa - 20 de Setembro
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className="text-blue-900 hover:text-blue-700 hover:underline">
+                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">
                                 Encontro com Autor: Lançamento de "Mistério na Biblioteca" - 28 de Setembro
                             </Link>
                         </li>
