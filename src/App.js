@@ -29,7 +29,7 @@ function App() {
           <div className='h-auto min-h-[calc(100vh-180px)]'>
             <Routes>
               <Route path="/livros" element={<Books />} />
-              <Route path="/" element={<BlogContent />} />
+              <Route path="/biblioteca-react" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard />} />
               <Route path="/perfil" element={<UserProfile />} />
               <Route path="/detalhelivro" element={<BookDetails />} />
