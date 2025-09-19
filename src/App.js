@@ -11,6 +11,7 @@ import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
+import Events from './components/Events';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             </Routes>
           </div>
           <Footer />
+
         </div>
       </HashRouter>
     </>
