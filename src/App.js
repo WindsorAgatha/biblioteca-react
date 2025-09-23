@@ -34,11 +34,7 @@ function App() {
           <div className='h-auto min-h-[calc(100vh-180px)]'>
             <Routes>
               <Route path="/livros" element={<Books />} />
-<<<<<<< Updated upstream
-=======
               <CreateBookModal />
-
->>>>>>> Stashed changes
               <Route />
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard />} />
@@ -48,7 +44,6 @@ function App() {
             </Routes>
           </div>
           <Footer />
-
         </div>
       </HashRouter>
     </>
