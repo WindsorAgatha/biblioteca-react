@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const livros = [
     { id: 1, titulo: 'Dom Casmurro', alugado: 12 },
@@ -18,9 +18,97 @@ const historicoLocacoes = [
     { id: 3, livro: 'Capitães da Areia', usuario: 'Ana', dataAluguel: '02/09/2025', dataDevolucao: '06/09/2025' },
 ];
 
-export default function Dashboard( { setBlurBg, setIsCreateBookOpen}) {
-    const [livrosList, setLivrosList] = useState(livros);
-    const [usuariosList, setUsuariosList] = useState(usuarios);
+export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
+    const [livrosList, setLivrosList] = useState([]);
+    const [usuariosList, setUsuariosList] = useState([]);
+    const [editLivroId, setEditLivroId] = useState(null);
+    const [editLivroData, setEditLivroData] = useState({
+        publisher: '',
+        title: '',
+        isbn: '',
+        authors: [''],
+        publicationYear: '',
+        summary: '',
+        quantity: '',
+        literaryGenre: { id: '', name: '' }
+    });
+
+    // Carregar livros do endpoint
+    useEffect(() => {
+        async function fetchLivros() {
+            try {
+                const response = await fetch('http://localhost:5287/api/Book');
+                const data = await response.json();
+                setLivrosList(data);
+            } catch (error) {
+                setLivrosList([]);
+            }
+        }
+        fetchLivros();
+    }, []);
+
+    // Modal de edição de livro
+    const [showEditModal, setShowEditModal] = useState(false);
+
+    // Abrir formulário de edição como modal
+    const handleEditLivro = id => {
+        const livro = livrosList.find(l => l.id === id);
+        if (livro) {
+            setEditLivroId(id);
+            setEditLivroData({
+                publisher: livro.publisher || '',
+                title: livro.title || '',
+                isbn: livro.isbn || '',
+                authors: livro.authors || [''],
+                publicationYear: livro.publicationYear || '',
+                summary: livro.summary || '',
+                quantity: livro.quantity || '',
+                literaryGenre: livro.literaryGenre || { id: '', name: '' }
+            });
+            setShowEditModal(true);
+            setBlurBg(true);
+        }
+    };
+
+    // Fechar modal
+    const closeEditModal = () => {
+        setShowEditModal(false);
+        setEditLivroId(null);
+        setBlurBg(false);
+    };
+
+    // Atualizar livro (PUT)
+    const handleUpdateLivro = async () => {
+        try {
+            const response = await fetch(`http://localhost:5287/api/Book/${editLivroId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(editLivroData)
+            });
+            if (response.ok) {
+                const livroAtualizado = await response.json();
+                setLivrosList(livrosList.map(l =>
+                    l.id === editLivroId ? { ...l, ...livroAtualizado } : l
+                ));
+                setEditLivroId(null);
+                setEditLivroData({
+                    publisher: '',
+                    title: '',
+                    isbn: '',
+                    authors: [''],
+                    publicationYear: '',
+                    summary: '',
+                    quantity: '',
+                    literaryGenre: { id: '', name: '' }
+                });
+                alert('Livro atualizado com sucesso');
+            } else {
+                alert('Erro ao atualizar livro');
+            }
+        } catch (err) {
+            alert('Erro de conexão: ' + err.message);
+        }
+    };
 
     // Novo livro para POST
     const [novoLivro, setNovoLivro] = useState({
@@ -82,7 +170,6 @@ export default function Dashboard( { setBlurBg, setIsCreateBookOpen}) {
     const [novoDesafio, setNovoDesafio] = useState('');
 
     // Mock handlers livros/usuarios
-    const handleEditLivro = id => alert(`Editar livro ${id}`);
     const handleDeleteLivro = id => alert(`Excluir livro ${id}`);
     const handleAddUsuario = () => alert('Adicionar usuário');
     const handleEditUsuario = id => alert(`Editar usuário ${id}`);
@@ -113,6 +200,103 @@ export default function Dashboard( { setBlurBg, setIsCreateBookOpen}) {
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-gray-800">Administrar</h1>
+
+            {/* Modal de edição de livro */}
+            {showEditModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                    <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl relative">
+                        <button
+                            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl"
+                            onClick={closeEditModal}
+                        >
+                            &times;
+                        </button>
+                        <h2 className="text-xl font-semibold text-blue-700 mb-4">Editar Livro</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input
+                                type="text"
+                                placeholder="Editora"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.publisher}
+                                onChange={e => setEditLivroData({ ...editLivroData, publisher: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Título"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.title}
+                                onChange={e => setEditLivroData({ ...editLivroData, title: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="ISBN"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.isbn}
+                                onChange={e => setEditLivroData({ ...editLivroData, isbn: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Autores (separados por vírgula)"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.authors.join(', ')}
+                                onChange={e => setEditLivroData({ ...editLivroData, authors: e.target.value.split(',').map(a => a.trim()) })}
+                            />
+                            <input
+                                type="number"
+                                placeholder="Ano de publicação"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.publicationYear}
+                                onChange={e => setEditLivroData({ ...editLivroData, publicationYear: e.target.value })}
+                            />
+                            <input
+                                type="number"
+                                placeholder="Quantidade"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.quantity}
+                                onChange={e => setEditLivroData({ ...editLivroData, quantity: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Gênero literário"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.literaryGenre.name}
+                                onChange={e => setEditLivroData({ ...editLivroData, literaryGenre: { ...editLivroData.literaryGenre, name: e.target.value } })}
+                            />
+                            <input
+                                type="number"
+                                placeholder="ID do gênero"
+                                className="border rounded px-2 py-1"
+                                value={editLivroData.literaryGenre.id}
+                                onChange={e => setEditLivroData({ ...editLivroData, literaryGenre: { ...editLivroData.literaryGenre, id: e.target.value } })}
+                            />
+                            <textarea
+                                placeholder="Resumo"
+                                className="border rounded px-2 py-1 col-span-1 md:col-span-2"
+                                value={editLivroData.summary}
+                                onChange={e => setEditLivroData({ ...editLivroData, summary: e.target.value })}
+                            />
+                        </div>
+                        <div className="flex gap-4 mt-4 justify-end">
+                            <button
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                onClick={async () => {
+                                    await handleUpdateLivro();
+                                    closeEditModal();
+                                }}
+                            >
+                                Salvar Alterações
+                            </button>
+                            <button
+                                className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+                                onClick={closeEditModal}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Estatísticas */}
             <div className="flex gap-8 mb-8 flex-wrap">
                 <div className="bg-white rounded-lg shadow p-6 flex-1 min-w-[180px]">
