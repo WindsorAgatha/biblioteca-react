@@ -77,17 +77,24 @@ function Livros() {
                         <div className="text-center text-gray-500">Nenhum livro encontrado.</div>
                     ) : (
                         filteredLivros.map(livro => (
-                            <div
+                            <Link
+                                to={`/livros/${livro.id}`}
                                 key={livro.id}
-                                className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition max-md:w-96 max-md:h-48 max-md:flex max-md:items-center max-md:justify-center max-md:p-14"
+                                className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition flex flex-col items-center cursor-pointer max-md:w-96 max-md:h-48 max-md:flex max-md:items-center max-md:justify-center max-md:p-14"
                             >
-                                <img
-                                    src={livro.imageUrl || livro.imagem}
-                                    alt={livro.title}
-                                    className="w-full h-64 object-cover rounded-md mb-4 max-md:h-40 max-md:w-24 mx-auto"
-                                />
+                                {livro.imageUrl || livro.imagem ? (
+                                    <img
+                                        src={livro.imageUrl || livro.imagem}
+                                        alt={livro.title}
+                                        className="w-full h-64 object-cover rounded-md mb-4"
+                                    />
+                                ) : (
+                                    <div className="w-full h-64 bg-gray-200 rounded-md mb-4 flex items-center justify-center text-gray-400">
+                                        Sem imagem
+                                    </div>
+                                )}
                                 <h3 className="text-lg font-semibold">{livro.title}</h3>
-                            </div>
+                            </Link>
                         ))
                     )}
                 </div>
