@@ -12,6 +12,7 @@ import CreateBookModal from './components/CreateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import Events from './components/Events';
+import UpdateBookModal from './components/updateBookModal';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
             <CreateBookModal />
+            <UpdateBookModal/>
           </div>
           <div className='h-auto min-h-[calc(100vh-180px)]'>
             <Routes>
@@ -37,6 +39,7 @@ function App() {
               <Route path="/administrador" element={<Dashboard />} />
               <Route path="/perfil" element={<UserProfile />} />
               <Route path="/detalhelivro" element={<BookDetails />} />
+              <Route path="/eventos" element={<Events />} />  
             </Routes>
           </div>
           <Footer />
