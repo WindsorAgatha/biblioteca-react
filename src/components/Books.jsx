@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-const livrosMock = [
-    {
-        id: 1,
-        nome: 'O Pequeno Príncipe',
-        imagem: 'https://m.media-amazon.com/images/I/81p6yQ2VwVL._AC_UF1000,1000_QL80_.jpg'
-    },
-    {
-        id: 2,
-        nome: 'Dom Casmurro',
-        imagem: 'https://m.media-amazon.com/images/I/71w5wQpQKjL._AC_UF1000,1000_QL80_.jpg'
-    },
-    {
-        id: 3,
-        nome: 'Harry Potter',
-        imagem: 'https://m.media-amazon.com/images/I/81YOuOGFCJL._AC_UF1000,1000_QL80_.jpg'
-    }
-];
 
 function Livros() {
     const [search, setSearch] = useState('');
-    const [livros, setLivros] = useState(livrosMock);
+    const [livros, setLivros] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchLivros() {
+            try {
+                const response = await fetch('http://localhost:5287/api/Book');
+                const data = await response.json();
+                setLivros(data);
+            } catch (error) {
+                console.error('Erro ao buscar livros:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchLivros();
+    }, []);
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
     };
 
     const filteredLivros = livros.filter(livro =>
-        livro.nome.toLowerCase().includes(search.toLowerCase())
+        livro.title?.toLowerCase().includes(search.toLowerCase())
     );
 
     const handleAddLivro = () => {
@@ -71,21 +69,29 @@ function Livros() {
                 </button>
             </div>
 
-            <div className="gap-8 flex max-md:flex-col max-md:justify-center max-md:items-center  ">
-                {filteredLivros.map(livro => (
-                    <div
-                        key={livro.id}
-                        className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition max-md:w-96 max-md:h-48 max-md:flex max-md:items-center max-md:justify-center max-md:p-14  "
-                    >
-                        <img
-                            src={livro.imagem}
-                            alt={livro.nome}
-                            className="w-full h-64 object-cover rounded-md mb-4 max-md:h-40 max-md:w-24 mx-auto"
-                        />
-                        <h3 className="text-lg font-semibold">{livro.nome}</h3>
-                    </div>
-                ))}
-            </div>
+            {loading ? (
+                <div className="text-center text-gray-600 mt-10">Carregando livros...</div>
+            ) : (
+                <div className="gap-8 flex max-md:flex-col max-md:justify-center max-md:items-center">
+                    {filteredLivros.length === 0 ? (
+                        <div className="text-center text-gray-500">Nenhum livro encontrado.</div>
+                    ) : (
+                        filteredLivros.map(livro => (
+                            <div
+                                key={livro.id}
+                                className="border bg-slate-50 rounded-lg p-4 w-52 text-center shadow hover:shadow-lg transition max-md:w-96 max-md:h-48 max-md:flex max-md:items-center max-md:justify-center max-md:p-14"
+                            >
+                                <img
+                                    src={livro.imageUrl || livro.imagem}
+                                    alt={livro.title}
+                                    className="w-full h-64 object-cover rounded-md mb-4 max-md:h-40 max-md:w-24 mx-auto"
+                                />
+                                <h3 className="text-lg font-semibold">{livro.title}</h3>
+                            </div>
+                        ))
+                    )}
+                </div>
+            )}
         </div>
     );
 }
