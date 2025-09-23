@@ -1,30 +1,50 @@
-import React, { useState } from 'react';
-
-const livroExemplo = {
-  id: 1,
-  titulo: 'Dom Casmurro',
-  autor: 'Machado de Assis',
-  paginas: 256,
-  descricao: 'Um dos maiores clássicos da literatura brasileira, Dom Casmurro narra a história de Bentinho e Capitu.',
-  imagem: 'https://m.media-amazon.com/images/I/81zF1gqFQDL._AC_UF1000,1000_QL80_.jpg',
-  favorito: false,
-  avaliacao: 4,
-};
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function BookDetails() {
-  const [favorito, setFavorito] = useState(livroExemplo.favorito);
-  const [avaliacao, setAvaliacao] = useState(livroExemplo.avaliacao);
+  const { id } = useParams();
+  const [livro, setLivro] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  // Comentários dos usuários
-  const [comentarios, setComentarios] = useState([
-    { id: 1, nome: 'Maria', estrelas: 5, texto: 'Livro incrível, recomendo muito!' },
-    { id: 2, nome: 'João', estrelas: 4, texto: 'Gostei bastante, leitura envolvente.' },
-  ]);
+  // Comentários dos usuários (mock local)
+  const [comentarios, setComentarios] = useState([]);
   const [novoComentario, setNovoComentario] = useState({
     nome: '',
     estrelas: 0,
     texto: '',
   });
+
+  useEffect(() => {
+    setLoading(true);
+    setNotFound(false);
+    fetch(`http://localhost:5287/api/Book/${id}`)
+      .then(async (res) => {
+        if (!res.ok) {
+          setNotFound(true);
+          setLivro(null);
+        } else {
+          const data = await res.json();
+          setLivro(data);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setNotFound(true);
+        setLivro(null);
+        setLoading(false);
+      });
+  }, [id]);
+
+  const [favorito, setFavorito] = useState(false);
+  const [avaliacao, setAvaliacao] = useState(0);
+
+  useEffect(() => {
+    if (livro) {
+      setFavorito(false);
+      setAvaliacao(0);
+    }
+  }, [livro]);
 
   const handleAddComentario = (e) => {
     e.preventDefault();
@@ -46,17 +66,40 @@ export default function BookDetails() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <span className="text-gray-600 text-lg">Carregando livro...</span>
+      </div>
+    );
+  }
+
+  if (notFound || !livro) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <h1 className="text-3xl font-bold text-red-700 mb-4">Livro não encontrado</h1>
+        <p className="text-gray-600">O livro solicitado não existe ou foi removido.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-slate-200 rounded-xl shadow-lg p-8 mx-8 my-4 font-serif min-h-[80vh] flex flex-col items-center">
       <div className="flex flex-col md:flex-row gap-8 items-start w-full">
-        <img
-          src={livroExemplo.imagem}
-          alt={livroExemplo.titulo}
-          className="w-48 h-64 object-cover rounded-lg shadow min-h-[200px]"
-        />
+        {livro.imageUrl || livro.imagem ? (
+          <img
+            src={livro.imageUrl || livro.imagem}
+            alt={livro.title}
+            className="w-48 h-64 object-cover rounded-lg shadow min-h-[200px]"
+          />
+        ) : (
+          <div className="w-48 h-64 bg-gray-200 rounded-lg shadow flex items-center justify-center text-gray-400 min-h-[200px]">
+            Sem imagem
+          </div>
+        )}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-3xl font-bold text-gray-800">{livroExemplo.titulo}</h1>
+            <h1 className="text-3xl font-bold text-gray-800">{livro.title}</h1>
             <button
               onClick={() => setFavorito(!favorito)}
               className="text-yellow-400 text-2xl focus:outline-none"
@@ -66,12 +109,17 @@ export default function BookDetails() {
             </button>
           </div>
           <p className="text-lg text-gray-600 mb-1">
-            Autor: <span className="font-semibold">{livroExemplo.autor}</span>
+            Autor: <span className="font-semibold">{livro.authors?.join(', ') || 'Desconhecido'}</span>
           </p>
-          <p className="text-md text-gray-500 mb-4">Páginas: {livroExemplo.paginas}</p>
+          <p className="text-md text-gray-500 mb-1">
+            Páginas: {livro.pages || livro.paginas || 'N/A'}
+          </p>
+          <p className="text-md text-gray-500 mb-4">
+            Gênero: {livro.literaryGenre?.name || 'N/A'}
+          </p>
           <div className="mb-4">
             <h2 className="text-lg font-semibold text-gray-700 mb-1">Descrição</h2>
-            <p className="text-gray-700">{livroExemplo.descricao}</p>
+            <p className="text-gray-700">{livro.summary || livro.descricao || 'Sem descrição.'}</p>
           </div>
           <div>
             <h2 className="text-lg font-semibold text-gray-700 mb-1">Avaliação dos Usuários</h2>

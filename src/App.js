@@ -1,4 +1,3 @@
-
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BlogContent from './components/BlogContent';
@@ -13,6 +12,7 @@ import UpdateBookModal from './components/UpdateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
+
 
 
 
@@ -41,7 +41,6 @@ function App() {
           <BlurBg blurBg={blurBg} >
             <Routes>
               <Route path="/livros" element={<Books />} />
-              <Route />
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard
                 setBlurBg={setBlurBg}
@@ -49,11 +48,12 @@ function App() {
                 isCreateBookOpen={isCreateBookOpen}
               />} />
               <Route path="/perfil" element={<UserProfile />} />
-              <Route path="/detalhelivro" element={<BookDetails />} />
+              {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
+              <Route path="/livros/:id" element={<BookDetails />} />
+              <Route path="/eventos" element={<Events />} />  
             </Routes>
           </BlurBg>
           <Footer />
-
         </div>
       </HashRouter>
     </>
