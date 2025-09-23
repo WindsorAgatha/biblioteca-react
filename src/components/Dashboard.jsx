@@ -18,7 +18,7 @@ const historicoLocacoes = [
     { id: 3, livro: 'Capitães da Areia', usuario: 'Ana', dataAluguel: '02/09/2025', dataDevolucao: '06/09/2025' },
 ];
 
-export default function Dashboard({ setBlurBg }) {
+export default function Dashboard( { setBlurBg, setIsCreateBookOpen}) {
     const [livrosList, setLivrosList] = useState(livros);
     const [usuariosList, setUsuariosList] = useState(usuarios);
 
@@ -149,6 +149,7 @@ export default function Dashboard({ setBlurBg }) {
                             e.preventDefault();
                             // handleAddLivro();
                             setBlurBg(true);
+                            setIsCreateBookOpen(true);
                         }}
                     >
                         Adicionar Livro
