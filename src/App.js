@@ -1,4 +1,3 @@
-
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BlogContent from './components/BlogContent';
@@ -8,10 +7,10 @@ import { useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import RegisterModal from './components/RegisterModal';
-import CreateBookModal from './components/CreateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
+
 
 
 
@@ -39,7 +38,6 @@ function App() {
           <BlurBg blurBg={blurBg} >
             <Routes>
               <Route path="/livros" element={<Books />} />
-              <Route />
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard
                 setBlurBg={setBlurBg}
@@ -47,11 +45,12 @@ function App() {
                 isCreateBookOpen={isCreateBookOpen}
               />} />
               <Route path="/perfil" element={<UserProfile />} />
-              <Route path="/detalhelivro" element={<BookDetails />} />
+              {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
+              <Route path="/livros/:id" element={<BookDetails />} />
+              <Route path="/eventos" element={<Events />} />  
             </Routes>
           </BlurBg>
           <Footer />
-
         </div>
       </HashRouter>
     </>

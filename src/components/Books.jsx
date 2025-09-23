@@ -60,6 +60,7 @@ function Livros() {
             </div>
 
             {loading ? (
+
                 <div className="text-center text-blue-900 font-semibold mt-10">Carregando livros...</div>
             ) : (
                 <div className="gap-8 flex flex-wrap justify-center">
