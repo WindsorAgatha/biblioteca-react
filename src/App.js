@@ -10,9 +10,8 @@ import RegisterModal from './components/RegisterModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
-
-
-
+import CreateBookModal from './components/CreateBookModal';
+import Events from './components/Events';
 
 function App() {
 
