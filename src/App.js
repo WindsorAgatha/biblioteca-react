@@ -9,6 +9,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
+import UpdateBookModal from './components/UpdateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
@@ -31,6 +32,7 @@ function App() {
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
             <CreateBookModal />
+            <UpdateBookModal />
           </div>
           <BlurBg blurBg={blurBg} >
             <Routes>
