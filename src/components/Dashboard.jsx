@@ -18,7 +18,7 @@ const historicoLocacoes = [
     { id: 3, livro: 'Capitães da Areia', usuario: 'Ana', dataAluguel: '02/09/2025', dataDevolucao: '06/09/2025' },
 ];
 
-export default function Dashboard() {
+export default function Dashboard( { setBlurBg, setIsCreateBookOpen}) {
     const [livrosList, setLivrosList] = useState(livros);
     const [usuariosList, setUsuariosList] = useState(usuarios);
 
@@ -145,7 +145,12 @@ export default function Dashboard() {
                     <h2 className="text-xl font-semibold text-gray-700">Livros</h2>
                     <button
                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                        onClick={handleAddLivro}
+                        onClick={e => {
+                            e.preventDefault();
+                            // handleAddLivro();
+                            setBlurBg(true);
+                            setIsCreateBookOpen(true);
+                        }}
                     >
                         Adicionar Livro
                     </button>
@@ -174,8 +179,9 @@ export default function Dashboard() {
                                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                                         onClick={(e) => {
                                             e.preventDefault();
+                                            alert('Deseja apagar este livro?')
                                             handleDeleteLivro(livro.id);
-                                            
+
 
 
                                         }}

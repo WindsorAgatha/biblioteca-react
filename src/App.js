@@ -9,13 +9,17 @@ import Dashboard from './components/Dashboard';
 import RegisterModal from './components/RegisterModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
-import Events from './components/Events';
+import BlurBg from './components/BlurBg';
+
+
 
 
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
+  const [blurBg, setBlurBg] = useState(false);
+  const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
 
   return (
     <>
@@ -26,19 +30,26 @@ function App() {
           <div className='w-full flex justify-center '>
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
-
+            <CreateBookModal 
+            setIsCreateBookOpen={setIsCreateBookOpen}
+             isCreateBookOpen={isCreateBookOpen} 
+             setBlurBg={setBlurBg} />
           </div>
-          <div className='h-auto min-h-[calc(100vh-180px)]'>
+          <BlurBg blurBg={blurBg} >
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route path="/" element={<BlogContent />} />
-              <Route path="/administrador" element={<Dashboard />} />
+              <Route path="/administrador" element={<Dashboard
+                setBlurBg={setBlurBg}
+                setIsCreateBookOpen={setIsCreateBookOpen}
+                isCreateBookOpen={isCreateBookOpen}
+              />} />
               <Route path="/perfil" element={<UserProfile />} />
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />  
             </Routes>
-          </div>
+          </BlurBg>
           <Footer />
         </div>
       </HashRouter>

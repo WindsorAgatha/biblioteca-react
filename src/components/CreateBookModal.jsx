@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function CreateBookModal() {
+function CreateBookModal({ setIsCreateBookOpen, isCreateBookOpen, setBlurBg }) {
     const livros = [
         { id: 1, titulo: 'Dom Casmurro', alugado: 12 },
         { id: 2, titulo: 'O Pequeno Príncipe', alugado: 18 },
@@ -21,6 +21,7 @@ function CreateBookModal() {
 
     const [livrosList, setLivrosList] = useState(livros);
     const [usuariosList, setUsuariosList] = useState(usuarios);
+
 
     // Novo livro para POST
     const [novoLivro, setNovoLivro] = useState({
@@ -56,7 +57,23 @@ function CreateBookModal() {
     };
 
     return (
-        <div className="mb-8 bg-white rounded-lg shadow p-6">
+        <div
+            className="mb-8 bg-slate-400 rounded-lg shadow p-6 absolute flex flex-col z-20 min-w-[350px] min-h-[400px]"
+            style={{ display: isCreateBookOpen ? 'block' : 'none' }}
+            action="createBook"
+        >
+            <div className="flex justify-end w-full">
+                <p
+                    onClick={e => {
+                        e.preventDefault();
+                        setIsCreateBookOpen(false);
+                        setBlurBg(false);
+                    }}
+                    className="cursor-pointer font-black text-xl "
+                >
+                    x
+                </p>
+            </div>
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Adicionar Livro</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
@@ -122,12 +139,14 @@ function CreateBookModal() {
                     onChange={e => setNovoLivro({ ...novoLivro, summary: e.target.value })}
                 />
             </div>
-            <button
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                onClick={handleAddLivro}
-            >
-                Salvar Livro
-            </button>
+            <div className="flex justify-center">
+                <button
+                    className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    onClick={handleAddLivro}
+                >
+                    Salvar Livro
+                </button>
+            </div>
         </div>
     );
 }
