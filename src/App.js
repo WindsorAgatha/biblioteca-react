@@ -13,6 +13,8 @@ import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
 
+
+
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -41,6 +43,7 @@ function App() {
             </Routes>
           </BlurBg>
           <Footer />
+
         </div>
       </HashRouter>
     </>
