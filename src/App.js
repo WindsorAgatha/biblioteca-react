@@ -8,11 +8,10 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
-import UpdateBookModal from './components/UpdateBookModal';
+// import UpdateBookModal from './components/UpdateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
-import CreateBookModal from './components/CreateBookModal';
 import Events from './components/Events';
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
           <div className='w-full flex justify-center '>
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
-            <UpdateBookModal />
+            {/* <UpdateBookModal /> */}
             <CreateBookModal 
             setIsCreateBookOpen={setIsCreateBookOpen}
              isCreateBookOpen={isCreateBookOpen} 
