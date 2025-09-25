@@ -58,7 +58,7 @@ function CreateBookModal({ setIsCreateBookOpen, isCreateBookOpen, setBlurBg }) {
 
     return (
         <div
-            className="mb-8 bg-slate-400 rounded-lg shadow p-6 absolute flex flex-col z-20 min-w-[350px] min-h-[400px]"
+            className="bg-slate-400 rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow p-6 z-50 absolute flex flex-col min-w-[350px] min-h-[400px]"
             style={{ display: isCreateBookOpen ? 'block' : 'none' }}
             action="createBook"
         >
