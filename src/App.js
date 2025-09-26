@@ -13,6 +13,7 @@ import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
 import Events from './components/Events';
+import TeacherSuggestions from './components/TeacherSuggestions';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />
+              <Route path="/sugestoes" element={<TeacherSuggestions />} />
             </Routes>
           </BlurBg>
           <Footer />

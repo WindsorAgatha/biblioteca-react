@@ -99,7 +99,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
               <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
             </li>
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
-              <Link to="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
+              <Link to="/sugestoes" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
             </li>
           </ul>
         </div>
