@@ -70,7 +70,8 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
                 setLoginOpen(false);
                 setRegisterOpen(true);
                 setMenuOpen(false)
-              }} className="text-white hover:text-blue-300 transition-colors duration-300">Cadastrar</Link>
+                setBlurBg(true);
+              }} className="text-white hover:text-blue-300 transition-colors duration-300 z-50">Cadastrar</Link>
 
           </li>
         </ul>
@@ -110,6 +111,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
               e.preventDefault();
               setLoginOpen(true);
               setRegisterOpen(false);
+              setBlurBg(true);
             }}
             className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
           >
@@ -121,6 +123,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
               e.preventDefault();
               setLoginOpen(false);
               setRegisterOpen(true);
+              setBlurBg(true);
             }}
             className="text-white hover:text-blue-300 transition-colors duration-300 px-4 py-2 rounded"
           >

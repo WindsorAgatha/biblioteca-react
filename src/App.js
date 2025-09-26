@@ -30,12 +30,12 @@ function App() {
           setIsCreateBookOpen={setIsCreateBookOpen}
           isCreateBookOpen={isCreateBookOpen}
           setBlurBg={setBlurBg} />
-          <BlurBg blurBg={blurBg} >
-            <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <div className='w-full flex justify-center '>
               <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
-              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
+              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
             </div>
+          <BlurBg blurBg={blurBg} >
+            <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route path="/" element={<BlogContent />} />
