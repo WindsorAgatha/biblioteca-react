@@ -24,6 +24,7 @@ function App() {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [blurBg, setBlurBg] = useState(false);
   const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false)
 
   return (
     <>
@@ -37,7 +38,9 @@ function App() {
           <div className='w-full flex justify-center '>
             <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
             <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
-            <WarningModal />
+            <WarningModal
+              isWarningModalOpen={isWarningModalOpen}
+            />
           </div>
           <BlurBg blurBg={blurBg} >
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
@@ -46,6 +49,7 @@ function App() {
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard
                 setBlurBg={setBlurBg}
+                setIsWarningModalOpen={setIsWarningModalOpen}
                 setIsCreateBookOpen={setIsCreateBookOpen}
                 isCreateBookOpen={isCreateBookOpen}
               />} />

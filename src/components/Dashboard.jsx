@@ -6,7 +6,7 @@ const historicoLocacoes = [
     { id: 3, livro: 'Capitães da Areia', usuario: 'Ana', dataAluguel: '02/09/2025', dataDevolucao: '06/09/2025' },
 ];
 
-export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
+export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarningModalOpen }) {
     const [livrosList, setLivrosList] = useState([]);
     const [usuariosList, setUsuariosList] = useState([]);
     const [editLivroId, setEditLivroId] = useState(null);
@@ -169,8 +169,9 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                                         onClick={(e) => {
                                             e.preventDefault();
+                                            setIsWarningModalOpen(true);
+                                            console.log('Clicou em excluir');
                                             setBlurBg(true);
-                                           
                                         }}
                                     >
                                         Excluir
