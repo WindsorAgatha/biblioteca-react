@@ -21,24 +21,29 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
         literaryGenre: { id: '', name: '' }
     });
 
-    // Carregar livros do endpoint
     useEffect(() => {
         async function fetchLivros() {
             try {
                 const response = await fetch('http://localhost:5287/api/Book');
                 const data = await response.json();
-                setLivrosList(data);
+
+                // Adiciona um campo "alugado" fake para visualização
+                const livrosComAlugado = data.map(livro => ({
+                    ...livro,
+                    alugado: Math.floor(Math.random() * 100) // número aleatório para simular ranking
+                }));
+
+                setLivrosList(livrosComAlugado);
             } catch (error) {
+                console.error('Erro ao buscar livros:', error);
                 setLivrosList([]);
             }
         }
         fetchLivros();
     }, []);
 
-    // Modal de edição de livro
     const [showEditModal, setShowEditModal] = useState(false);
 
-    // Abrir formulário de edição como modal
     const handleEditLivro = id => {
         const livro = livrosList.find(l => l.id === id);
         if (livro) {
@@ -57,46 +62,24 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
             setBlurBg(true);
         }
     };
-  
-    // Novo livro para POST
-    const [novoLivro, setNovoLivro] = useState({
-        publisher: '',
-        title: '',
-        isbn: '',
-        authors: [''],
-        publicationYear: '',
-        summary: '',
-        quantity: '',
-        literaryGenre: { id: '', name: '' }
-    });
 
-    // POST livro
-
-
-
-   
-
-    // Eventos
     const [eventos, setEventos] = useState([
         { id: 1, nome: 'Feira do Livro', data: '15/09/2025', descricao: 'Venha participar da nossa feira anual!' },
         { id: 2, nome: 'Encontro de Leitura', data: '22/09/2025', descricao: 'Leitura coletiva de clássicos.' },
     ]);
     const [novoEvento, setNovoEvento] = useState({ nome: '', data: '', descricao: '' });
 
-    // Desafios Semanais
     const [desafios, setDesafios] = useState([
         { id: 1, descricao: 'Ler um livro de aventura' },
         { id: 2, descricao: 'Escrever uma resenha sobre seu livro favorito' },
     ]);
     const [novoDesafio, setNovoDesafio] = useState('');
 
-    // Mock handlers livros/usuarios
-    const handleDeleteLivro = id => alert(`Excluir livro ${id}`);
+
     const handleAddUsuario = () => alert('Adicionar usuário');
     const handleEditUsuario = id => alert(`Editar usuário ${id}`);
     const handleDeleteUsuario = id => alert(`Excluir usuário ${id}`);
 
-    // Eventos handlers
     const handleAddEvento = () => {
         if (novoEvento.nome && novoEvento.data && novoEvento.descricao) {
             setEventos([...eventos, { id: Date.now(), ...novoEvento }]);
@@ -107,7 +90,6 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
         setEventos(eventos.filter(e => e.id !== id));
     };
 
-    // Desafios handlers
     const handleAddDesafio = () => {
         if (novoDesafio) {
             setDesafios([...desafios, { id: Date.now(), descricao: novoDesafio }]);
@@ -119,7 +101,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
     };
 
     return (
-        <div className="p-8 bg-gray-50 min-h-screen z-0">
+        <div className="p-8 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-gray-800">Administrar</h1>
 
             {/* Estatísticas */}
@@ -140,7 +122,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                             .slice(0, 3)
                             .map(livro => (
                                 <li key={livro.id} className="flex justify-between">
-                                    <span>{livro.titulo}</span>
+                                    <span>{livro.title}</span>
                                     <span className="text-blue-600 font-bold">{livro.alugado}</span>
                                 </li>
                             ))}
@@ -156,7 +138,6 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                         onClick={e => {
                             e.preventDefault();
-                            // handleAddLivro();
                             setBlurBg(true);
                             setIsCreateBookOpen(true);
                         }}
@@ -172,10 +153,10 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                             <th className="py-3 px-4 text-left font-semibold text-gray-600 text-end">Ações</th>
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                         {livrosList.map(livro => (
                             <tr key={livro.id} className="border-b last:border-none">
-                                <td className="py-2 px-4">{livro.titulo}</td>
+                                <td className="py-2 px-4">{livro.title}</td>
                                 <td className="py-2 px-4">{livro.alugado}</td>
                                 <td className="py-2 px-4 flex justify-end gap-2">
                                     <button
@@ -188,11 +169,8 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            alert('Deseja apagar este livro?')
-                                            handleDeleteLivro(livro.id);
-
-
-
+                                            setBlurBg(true);
+                                           
                                         }}
                                     >
                                         Excluir
@@ -220,7 +198,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                         <tr className="bg-gray-200">
                             <th className="py-3 px-4 text-left font-semibold text-gray-600">Nome</th>
                             <th className="py-3 px-4 text-left font-semibold text-gray-600">Turma</th>
-                            <th className="py-3 px-4  font-semibold text-gray-600 text-end">Ações</th>
+                            <th className="py-3 px-4 font-semibold text-gray-600 text-end">Ações</th>
                         </tr>
                     </thead>
                     <tbody>

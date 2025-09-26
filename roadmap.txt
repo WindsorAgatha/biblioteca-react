@@ -1,2 +1,1 @@
-dashboard do professor para criar sugestões dos Professores
-implementar o botão de fechar o modal de adicionar livro e terminar o useState
+separar sugestões por turma... 
