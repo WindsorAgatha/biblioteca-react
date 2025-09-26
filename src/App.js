@@ -13,6 +13,7 @@ import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
 import Events from './components/Events';
+import TeacherDashboard from './components/TeacherDashboard'; 
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />
+              <Route path="/professor" element={<TeacherDashboard />} />  
             </Routes>
           </BlurBg>
           <Footer />
@@ -56,6 +58,5 @@ function App() {
     </>
   );
 }
-// Agatha: preciso adicionar o setBlurBg no loginModal, header (entrar e cadastrar)
 
 export default App;
