@@ -13,6 +13,7 @@ import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
 import Events from './components/Events';
+import TeacherSuggestions from './components/TeacherSuggestions';
 
 function App() {
 
@@ -30,12 +31,12 @@ function App() {
           setIsCreateBookOpen={setIsCreateBookOpen}
           isCreateBookOpen={isCreateBookOpen}
           setBlurBg={setBlurBg} />
-          <BlurBg blurBg={blurBg} >
-            <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <div className='w-full flex justify-center '>
               <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
-              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
+              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
             </div>
+          <BlurBg blurBg={blurBg} >
+            <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route path="/" element={<BlogContent />} />
@@ -48,6 +49,7 @@ function App() {
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />
+              <Route path="/sugestoes" element={<TeacherSuggestions />} />
             </Routes>
           </BlurBg>
           <Footer />

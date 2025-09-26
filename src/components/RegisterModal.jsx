@@ -1,10 +1,13 @@
 
-function RegisterModal ({ isRegisterOpen, setRegisterOpen }) {
+function RegisterModal ({ isRegisterOpen, setRegisterOpen, setBlurBg }) {
     return (
 
-        <form className='absolute bg-slate-100 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isRegisterOpen ? 'block' : 'none' }} action="register">
+        <form className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-slate-100 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isRegisterOpen ? 'block' : 'none' }} action="register">
             <div className='w-full flex justify-end'>
-                <p onClick={() => { setRegisterOpen(false) }} className='size-7 font-bold cursor-pointer m-0'><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f" >
+                <p onClick={e => {
+                    e.preventDefault();
+                     setRegisterOpen(false);
+                     setBlurBg(false)}} className='size-7 font-bold cursor-pointer m-0'><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f" >
                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></p>
             </div>
             <div className='flex flex-col'>
