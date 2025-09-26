@@ -1,17 +1,19 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 import ProfessorImg from "../assets/wander.png"
 import StudentImg from "../assets/Gemini_Generated_Image_kca1ekkca1ekkca1.png"
 import BookCover1 from "../assets/Anne Frank.jpg"
 import BookCover2 from "../assets/hamlet.jpg"
 import BookCover3 from "../assets/Aventura.png"
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const newBooks = [
-    { title: "Novo Livro 1", img: BookCover1 },
-    { title: "Novo Livro 2", img: BookCover2 },
-    { title: "Novo Livro 3", img: BookCover3 },
-    { title: "Novo Livro 4", img: BookCover1 },
-    { title: "Novo Livro 5", img: BookCover2 },
+    { id: 1, title: "Novo Livro 1", img: BookCover1 },
+    { id: 2, title: "Novo Livro 2", img: BookCover2 },
+    { id: 3, title: "Novo Livro 3", img: BookCover3 },
+    { id: 4, title: "Novo Livro 4", img: BookCover1 },
+    { id: 5, title: "Novo Livro 5", img: BookCover2 },
 ]
 
 const mostRented = [
@@ -21,9 +23,16 @@ const mostRented = [
 ]
 
 function BlogContent() {
-    const [start, setStart] = useState(0)
+    const [start, setStart] = useState(0);
 
-    const nextSlide = () => setStart((prev) => prev + 3 < newBooks.length ? prev + 1 : prev);
+    // SWIPE HANDLERS
+    const handlers = useSwipeable({
+        onSwipedLeft: () => setStart((prev) => prev + 1 < newBooks.length - 2 ? prev + 1 : prev),
+        onSwipedRight: () => setStart((prev) => prev > 0 ? prev - 1 : prev),
+        trackMouse: true,
+    });
+
+    const nextSlide = () => setStart((prev) => prev + 1 < newBooks.length - 2 ? prev + 1 : prev);
     const prevSlide = () => setStart((prev) => prev > 0 ? prev - 1 : prev);
 
     return (
@@ -121,35 +130,45 @@ function BlogContent() {
                 </div>
             </section>
 
-            {/* Novos Livros (Slider) */}
+            {/* Novos Livros (Slider com Swipe) */}
             <section>
                 <h2 className="text-xl font-bold mb-3">🆕 Novidades na Biblioteca</h2>
                 <div className="relative flex items-center min-h-[220px]">
                     <button
                         onClick={prevSlide}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white text-gray-800 rounded-full p-2 shadow hover:bg-gray-200 transition cursor-pointer"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-full p-3 shadow-lg hover:scale-110 hover:from-blue-600 hover:to-blue-800 transition-all duration-200 border-4 border-white"
                         style={{ outline: 'none' }}
+                        aria-label="Anterior"
                     >
-                        ◀
+                        <FaChevronLeft size={20} />
                     </button>
 
-                    <div className="overflow-hidden w-full flex justify-center">
-                        {newBooks.slice(start, start + 3).map((book, idx) => (
-                            <div key={idx} className="w-1/3 flex-shrink-0 p-2">
-                                <div className="bg-white rounded-lg shadow p-2 flex flex-col items-center">
-                                    <img src={book.img} alt={book.title} className="w-28 h-40 object-cover rounded mb-1" />
-                                    <p className="font-semibold text-sm text-center">{book.title}</p>
+                    <div
+                        {...handlers}
+                        className="overflow-hidden w-full flex justify-center touch-pan-x"
+                    >
+                        <div
+                            className="flex transition-transform duration-300"
+                            style={{ transform: `translateX(-${start * (100 / 3)}%)`, width: `${(newBooks.length * 100) / 3}%` }}
+                        >
+                            {newBooks.map((book, idx) => (
+                                <div key={idx} className="w-1/3 flex-shrink-0 p-2">
+                                    <div className="bg-white rounded-lg shadow p-2 flex flex-col items-center">
+                                        <img src={book.img} alt={book.title} className="w-28 h-40 object-cover rounded mb-1" />
+                                        <p className="font-semibold text-sm text-center">{book.title}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
                     <button
                         onClick={nextSlide}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white text-gray-800 rounded-full p-2 shadow hover:bg-gray-200 transition cursor-pointer"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-full p-3 shadow-lg hover:scale-110 hover:from-blue-600 hover:to-blue-800 transition-all duration-200 border-4 border-white"
                         style={{ outline: 'none' }}
+                        aria-label="Próximo"
                     >
-                        ▶
+                        <FaChevronRight size={20} />
                     </button>
                 </div>
             </section>
