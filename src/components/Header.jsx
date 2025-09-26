@@ -46,13 +46,13 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
           style={{ zIndex: 99 }}
         >
           <li className="px-4 py-2">
-            <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
+            <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Home</Link>
           </li>
           <li className="px-4 py-2">
-            <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300">Livros</Link>
+            <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Livros</Link>
           </li>
           <li className="px-4 py-2">
-            <Link to="#" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
+            <Link to="#" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Sugestões dos professores</Link>
           </li>
           <li className="px-4 py-2 flex flex-col gap-2">
             <Link to="#"
