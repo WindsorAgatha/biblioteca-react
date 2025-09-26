@@ -1,10 +1,14 @@
 
 
-function LoginModal({ isLoginOpen, setLoginOpen }) {
+function LoginModal({ isLoginOpen, setLoginOpen, setBlurBg }) {
     return (
         <form className='absolute bg-slate-100 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isLoginOpen ? 'block' : 'none' }} action="login">
             <div className='w-full flex justify-end'>
-                <p onClick={() => { setLoginOpen(false) }} className='size-7 font-bold cursor-pointer m-0'><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f" >
+                <p onClick={e => {
+                    e.preventDefault();
+                     setLoginOpen(false);
+                     setBlurBg(false)}}
+                      className='size-7 font-bold cursor-pointer m-0'><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f" >
                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></p>
             </div>
             <div className='flex flex-col'>

@@ -26,17 +26,16 @@ function App() {
 
       <HashRouter>
         <div className=''>
-          <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} />
-          <div className='w-full flex justify-center '>
-            <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} />
-            <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
-            {/* <UpdateBookModal /> */}
-            <CreateBookModal 
-            setIsCreateBookOpen={setIsCreateBookOpen}
-             isCreateBookOpen={isCreateBookOpen} 
-             setBlurBg={setBlurBg} />
-          </div>
+        <CreateBookModal
+          setIsCreateBookOpen={setIsCreateBookOpen}
+          isCreateBookOpen={isCreateBookOpen}
+          setBlurBg={setBlurBg} />
           <BlurBg blurBg={blurBg} >
+            <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
+            <div className='w-full flex justify-center '>
+              <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
+              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} />
+            </div>
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route path="/" element={<BlogContent />} />
@@ -48,7 +47,7 @@ function App() {
               <Route path="/perfil" element={<UserProfile />} />
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
-              <Route path="/eventos" element={<Events />} />  
+              <Route path="/eventos" element={<Events />} />
             </Routes>
           </BlurBg>
           <Footer />
@@ -57,7 +56,6 @@ function App() {
     </>
   );
 }
-
-
+// Agatha: preciso adicionar o setBlurBg no loginModal, header (entrar e cadastrar)
 
 export default App;

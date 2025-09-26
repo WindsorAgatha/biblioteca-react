@@ -57,6 +57,24 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
             setBlurBg(true);
         }
     };
+  
+    // Novo livro para POST
+    const [novoLivro, setNovoLivro] = useState({
+        publisher: '',
+        title: '',
+        isbn: '',
+        authors: [''],
+        publicationYear: '',
+        summary: '',
+        quantity: '',
+        literaryGenre: { id: '', name: '' }
+    });
+
+    // POST livro
+
+
+
+   
 
     // Eventos
     const [eventos, setEventos] = useState([
@@ -101,7 +119,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
     };
 
     return (
-        <div className="p-8 bg-gray-50 min-h-screen">
+        <div className="p-8 bg-gray-50 min-h-screen z-0">
             <h1 className="text-3xl font-bold mb-8 text-gray-800">Administrar</h1>
 
             {/* Estatísticas */}

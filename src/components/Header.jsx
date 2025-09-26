@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-function Header({ setLoginOpen, setRegisterOpen }) {
+function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -60,8 +60,9 @@ function Header({ setLoginOpen, setRegisterOpen }) {
                 e.preventDefault();
                 setLoginOpen(true);
                 setRegisterOpen(false);
-                setMenuOpen(false)
-              }} className="text-white hover:text-blue-300 transition-colors duration-300 mb-4">Entrar</Link>
+                setMenuOpen(false);
+                setBlurBg(true);
+              }} className="text-white hover:text-blue-300 transition-colors duration-300 mb-4 z-50">Entrar</Link>
 
             <Link to="#"
               onClick={e => {
