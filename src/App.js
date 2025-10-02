@@ -16,6 +16,7 @@ import Events from './components/Events';
 import TeacherDashboard from './components/TeacherDashboard';
 import TeacherSuggestions from './components/TeacherSuggestions';
 import WarningModal from './components/WarningModal';
+import Calendar from './components/Calendar';
 
 
 function App() {
@@ -57,9 +58,9 @@ function App() {
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />
-              <Route path="/professor" element={<TeacherDashboard />} />
+              <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
               <Route path="/sugestoes" element={<TeacherSuggestions />} />
-
+              <Route path="/calendario" element={<Calendar />} />
             </Routes>
           </BlurBg>
           <Footer />
