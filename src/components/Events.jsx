@@ -1,82 +1,78 @@
-import React, { useState } from 'react';
-import eventpng from '../assets/Aventura.png';
-
-const eventos = [
-  {
-    title: "Feira de Ciências 2025",
-    date: "2025-09-18",
-    description: `Estudantes apresentarão projetos científicos e tecnológicos. 
-Venha prestigiar e aprender com as ideias inovadoras dos alunos! 
-Haverá palestras, oficinas e exposição de trabalhos durante todo o dia. 
-Participe e incentive a pesquisa e a criatividade!`,
-    image: eventpng,
-  },
-  {
-    title: "Semana da Arte",
-    date: "2025-07-10",
-    description: `Exposições artísticas e apresentações culturais. Uma semana dedicada à expressão criativa dos estudantes, com pintura, música, teatro e dança.`,
-    image: "/images/arte.jpg",
-  },
-  {
-    title: "Mostra Esportiva",
-    date: "2024-11-05",
-    description: `Competições esportivas interclasses e atividades físicas. Venha torcer e participar das atividades que promovem saúde e integração.`,
-    image: "/images/esporte.jpg",
-  },
-  {
-    title: "Clube de Leitura",
-    date: "2025-10-01",
-    description: `Participe do nosso clube de leitura! Venha debater o livro do mês com outros leitores, compartilhar opiniões e fazer novas amizades.`,
-    image: "/images/leitura.jpg",
-  },
-];
-
-function compareDates(a, b) {
-  return new Date(b.date) - new Date(a.date);
-}
+import React, { useEffect, useState } from "react";
 
 export default function Events() {
-  const [page, setPage] = useState(0);
-  const eventosOrdenados = [...eventos].sort(compareDates);
-  const total = eventosOrdenados.length;
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const evento = eventosOrdenados[page];
+  // Exemplo: substitua pelo seu endpoint real se desejar
+  useEffect(() => {
+    // Simulação de fetch, troque por sua API se necessário
+    setTimeout(() => {
+      setEventos([
+        {
+          id: 1,
+          nome: "Feira de Ciências",
+          data: "2025-10-15",
+          descrição: "Apresente seu projeto científico e participe de oficinas interativas.",
+          instrucoes: "Traga seu crachá escolar e chegue 15 minutos antes do início.",
+          imagem: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+        },
+        {
+          id: 2,
+          nome: "Semana Literária",
+          data: "2025-11-05",
+          descrição: "Palestras com autores, troca de livros e concurso de poesia.",
+          instrucoes: "Inscreva-se na secretaria até 01/11. Leve um livro para troca.",
+          imagem: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
+        },
+        {
+          id: 3,
+          nome: "Gincana Esportiva",
+          data: "2025-12-01",
+          descrição: "Competições esportivas entre turmas e premiação para os vencedores.",
+          instrucoes: "Vista o uniforme da escola e traga garrafa de água.",
+          imagem: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=80",
+        },
+      ]);
+      setLoading(false);
+    }, 800);
+  }, []);
 
   return (
-    <div className="max-w-3xl mx-auto p-6 font-serif h-screen overflow-y-auto bg-gray-200">
-        <h1 className='text-6xl text-blue-900'>Eventos</h1>
-      <article className="bg-white rounded-xl h-5/6 shadow-lg overflow-y-scroll">
-        <img
-          src={evento.image || eventpng}
-          alt={evento.title}
-          className="w-full h-[28rem] object-cover"
-        />
-        <div className="p-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">{evento.title}</h1>
-          <p className="text-lg text-blue-700 mb-6">{new Date(evento.date).toLocaleDateString()}</p>
-          <div className="text-gray-800 text-lg leading-relaxed whitespace-pre-line">
-            {evento.description}
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50 py-10">
+      <div className="max-w-4xl mx-auto p-6 font-serif">
+        <h1 className="text-3xl font-bold text-blue-900 mb-8 text-center">Eventos da Escola</h1>
+        {loading ? (
+          <div className="text-center text-gray-500 py-20">Carregando eventos...</div>
+        ) : (
+          <div className="flex flex-col gap-10">
+            {eventos.map(evento => (
+              <div key={evento.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+                <img
+                  src={evento.imagem}
+                  alt={evento.nome}
+                  className="w-full md:w-72 h-60 object-cover"
+                />
+                <div className="flex-1 p-6 flex flex-col justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">{evento.nome}</h2>
+                    <p className="text-blue-700 font-semibold mb-2">
+                      {new Date(evento.data).toLocaleDateString()}
+                    </p>
+                    <p className="text-gray-700 mb-3">
+                      <span className="font-semibold">Detalhes: </span>
+                      {evento.detalhes}
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-semibold">Instruções: </span>
+                      {evento.instrucoes}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      </article>
-      <div className="flex justify-between items-center mt-8">
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-          onClick={() => setPage(page - 1)}
-          disabled={page === 0}
-        >
-          Evento anterior
-        </button>
-        <span className="text-gray-600">
-          {page + 1} de {total}
-        </span>
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-          onClick={() => setPage(page + 1)}
-          disabled={page === total - 1}
-        >
-          Próximo evento
-        </button>
+        )}
       </div>
     </div>
   );
