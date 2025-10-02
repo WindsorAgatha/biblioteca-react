@@ -20,11 +20,13 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
         aria-label="Menu móvel"
       >
         <div className="flex items-center justify-between h-[70px]">
-          <img
-            className="h-12 w-12 rounded-full"
-            src={schoolLogo}
-            alt="Logo da escola"
-          />
+          <Link to={"/"} className="flex items-center min-w-[50px]">
+            <img
+              className="h-12 w-12 rounded-full"
+              src={schoolLogo}
+              alt="Logo da escola"
+            />
+          </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)
             }
