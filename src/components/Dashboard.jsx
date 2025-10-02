@@ -30,7 +30,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                 // Adiciona um campo "alugado" fake para visualização
                 const livrosComAlugado = data.map(livro => ({
                     ...livro,
-                    alugado: Math.floor(Math.random() * 100) // número aleatório para simular ranking
+                    alugado: Math.floor(Math.random() * 100)
                 }));
 
                 setLivrosList(livrosComAlugado);
@@ -63,11 +63,32 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
         }
     };
 
+    // Eventos agora com imagem
     const [eventos, setEventos] = useState([
-        { id: 1, nome: 'Feira do Livro', data: '15/09/2025', descricao: 'Venha participar da nossa feira anual!', instrucoes: 'Traga seu crachá escolar.' },
-        { id: 2, nome: 'Encontro de Leitura', data: '22/09/2025', descricao: 'Leitura coletiva de clássicos.', instrucoes: 'Leve seu livro favorito.' },
+        {
+            id: 1,
+            nome: 'Feira do Livro',
+            data: '15/09/2025',
+            descricao: 'Venha participar da nossa feira anual!',
+            instrucoes: 'Traga seu crachá escolar.',
+            imagem: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80'
+        },
+        {
+            id: 2,
+            nome: 'Encontro de Leitura',
+            data: '22/09/2025',
+            descricao: 'Leitura coletiva de clássicos.',
+            instrucoes: 'Leve seu livro favorito.',
+            imagem: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80'
+        },
     ]);
-    const [novoEvento, setNovoEvento] = useState({ nome: '', data: '', descricao: '', instrucoes: '' });
+    const [novoEvento, setNovoEvento] = useState({
+        nome: '',
+        data: '',
+        descricao: '',
+        instrucoes: '',
+        imagem: ''
+    });
 
     const [desafios, setDesafios] = useState([
         { id: 1, descricao: 'Ler um livro de aventura' },
@@ -75,6 +96,81 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
     ]);
     const [novoDesafio, setNovoDesafio] = useState('');
 
+    // Notícias
+    const [noticias, setNoticias] = useState([
+        {
+            id: 1,
+            titulo: "Biblioteca recebe novos livros de aventura",
+            data: "2025-10-01",
+            imagem: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80",
+            resumo: "A biblioteca escolar ampliou seu acervo com títulos de aventura para todas as idades.",
+            conteudo: "Agora os alunos podem explorar novas histórias e universos incríveis. Venha conferir as novidades e aproveite para participar do clube do livro!",
+        },
+        {
+            id: 2,
+            titulo: "Semana da Leitura começa na próxima segunda",
+            data: "2025-10-05",
+            imagem: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+            resumo: "Palestras, oficinas e troca de livros marcam a programação da Semana da Leitura.",
+            conteudo: "Alunos e professores estão convidados a participar das atividades. Traga um livro para trocar e participe dos sorteios!",
+        },
+    ]);
+    const [novaNoticia, setNovaNoticia] = useState({
+        titulo: "",
+        data: "",
+        imagem: "",
+        resumo: "",
+        conteudo: "",
+    });
+    const [editNoticiaId, setEditNoticiaId] = useState(null);
+
+    const handleAddNoticia = (e) => {
+        e.preventDefault();
+        if (novaNoticia.titulo && novaNoticia.data && novaNoticia.resumo && novaNoticia.conteudo) {
+            if (editNoticiaId) {
+                setNoticias(noticias.map(n =>
+                    n.id === editNoticiaId ? { ...novaNoticia, id: editNoticiaId } : n
+                ));
+                setEditNoticiaId(null);
+            } else {
+                setNoticias([...noticias, { ...novaNoticia, id: Date.now() }]);
+            }
+            setNovaNoticia({
+                titulo: "",
+                data: "",
+                imagem: "",
+                resumo: "",
+                conteudo: "",
+            });
+        }
+    };
+
+    const handleEditNoticia = (id) => {
+        const noticia = noticias.find(n => n.id === id);
+        if (noticia) {
+            setNovaNoticia(noticia);
+            setEditNoticiaId(id);
+        }
+    };
+
+    const handleDeleteNoticia = (id) => {
+        setNoticias(noticias.filter(n => n.id !== id));
+        if (editNoticiaId === id) {
+            setNovaNoticia({
+                titulo: "",
+                data: "",
+                imagem: "",
+                resumo: "",
+                conteudo: "",
+            });
+            setEditNoticiaId(null);
+        }
+    };
+
+    const handleNoticiaChange = (e) => {
+        const { name, value } = e.target;
+        setNovaNoticia(prev => ({ ...prev, [name]: value }));
+    };
 
     const handleAddUsuario = () => alert('Adicionar usuário');
     const handleEditUsuario = id => alert(`Editar usuário ${id}`);
@@ -83,7 +179,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
     const handleAddEvento = () => {
         if (novoEvento.nome && novoEvento.data && novoEvento.descricao) {
             setEventos([...eventos, { id: Date.now(), ...novoEvento }]);
-            setNovoEvento({ nome: '', data: '', descricao: '', instrucoes: '' });
+            setNovoEvento({ nome: '', data: '', descricao: '', instrucoes: '', imagem: '' });
         }
     };
     const handleDeleteEvento = id => {
@@ -146,7 +242,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                     </button>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg shadow text-sm">
+                    <table className="min-w-[600px] w-full bg-white rounded-lg shadow text-sm">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="py-2 px-2 text-left font-semibold text-gray-600">Título</th>
@@ -196,7 +292,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                     </button>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg shadow text-sm">
+                    <table className="min-w-[600px] w-full bg-white rounded-lg shadow text-sm">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="py-2 px-2 text-left font-semibold text-gray-600">Nome</th>
@@ -235,7 +331,13 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                 <div className="flex flex-col sm:flex-row justify-between items-center mb-3 gap-2">
                     <h2 className="text-lg font-semibold text-gray-700">Eventos</h2>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2 mb-2">
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        handleAddEvento();
+                    }}
+                    className="flex flex-col gap-2 sm:flex-row sm:gap-2 mb-2"
+                >
                     <input
                         type="text"
                         placeholder="Nome do evento"
@@ -264,43 +366,152 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                         value={novoEvento.instrucoes}
                         onChange={e => setNovoEvento({ ...novoEvento, instrucoes: e.target.value })}
                     />
+                    <input
+                        type="text"
+                        placeholder="URL da imagem"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novoEvento.imagem}
+                        onChange={e => setNovoEvento({ ...novoEvento, imagem: e.target.value })}
+                    />
                     <button
+                        type="submit"
                         className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                        onClick={handleAddEvento}
                     >
                         Adicionar Evento
                     </button>
+                </form>
+                <div className="flex flex-col gap-4">
+                    {eventos.map(evento => (
+                        <div key={evento.id} className="bg-white rounded-lg shadow flex flex-col sm:flex-row overflow-hidden">
+                            {evento.imagem && (
+                                <img src={evento.imagem} alt={evento.nome} className="w-full sm:w-40 h-32 object-cover" />
+                            )}
+                            <div className="flex-1 p-3 flex flex-col justify-between">
+                                <div>
+                                    <h3 className="font-bold text-lg text-blue-800">{evento.nome}</h3>
+                                    <div className="text-sm text-gray-500 mb-1">{evento.data}</div>
+                                    <div className="text-gray-700">{evento.descricao}</div>
+                                    <div className="text-gray-600 text-xs mt-1">{evento.instrucoes}</div>
+                                </div>
+                                <div className="flex justify-end mt-2">
+                                    <button
+                                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs"
+                                        onClick={() => setEventos(eventos.filter(e => e.id !== evento.id))}
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg shadow text-sm">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="py-2 px-2 text-left font-semibold text-gray-600">Nome</th>
-                                <th className="py-2 px-2 text-left font-semibold text-gray-600">Data</th>
-                                <th className="py-2 px-2 text-left font-semibold text-gray-600">Descrição</th>
-                                <th className="py-2 px-2 text-left font-semibold text-gray-600">Instruções</th>
-                                <th className="py-2 px-2 text-end font-semibold text-gray-600">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {eventos.map(evento => (
-                                <tr key={evento.id} className="border-b last:border-none">
-                                    <td className="py-1 px-2">{evento.nome}</td>
-                                    <td className="py-1 px-2">{evento.data}</td>
-                                    <td className="py-1 px-2">{evento.descricao}</td>
-                                    <td className="py-1 px-2">{evento.instrucoes}</td>
-                                    <td className="py-1 px-2 flex justify-end">
-                                        <button
-                                            className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs"
-                                            onClick={() => handleDeleteEvento(evento.id)}
-                                        >
-                                            Excluir
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+            </div>
+
+            {/* CRUD Notícias */}
+            <div className="mb-6">
+                <h2 className="text-lg font-semibold text-gray-700 mb-2">Notícias</h2>
+                <form
+                    onSubmit={handleAddNoticia}
+                    className="flex flex-col gap-2 sm:flex-row sm:gap-2 mb-2"
+                >
+                    <input
+                        type="text"
+                        name="titulo"
+                        placeholder="Título"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novaNoticia.titulo}
+                        onChange={handleNoticiaChange}
+                        required
+                    />
+                    <input
+                        type="date"
+                        name="data"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novaNoticia.data}
+                        onChange={handleNoticiaChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="imagem"
+                        placeholder="URL da imagem"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novaNoticia.imagem}
+                        onChange={handleNoticiaChange}
+                    />
+                    <input
+                        type="text"
+                        name="resumo"
+                        placeholder="Resumo"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novaNoticia.resumo}
+                        onChange={handleNoticiaChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="conteudo"
+                        placeholder="Conteúdo"
+                        className="border rounded px-2 py-1 flex-1"
+                        value={novaNoticia.conteudo}
+                        onChange={handleNoticiaChange}
+                        required
+                    />
+                    <button
+                        type="submit"
+                        className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                    >
+                        {editNoticiaId ? "Salvar" : "Adicionar"}
+                    </button>
+                    {editNoticiaId && (
+                        <button
+                            type="button"
+                            className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500"
+                            onClick={() => {
+                                setNovaNoticia({
+                                    titulo: "",
+                                    data: "",
+                                    imagem: "",
+                                    resumo: "",
+                                    conteudo: "",
+                                });
+                                setEditNoticiaId(null);
+                            }}
+                        >
+                            Cancelar
+                        </button>
+                    )}
+                </form>
+                <div className="flex flex-col gap-4">
+                    {noticias.map(noticia => (
+                        <div key={noticia.id} className="bg-white rounded-lg shadow flex flex-col sm:flex-row overflow-hidden">
+                            {noticia.imagem && (
+                                <img src={noticia.imagem} alt={noticia.titulo} className="w-full sm:w-40 h-32 object-cover" />
+                            )}
+                            <div className="flex-1 p-3 flex flex-col justify-between">
+                                <div>
+                                    <h3 className="font-bold text-lg text-blue-800">{noticia.titulo}</h3>
+                                    <div className="text-sm text-gray-500 mb-1">{noticia.data}</div>
+                                    <div className="text-gray-700">{noticia.resumo}</div>
+                                    <div className="text-gray-600 text-xs mt-1">{noticia.conteudo}</div>
+                                </div>
+                                <div className="flex justify-end mt-2">
+                                    <button
+                                        className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-xs mr-2"
+                                        onClick={() => handleEditNoticia(noticia.id)}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs"
+                                        onClick={() => handleDeleteNoticia(noticia.id)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -325,7 +536,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
                     </button>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg shadow text-sm">
+                    <table className="min-w-[400px] w-full bg-white rounded-lg shadow text-sm">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="py-2 px-2 text-left font-semibold text-gray-600">Descrição</th>
@@ -355,7 +566,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarning
             <div>
                 <h2 className="text-lg font-semibold text-gray-700 mb-3">Histórico de Locações</h2>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg shadow text-sm">
+                    <table className="min-w-[400px] w-full bg-white rounded-lg shadow text-sm">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="py-2 px-2 text-left font-semibold text-gray-600">Livro</th>
