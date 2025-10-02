@@ -13,8 +13,9 @@ import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
 import BlurBg from './components/BlurBg';
 import Events from './components/Events';
-import TeacherDashboard from './components/TeacherDashboard'; 
+import TeacherDashboard from './components/TeacherDashboard';
 import TeacherSuggestions from './components/TeacherSuggestions';
+import WarningModal from './components/WarningModal';
 
 
 function App() {
@@ -23,20 +24,24 @@ function App() {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [blurBg, setBlurBg] = useState(false);
   const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false)
 
   return (
     <>
 
       <HashRouter>
         <div className=''>
-        <CreateBookModal
-          setIsCreateBookOpen={setIsCreateBookOpen}
-          isCreateBookOpen={isCreateBookOpen}
-          setBlurBg={setBlurBg} />
-            <div className='w-full flex justify-center '>
-              <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
-              <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
-            </div>
+          <CreateBookModal
+            setIsCreateBookOpen={setIsCreateBookOpen}
+            isCreateBookOpen={isCreateBookOpen}
+            setBlurBg={setBlurBg} />
+          <div className='w-full flex justify-center '>
+            <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
+            <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
+            <WarningModal
+              isWarningModalOpen={isWarningModalOpen}
+            />
+          </div>
           <BlurBg blurBg={blurBg} >
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <Routes>
@@ -44,6 +49,7 @@ function App() {
               <Route path="/" element={<BlogContent />} />
               <Route path="/administrador" element={<Dashboard
                 setBlurBg={setBlurBg}
+                setIsWarningModalOpen={setIsWarningModalOpen}
                 setIsCreateBookOpen={setIsCreateBookOpen}
                 isCreateBookOpen={isCreateBookOpen}
               />} />
@@ -51,7 +57,7 @@ function App() {
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />
               <Route path="/eventos" element={<Events />} />
-              <Route path="/professor" element={<TeacherDashboard />} />  
+              <Route path="/professor" element={<TeacherDashboard />} />
               <Route path="/sugestoes" element={<TeacherSuggestions />} />
 
             </Routes>

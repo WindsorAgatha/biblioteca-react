@@ -6,7 +6,7 @@ const historicoLocacoes = [
     { id: 3, livro: 'Capitães da Areia', usuario: 'Ana', dataAluguel: '02/09/2025', dataDevolucao: '06/09/2025' },
 ];
 
-export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
+export default function Dashboard({ setBlurBg, setIsCreateBookOpen, setIsWarningModalOpen }) {
     const [livrosList, setLivrosList] = useState([]);
     const [usuariosList, setUsuariosList] = useState([]);
     const [editLivroId, setEditLivroId] = useState(null);
@@ -26,8 +26,16 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
             try {
                 const response = await fetch('http://localhost:5287/api/Book');
                 const data = await response.json();
-                setLivrosList(data);
+
+                // Adiciona um campo "alugado" fake para visualização
+                const livrosComAlugado = data.map(livro => ({
+                    ...livro,
+                    alugado: Math.floor(Math.random() * 100) // número aleatório para simular ranking
+                }));
+
+                setLivrosList(livrosComAlugado);
             } catch (error) {
+                console.error('Erro ao buscar livros:', error);
                 setLivrosList([]);
             }
         }
@@ -55,38 +63,23 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
         }
     };
 
-    const [novoLivro, setNovoLivro] = useState({
-        publisher: '',
-        title: '',
-        isbn: '',
-        authors: [''],
-        publicationYear: '',
-        summary: '',
-        quantity: '',
-        literaryGenre: { id: '', name: '' }
-    });
-
-    // Eventos
     const [eventos, setEventos] = useState([
         { id: 1, nome: 'Feira do Livro', data: '15/09/2025', descricao: 'Venha participar da nossa feira anual!', instrucoes: 'Traga seu crachá escolar.' },
         { id: 2, nome: 'Encontro de Leitura', data: '22/09/2025', descricao: 'Leitura coletiva de clássicos.', instrucoes: 'Leve seu livro favorito.' },
     ]);
     const [novoEvento, setNovoEvento] = useState({ nome: '', data: '', descricao: '', instrucoes: '' });
 
-    // Desafios Semanais
     const [desafios, setDesafios] = useState([
         { id: 1, descricao: 'Ler um livro de aventura' },
         { id: 2, descricao: 'Escrever uma resenha sobre seu livro favorito' },
     ]);
     const [novoDesafio, setNovoDesafio] = useState('');
 
-    // Mock handlers livros/usuarios
-    const handleDeleteLivro = id => alert(`Excluir livro ${id}`);
+
     const handleAddUsuario = () => alert('Adicionar usuário');
     const handleEditUsuario = id => alert(`Editar usuário ${id}`);
     const handleDeleteUsuario = id => alert(`Excluir usuário ${id}`);
 
-    // Eventos handlers
     const handleAddEvento = () => {
         if (novoEvento.nome && novoEvento.data && novoEvento.descricao) {
             setEventos([...eventos, { id: Date.now(), ...novoEvento }]);
@@ -97,7 +90,6 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
         setEventos(eventos.filter(e => e.id !== id));
     };
 
-    // Desafios handlers
     const handleAddDesafio = () => {
         if (novoDesafio) {
             setDesafios([...desafios, { id: Date.now(), descricao: novoDesafio }]);
@@ -130,7 +122,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                             .slice(0, 3)
                             .map(livro => (
                                 <li key={livro.id} className="flex justify-between">
-                                    <span>{livro.titulo}</span>
+                                    <span>{livro.title}</span>
                                     <span className="text-blue-600 font-bold">{livro.alugado}</span>
                                 </li>
                             ))}
@@ -165,7 +157,7 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                         <tbody>
                             {livrosList.map(livro => (
                                 <tr key={livro.id} className="border-b last:border-none">
-                                    <td className="py-1 px-2">{livro.titulo}</td>
+                                    <td className="py-1 px-2">{livro.title}</td>
                                     <td className="py-1 px-2">{livro.alugado}</td>
                                     <td className="py-1 px-2 flex justify-end gap-2">
                                         <button
@@ -178,8 +170,8 @@ export default function Dashboard({ setBlurBg, setIsCreateBookOpen }) {
                                             className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                alert('Deseja apagar este livro?')
-                                                handleDeleteLivro(livro.id);
+                                                setIsWarningModalOpen(true);
+                                                setBlurBg(true);
                                             }}
                                         >
                                             Excluir
