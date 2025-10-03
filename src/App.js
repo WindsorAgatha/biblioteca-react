@@ -16,6 +16,8 @@ import Events from './components/Events';
 import TeacherDashboard from './components/TeacherDashboard';
 import TeacherSuggestions from './components/TeacherSuggestions';
 import WarningModal from './components/WarningModal';
+import NewsBlog from './components/NewsBlog';
+import Classrooms from './components/Classrooms';
 
 
 function App() {
@@ -59,7 +61,8 @@ function App() {
               <Route path="/eventos" element={<Events />} />
               <Route path="/professor" element={<TeacherDashboard />} />
               <Route path="/sugestoes" element={<TeacherSuggestions />} />
-
+              <Route path="/noticias" element={< NewsBlog />} />
+              <Route path="/classes" element={<Classrooms />} />
             </Routes>
           </BlurBg>
           <Footer />
