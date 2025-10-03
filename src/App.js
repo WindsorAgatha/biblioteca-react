@@ -17,6 +17,7 @@ import TeacherDashboard from './components/TeacherDashboard';
 import TeacherSuggestions from './components/TeacherSuggestions';
 import WarningModal from './components/WarningModal';
 import Calendar from './components/Calendar';
+import CreateStudentModal from './components/CreateStudentModal';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <WarningModal
               isWarningModalOpen={isWarningModalOpen}
             />
+            <CreateStudentModal />
           </div>
           <BlurBg blurBg={blurBg} >
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
