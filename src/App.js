@@ -5,7 +5,7 @@ import LoginModal from './components/LoginModal';
 import Books from './components/Books';
 import { useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/dashboard';
 import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
 // import UpdateBookModal from './components/UpdateBookModal';
@@ -27,11 +27,15 @@ function App() {
   const [blurBg, setBlurBg] = useState(false);
   const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false)
+  const [isCreateStudentOpen, setIsCreateStudentOpen] = useState(false)
 
   return (
     <>
 
       <HashRouter>
+        <Routes>
+          <Route path="/administrador" element={<Dashboard />} />
+        </Routes>
         <div className=''>
           <CreateBookModal
             setIsCreateBookOpen={setIsCreateBookOpen}
@@ -43,19 +47,13 @@ function App() {
             <WarningModal
               isWarningModalOpen={isWarningModalOpen}
             />
-            <CreateStudentModal />
+            <CreateStudentModal setBlurBg={setBlurBg} blurBg={blurBg} isCreateStudentOpen={isCreateStudentOpen} />
           </div>
           <BlurBg blurBg={blurBg} >
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <Routes>
               <Route path="/livros" element={<Books />} />
               <Route path="/" element={<BlogContent />} />
-              <Route path="/administrador" element={<Dashboard
-                setBlurBg={setBlurBg}
-                setIsWarningModalOpen={setIsWarningModalOpen}
-                setIsCreateBookOpen={setIsCreateBookOpen}
-                isCreateBookOpen={isCreateBookOpen}
-              />} />
               <Route path="/perfil" element={<UserProfile />} />
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}
               <Route path="/livros/:id" element={<BookDetails />} />

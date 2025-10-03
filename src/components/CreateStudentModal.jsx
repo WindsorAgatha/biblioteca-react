@@ -1,13 +1,12 @@
 import React from 'react'
 
-function CreateStudentModal() {
+function CreateStudentModal({ blurBg, setBlurBg, isCreateStudentOpen }) {
     return (
-        
-        <div className="mb-6 absolute top-20 bg-slate-500 p-6 shadow flex flex-col rounded">
+        <div className={` ${isCreateStudentOpen ? 'mb-6 absolute top-20 bg-slate-300 p-6 flex flex-col rounded-sm shadow-lg w-80 sm:w-96' : 'hidden'}`}>
             <div className="flex flex-col sm:flex-row justify-center items-center mb-3 gap-2">
                 <h2 className="text-lg font-semibold text-white">Estudante</h2>
             </div>
-            <form  
+            <form
                 onSubmit={e => {
                     e.preventDefault();
 
@@ -63,3 +62,5 @@ function CreateStudentModal() {
 }
 
 export default CreateStudentModal
+
+
