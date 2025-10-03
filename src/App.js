@@ -19,6 +19,7 @@ import WarningModal from './components/WarningModal';
 import NewsBlog from './components/NewsBlog';
 import Classrooms from './components/Classrooms';
 import Calendar from './components/Calendar';
+import CreateStudentModal from './components/CreateStudentModal';
 
 
 
@@ -45,6 +46,7 @@ function App() {
             <WarningModal
               isWarningModalOpen={isWarningModalOpen}
             />
+            <CreateStudentModal />
           </div>
           <BlurBg blurBg={blurBg} >
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
