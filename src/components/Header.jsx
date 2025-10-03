@@ -1,4 +1,4 @@
-import schoolLogo from '../assets/Capturar.png'
+import schoolLogo from '../assets/Biblioteca (2).png'
 import bgImg from '../assets/tijolinhos.jpg'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,9 +20,9 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
         aria-label="Menu móvel"
       >
         <div className="flex items-center justify-between h-[70px]">
-          <Link to={"/"} className="flex items-center min-w-[50px]">
+          <Link to={"/"} className="flex items-center w-full ">
             <img
-              className="h-12 w-12 rounded-full"
+              className="h-[60px] w-[60px] rounded-full object-cover"
               src={schoolLogo}
               alt="Logo da escola"
             />
