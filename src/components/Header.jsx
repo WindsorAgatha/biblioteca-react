@@ -1,4 +1,4 @@
-import schoolLogo from '../assets/Capturar.png'
+import schoolLogo from '../assets/Biblioteca (2).png'
 import bgImg from '../assets/tijolinhos.jpg'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,11 +20,13 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
         aria-label="Menu móvel"
       >
         <div className="flex items-center justify-between h-[70px]">
-          <img
-            className="h-12 w-12 rounded-full"
-            src={schoolLogo}
-            alt="Logo da escola"
-          />
+          <Link to={"/"} className="flex items-center w-full ">
+            <img
+              className="h-[60px] w-[60px] rounded-full object-cover"
+              src={schoolLogo}
+              alt="Logo da escola"
+            />
+          </Link>
           <button
             onClick={() => setMenuOpen(!menuOpen)
             }
@@ -46,13 +48,13 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
           style={{ zIndex: 99 }}
         >
           <li className="px-4 py-2">
-            <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Home</Link>
+            <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={() => setMenuOpen(false)}>Home</Link>
           </li>
           <li className="px-4 py-2">
-            <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Livros</Link>
+            <Link to="/Livros" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={() => setMenuOpen(false)}>Livros</Link>
           </li>
           <li className="px-4 py-2">
-            <Link to="/sugestoes" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={()=> setMenuOpen(false)}>Sugestões dos professores</Link>
+            <Link to="/sugestoes" className="text-white hover:text-blue-300 transition-colors duration-300" onClick={() => setMenuOpen(false)}>Sugestões dos professores</Link>
           </li>
           <li className="px-4 py-2 flex flex-col gap-2">
             <Link to="#"
@@ -76,7 +78,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
           </li>
         </ul>
       </nav>
-      
+
       {/* Menu principal */}
       <nav
         className=" max-sm:hidden flex items-center justify-between w-full h-[120px] bg-[rgba(10,38,71,0.85)] shadow-[0_4px_18px_rgba(10,38,71,0.12)] rounded-b-md px-[30px] top-0 z-10"
@@ -100,6 +102,9 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
             </li>
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
               <Link to="/sugestoes" className="text-white hover:text-blue-300 transition-colors duration-300">Sugestões dos professores</Link>
+            </li>
+            <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
+              <Link to="/calendario" className="text-white hover:text-blue-300 transition-colors duration-300">Calendário</Link>
             </li>
           </ul>
         </div>
