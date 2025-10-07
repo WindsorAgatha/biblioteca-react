@@ -18,6 +18,7 @@ import TeacherSuggestions from './components/TeacherSuggestions';
 import WarningModal from './components/WarningModal';
 import Calendar from './components/Calendar';
 import CreateStudentModal from './components/CreateStudentModal';
+import Student from './components/dashboard/Student';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/administrador" element={<Dashboard />} />
+         
         </Routes>
         <div className=''>
           <CreateBookModal
@@ -53,6 +55,7 @@ function App() {
             <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
             <Routes>
               <Route path="/livros" element={<Books />} />
+               <Route path="/aluno" element={<Student />} />
               <Route path="/" element={<BlogContent />} />
               <Route path="/perfil" element={<UserProfile />} />
               {/* <Route path="/detalhelivro" element={<BookDetails />} /> */}

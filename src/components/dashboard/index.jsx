@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from './Sidebar'
 
 
+
 function Index() {
 
   const [isSideBarOpen, setSideBarOpen] = useState(true)
@@ -9,8 +10,9 @@ function Index() {
 
     return (
         <>
+       
             <Sidebar setSideBarOpen={setSideBarOpen} isSideBarOpen={isSideBarOpen} />
-    
+           
         </>
     )
 }
