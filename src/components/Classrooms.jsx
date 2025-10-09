@@ -91,6 +91,14 @@ function Classes() {
                         </div>
                     </section>
                     {/* Atrividades */}
+                    <div>
+                        {activities.map((activity) => (
+                            <div key={activity.id} className="mb-6 p-4 bg-white rounded-lg shadow">
+                                <h3 className="text-xl font-semibold text-blue-900 mb-2">{activity.name}</h3>
+                                <p className="text-gray-700">{activity.description}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
         </div>
     );
