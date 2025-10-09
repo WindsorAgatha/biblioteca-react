@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import Sidebar from './Sidebar'
+import LiteraryGenre from './LiteraryGenre'
 
 
 
 function Index() {
 
-  const [isSideBarOpen, setSideBarOpen] = useState(true)
+    const [isSideBarOpen, setSideBarOpen] = useState(true)
 
 
     return (
         <>
-       
-            <Sidebar setSideBarOpen={setSideBarOpen} isSideBarOpen={isSideBarOpen} />
-           
+            <div className='flex w-full h-full bg-black'>
+                <Sidebar setSideBarOpen={setSideBarOpen} isSideBarOpen={isSideBarOpen} />
+                <LiteraryGenre />
+            </div>
+
         </>
     )
 }
