@@ -42,7 +42,7 @@ function Sidebar({ isSideBarOpen, setSideBarOpen }) {
         <>
 
             <div className="flex w-full z-50">
-                <nav className={`bg-gray-800 text-white min-h-screen transition-all duration-200 absolute flex flex-col ${isSideBarOpen ? ' p-4 w-2/6 max-sm:w-5/6' : 'w-16 p-0'}`}>
+                <nav className={`bg-gray-800 text-white min-h-screen transition-all duration-200 absolute flex flex-col ${isSideBarOpen ? 'w-2/6 max-sm:h-full max-sm:w-full' : 'w-16 p-0'}`}>
                     {/* Botão fixo na borda direita da navbar, só aparece quando aberta */}
                     {isSideBarOpen && (
                         <button
@@ -80,9 +80,6 @@ function Sidebar({ isSideBarOpen, setSideBarOpen }) {
                         </div>
                     )}
                 </nav>
-            </div>
-            <div>
-                <h1>dscdsc</h1>
             </div>
 
         </>
