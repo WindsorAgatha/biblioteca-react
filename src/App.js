@@ -23,7 +23,7 @@ import Student from './components/dashboard/Student';
 import LiteraryGenre from './components/dashboard/LiteraryGenre';
 
 
-
+import CreateBook from './components/dashboard/CreateBook';
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -41,6 +41,7 @@ function App() {
         <Route path="/genre/*" element={<LiteraryGenre />} />
         <Route path="/aluno/*" element={<Student />} />
       
+      <Route path="/criar-livro/*" element={<CreateBook/>}/>
         {/* App padrão com header/footer */}
         <Route
           path="*"
