@@ -11,9 +11,8 @@ function Index() {
 
     return (
         <>
-            <div className='flex w-full h-full bg-black'>
+            <div className='flex w-full h-full'>
                 <Sidebar setSideBarOpen={setSideBarOpen} isSideBarOpen={isSideBarOpen} />
-                <LiteraryGenre />
             </div>
 
         </>

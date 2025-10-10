@@ -1,3 +1,4 @@
+import CreateBookRecommendation from './components/dashboard/CreateBookRecommendation';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BlogContent from './components/BlogContent';
@@ -10,6 +11,7 @@ import RegisterModal from './components/RegisterModal';
 import CreateBookModal from './components/CreateBookModal';
 import UserProfile from './components/UserProfile';
 import BookDetails from './components/BookDetails';
+import CreateClassroom from './components/dashboard/CreateClassroom';
 import BlurBg from './components/BlurBg';
 import Events from './components/Events';
 import TeacherDashboard from './components/TeacherDashboard';
@@ -21,9 +23,8 @@ import Calendar from './components/Calendar';
 import CreateStudentModal from './components/CreateStudentModal';
 import Student from './components/dashboard/Student';
 import LiteraryGenre from './components/dashboard/LiteraryGenre';
-
-
 import CreateBook from './components/dashboard/CreateBook';
+
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -36,12 +37,13 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        {/* Dashboard isolado */}
+        <Route path="/recomendação-de-livros" element={<CreateBookRecommendation />} />
         <Route path="/administrador/*" element={<Dashboard />} />
         <Route path="/genre/*" element={<LiteraryGenre />} />
+        <Route path="/criar-classes/*" element={< CreateClassroom/>} />
         <Route path="/aluno/*" element={<Student />} />
-      
       <Route path="/criar-livro/*" element={<CreateBook/>}/>
+      
         {/* App padrão com header/footer */}
         <Route
           path="*"
@@ -73,6 +75,7 @@ function App() {
                   <Route path="/classes" element={<Classrooms />} />
                   <Route path="/calendario" element={<Calendar />} />
                   <Route path="/genre" element={<LiteraryGenre />} />
+
                 </Routes>
               </BlurBg>
               <Footer />
