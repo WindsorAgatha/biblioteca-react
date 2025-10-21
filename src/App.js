@@ -22,8 +22,7 @@ import Calendar from './components/Calendar';
 import CreateStudentModal from './components/CreateStudentModal';
 import Student from './components/dashboard/Student';
 import LiteraryGenre from './components/dashboard/LiteraryGenre';
-
-
+import Teacher from './components/dashboard/Teacher';
 
 
 function App() {
@@ -43,6 +42,7 @@ function App() {
         <Route path="/genre/*" element={<LiteraryGenre />} />
         <Route path="/criar-classes/*" element={< CreateClassroom/>} />
         <Route path="/aluno/*" element={<Student />} />
+        <Route path="/professor/*" element={<Teacher/>}/>
       
         {/* App padrão com header/footer */}
         <Route
