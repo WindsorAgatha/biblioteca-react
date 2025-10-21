@@ -1,1 +1,4 @@
 separar sugestões por turma... 
+
+Corrigir relaciomento de tabelas genero literário e livro, pois ao criar um novo livro está havendo a necessidade 
+equivocada de preencher o genero
