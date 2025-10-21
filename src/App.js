@@ -74,7 +74,6 @@ function App() {
                   <Route path="/classes" element={<Classrooms />} />
                   <Route path="/calendario" element={<Calendar />} />
                   <Route path="/genre" element={<LiteraryGenre />} />
-
                 </Routes>
               </BlurBg>
               <Footer />
