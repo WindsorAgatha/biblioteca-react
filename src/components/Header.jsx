@@ -2,6 +2,9 @@ import schoolLogo from '../assets/Biblioteca (2).png'
 import bgImg from '../assets/tijolinhos.jpg'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun } from '@fortawesome/free-solid-svg-icons';
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
 
 function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
@@ -84,16 +87,23 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
         className=" max-sm:hidden flex items-center justify-between w-full h-[120px] bg-[rgba(10,38,71,0.85)] shadow-[0_4px_18px_rgba(10,38,71,0.12)] rounded-b-md px-[30px] top-0 z-10"
         aria-label="Menu principal"
       >
-        <div className="flex items-center min-w-[150px] mr-0">
+        <div className="flex items-center min-w-[150px] mr-0 gap-3">
           <img
             className="h-[95px] w-[95px] rounded-full ml-0"
             src={schoolLogo}
             alt="Logo da escola"
           />
+          <div className='bg-slate-400 w-20 rounded-md flex h-6 justify-between items-center'>
+            <FontAwesomeIcon icon={faMoon} className="text-sky-500" />
+            <button className=' bg-slate-700 h-5 rounded-full w-5'></button>
+            <FontAwesomeIcon icon={faSun} className="text-amber-400" />
+          </div>
+
         </div>
 
         <div className="flex flex-1 justify-center">
           <ul className="flex text-white gap-8 items-center m-0 p-0 list-none">
+
             <li className="flex items-center gap-2 rounded px-[14px] py-[6px] justify-center">
               <Link to="/" className="text-white hover:text-blue-300 transition-colors duration-300">Home</Link>
             </li>
@@ -107,6 +117,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
               <Link to="/calendario" className="text-white hover:text-blue-300 transition-colors duration-300">Calendário</Link>
             </li>
           </ul>
+
         </div>
 
         <div className="flex items-center min-w-[160px] justify-end">
