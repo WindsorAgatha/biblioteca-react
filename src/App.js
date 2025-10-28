@@ -47,6 +47,7 @@ function App() {
         <Route path="/professor/*" element={<Teacher />} />
         <Route path="/criar-evento/*" element={<CreateEvent />} />4
         <Route path="/criar-livro/*" element={<CreateBook />} />
+        <Route path="/estudantes/*" element={<Student />} />
 
 
         {/* App padrão com header/footer */}
