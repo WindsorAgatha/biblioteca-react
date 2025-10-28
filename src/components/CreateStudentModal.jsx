@@ -21,35 +21,35 @@ function CreateStudentModal({ blurBg, setBlurBg, isCreateStudentOpen }) {
                     placeholder="Nome do aluno"
                     className="border rounded px-2 py-2 flex-1"
                     value=""
-                    onChange={""}
+                   
                 />
                 <input
                     type="text"
                     placeholder="CPF"
                     className="border rounded px-2 py-1 flex-1"
                     value=""
-                    onChange={""}
+                
                 />
                 <input
                     type="text"
                     placeholder="Endereço"
                     className="border rounded px-2 py-1 flex-1"
                     value=""
-                    onChange={""}
+                
                 />
                 <input
                     type="text"
                     placeholder="Telefone"
                     className="border rounded px-2 py-1 flex-1"
                     value=""
-                    onChange={""}
+                  
                 />
                 <input
                     type="text"
                     placeholder="URL da imagem"
                     className="border rounded px-2 py-1 flex-1"
                     value=""
-                    onChange={""}
+                  
                 />
                 <button
                     type="submit"

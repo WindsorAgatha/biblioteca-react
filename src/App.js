@@ -35,6 +35,7 @@ function App() {
   const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false)
   const [isCreateStudentOpen, setIsCreateStudentOpen] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   return (
     <HashRouter>
@@ -45,7 +46,7 @@ function App() {
         <Route path="/criar-classes/*" element={< CreateClassroom />} />
         <Route path="/aluno/*" element={<Student />} />
         <Route path="/professor/*" element={<Teacher />} />
-        <Route path="/criar-evento/*" element={<CreateEvent />} />4
+        <Route path="/criar-evento/*" element={<CreateEvent />} />
         <Route path="/criar-livro/*" element={<CreateBook />} />
         <Route path="/estudantes/*" element={<Student />} />
 
@@ -67,11 +68,11 @@ function App() {
                 <CreateStudentModal setBlurBg={setBlurBg} blurBg={blurBg} isCreateStudentOpen={isCreateStudentOpen} />
               </div>
               <BlurBg blurBg={blurBg}>
-                <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} />
+                <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
                 {/* Rotas internas do app */}
                 <Routes>
                   <Route path="/livros" element={<Books />} />
-                  <Route path="/" element={<BlogContent />} />
+                  <Route path="/" element={<BlogContent isDarkMode={isDarkMode} />} />
                   <Route path="/perfil" element={<UserProfile />} />
                   <Route path="/livros/:id" element={<BookDetails />} />
                   <Route path="/eventos" element={<Events />} />
