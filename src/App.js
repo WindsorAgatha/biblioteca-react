@@ -25,7 +25,7 @@ import Student from './components/dashboard/Student';
 import LiteraryGenre from './components/dashboard/LiteraryGenre';
 import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
-
+import CreateEvent from './components/dashboard/CreateEvent';
 
 function App() {
 
@@ -42,12 +42,13 @@ function App() {
         <Route path="/recomendação-de-livros" element={<CreateBookRecommendation />} />
         <Route path="/administrador/*" element={<Dashboard />} />
         <Route path="/genre/*" element={<LiteraryGenre />} />
-        <Route path="/criar-classes/*" element={< CreateClassroom/>} />
+        <Route path="/criar-classes/*" element={< CreateClassroom />} />
         <Route path="/aluno/*" element={<Student />} />
-        <Route path="/professor/*" element={<Teacher/>}/>
-      <Route path="/criar-livro/*" element={<CreateBook/>}/>
+        <Route path="/professor/*" element={<Teacher />} />
+        <Route path="/criar-evento/*" element={<CreateEvent />} />4
+        <Route path="/criar-livro/*" element={<CreateBook />} />
 
-      
+
         {/* App padrão com header/footer */}
         <Route
           path="*"
