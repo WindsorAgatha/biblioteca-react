@@ -1,4 +1,8 @@
+
 import { useState, useEffect } from "react"
+
+import { useEffect, useState } from "react"
+
 import { Link } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import ProfessorImg from "../assets/wander.png"
@@ -22,7 +26,7 @@ const mostRented = [
     { title: "Aventura", img: BookCover3, medal: "bronze" },
 ]
 
-function BlogContent() {
+function BlogContent({ isDarkMode }) {
     const [start, setStart] = useState(0);
     const [noticias, setNoticias] = useState([]);
     const [loadingNoticias, setLoadingNoticias] = useState(true);
@@ -61,6 +65,8 @@ function BlogContent() {
         };
     }, []);
 
+
+
     // SWIPE HANDLERS
     const handlers = useSwipeable({
         onSwipedLeft: () => setStart((prev) => prev + 1 < newBooks.length - 2 ? prev + 1 : prev),
@@ -72,7 +78,8 @@ function BlogContent() {
     const prevSlide = () => setStart((prev) => prev > 0 ? prev - 1 : prev);
 
     return (
-        <main className="bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8 max-md:w-screen">
+        <main className={`bg-gray-50 text-gray-900 min-h-screen px-4 md:px-8 py-6 space-y-8 max-md:w-screen
+        ${isDarkMode ? ' bg-black pointer-events-none' : ''}`}>
 
             {/* Eventos + Desafio do Mês */}
             <section className="flex flex-col md:flex-row gap-4">

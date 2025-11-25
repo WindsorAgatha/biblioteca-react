@@ -7,8 +7,11 @@ import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
 
-function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
+function Header({ setLoginOpen, setRegisterOpen, setBlurBg, setIsDarkMode, isDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+
+
 
   return (
     <header
@@ -95,7 +98,7 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg }) {
           />
           <div className='bg-slate-400 w-20 rounded-md flex h-6 justify-between items-center'>
             <FontAwesomeIcon icon={faMoon} className="text-sky-500" />
-            <button className=' bg-slate-700 h-5 rounded-full w-5'></button>
+            <button onClick={()=>  setIsDarkMode(!isDarkMode)} className={`bg-slate-700 h-5 rounded-full w-5 ${isDarkMode ? 'translate-x-0 ' : ''}`}></button>
             <FontAwesomeIcon icon={faSun} className="text-amber-400" />
           </div>
 
