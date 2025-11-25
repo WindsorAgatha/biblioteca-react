@@ -84,7 +84,7 @@ export default function BookDetails() {
   }
 
   return (
-    <div className="bg-slate-200 rounded-xl shadow-lg p-8 mx-8 my-4 font-serif min-h-[80vh] flex flex-col items-center">
+    <div className="bg-gray-50 rounded-xl shadow-lg p-8 mx-8 my-4 font-serif min-h-[80vh] flex flex-col items-center">
       <div className="flex flex-col md:flex-row gap-8 items-start w-full">
         {livro.imageUrl || livro.imagem ? (
           <img
@@ -93,7 +93,7 @@ export default function BookDetails() {
             className="w-48 h-64 object-cover rounded-lg shadow min-h-[200px]"
           />
         ) : (
-          <div className="w-48 h-64 bg-gray-200 rounded-lg shadow flex items-center justify-center text-gray-400 min-h-[200px]">
+          <div className="w-48 h-64 bg-white rounded-lg shadow flex items-center justify-center text-gray-400 min-h-[200px]">
             Sem imagem
           </div>
         )}

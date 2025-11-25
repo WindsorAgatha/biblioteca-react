@@ -23,7 +23,7 @@ const suggestions = [
 
 export default function TeacherSuggestions() {
   return (
-    <div className="min-h-screen bg-gray-100 py-6 px-2 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-50 py-6 px-2 flex flex-col items-center">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8 text-center border-b-2 border-blue-700 pb-3 w-full max-w-3xl">
         Recomendações de Leitura dos Professores
       </h1>

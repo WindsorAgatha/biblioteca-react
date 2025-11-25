@@ -1,4 +1,8 @@
+
+import { useState, useEffect } from "react"
+
 import { useEffect, useState } from "react"
+
 import { Link } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import ProfessorImg from "../assets/wander.png"
@@ -24,6 +28,42 @@ const mostRented = [
 
 function BlogContent({ isDarkMode }) {
     const [start, setStart] = useState(0);
+    const [noticias, setNoticias] = useState([]);
+    const [loadingNoticias, setLoadingNoticias] = useState(true);
+    const [errorNoticias, setErrorNoticias] = useState(null);
+
+    useEffect(() => {
+        let mounted = true;
+        setLoadingNoticias(true);
+        fetch("http://localhost:5032/api/News")
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                if (!mounted) return;
+                const items = Array.isArray(data)
+                    ? data
+                        .slice()
+                        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                        .slice(0, 3)
+                    : [];
+                setNoticias(items);
+                setErrorNoticias(null);
+            })
+            .catch((err) => {
+                if (!mounted) return;
+                setErrorNoticias(err.message || "Erro ao carregar notícias");
+                setNoticias([]);
+            })
+            .finally(() => {
+                if (!mounted) return;
+                setLoadingNoticias(false);
+            });
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
 
 
@@ -106,6 +146,8 @@ function BlogContent({ isDarkMode }) {
                     <h2 className="text-xl font-bold mb-4 max-md:mb-1 text-center">🏆 Top 3 Mais Alugados</h2>
                     <div className="flex justify-center items-end gap-1 h-60">
                         {/* 2º lugar */}
+                        <div className="flex flex-col items-center max-md:text-sm">
+                            <div className="w-24 h-36 bg-white flex items-center justify-center rounded-t-lg shadow-lg">
                         <div className={`flex flex-col items-center max-md:text-sm`}>
                             <div className={`transition duration-300 w-24 h-36  flex items-center justify-center rounded-t-lg shadow-lg ${isDarkMode ? ' bg-slate-700 ' : 'bg-gray-50'}`}>
                                 <img src={mostRented[1].img} alt={mostRented[1].title} className="w-20 h-32 object-cover rounded" />
