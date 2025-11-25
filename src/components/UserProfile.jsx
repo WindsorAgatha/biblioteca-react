@@ -28,7 +28,7 @@ const user = {
 
 export default function UserProfile() {
     return (
-        <div className="mx-auto max-w-3xl my-10 p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-slate-200  to-slate-800 min-h-[70vh]">
+        <div className="mx-auto max-w-3xl my-10 p-8 rounded-2xl shadow-2xl  bg-gray-50 to-slate-800 min-h-[70vh]">
             {/* Perfil e Atividades */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
                 <div className="flex flex-col items-center md:items-start gap-4">

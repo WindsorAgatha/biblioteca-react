@@ -181,7 +181,7 @@ export default function TeacherDashboard() {
     <div className="max-w-2xl mx-auto p-6 font-serif">
     
       {/* CRUD Sugestões de Livros */}
-      <section className="bg-white rounded-xl shadow p-6">
+      <section className="bg-gray-50 rounded-xl shadow p-6">
         <h2 className="text-2xl font-bold text-green-700 mb-4">Sugestões de Livros</h2>
         <form
           onSubmit={editId ? handleSaveEditSugestao : handleAddSugestao}
@@ -296,7 +296,7 @@ export default function TeacherDashboard() {
             {editId && (
               <button
                 type="button"
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                className="bg-white text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
                 onClick={() => {
                   setNovaSugestao({
                     book: {

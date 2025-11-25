@@ -2,7 +2,7 @@
 
 function LoginModal({ isLoginOpen, setLoginOpen, setBlurBg }) {
     return (
-        <form className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-slate-100 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isLoginOpen ? 'block' : 'none' }} action="login">
+        <form className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-gray-50 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isLoginOpen ? 'block' : 'none' }} action="login">
             <div className='w-full flex justify-end'>
                 <p onClick={e => {
                     e.preventDefault();

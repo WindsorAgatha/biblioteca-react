@@ -39,7 +39,7 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50 py-10">
+    <div className="min-h-screen bg-slate-50 py-10">
       <div className="max-w-4xl mx-auto p-6 font-serif">
         <h1 className="text-3xl font-bold text-blue-900 mb-8 text-center">Eventos da Escola</h1>
         {loading ? (

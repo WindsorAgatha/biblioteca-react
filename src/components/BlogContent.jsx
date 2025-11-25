@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import ProfessorImg from "../assets/wander.png"
@@ -24,6 +24,42 @@ const mostRented = [
 
 function BlogContent() {
     const [start, setStart] = useState(0);
+    const [noticias, setNoticias] = useState([]);
+    const [loadingNoticias, setLoadingNoticias] = useState(true);
+    const [errorNoticias, setErrorNoticias] = useState(null);
+
+    useEffect(() => {
+        let mounted = true;
+        setLoadingNoticias(true);
+        fetch("http://localhost:5032/api/News")
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                if (!mounted) return;
+                const items = Array.isArray(data)
+                    ? data
+                        .slice()
+                        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                        .slice(0, 3)
+                    : [];
+                setNoticias(items);
+                setErrorNoticias(null);
+            })
+            .catch((err) => {
+                if (!mounted) return;
+                setErrorNoticias(err.message || "Erro ao carregar notícias");
+                setNoticias([]);
+            })
+            .finally(() => {
+                if (!mounted) return;
+                setLoadingNoticias(false);
+            });
+        return () => {
+            mounted = false;
+        };
+    }, []);
 
     // SWIPE HANDLERS
     const handlers = useSwipeable({
@@ -42,18 +78,29 @@ function BlogContent() {
             <section className="flex flex-col md:flex-row gap-4">
                 <div className="bg-white rounded-lg shadow p-4 flex-1">
                     <h2 className="text-xl font-bold mb-2">📰 Notícias</h2>
-                    <p className=" text-sm mx-4">
-                        <li>
-                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">Chegando o dia da entrega de boletins 02/10</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">Reunião de pais nesta terça-feira 07/10</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className="text-blue-900 hover:text-blue-700 hover:underline">Palestra sobre a inteligência artifícial 21/11</Link>
-                        </li>
-
-                    </p>
+                    <div className="text-sm mx-4">
+                        {loadingNoticias && <div className="text-gray-500">Carregando notícias...</div>}
+                        {!loadingNoticias && errorNoticias && (
+                            <div className="text-red-600">{errorNoticias}</div>
+                        )}
+                        {!loadingNoticias && !errorNoticias && noticias.length === 0 && (
+                            <div className="text-gray-600">Nenhuma notícia encontrada.</div>
+                        )}
+                        {!loadingNoticias && !errorNoticias && noticias.length > 0 && (
+                            <ul className="space-y-1">
+                                {noticias.map((n) => (
+                                    <li key={n.id}>
+                                        <Link
+                                            to={`/noticias/${n.id}`}
+                                            className="text-blue-900 hover:text-blue-700 hover:underline"
+                                        >
+                                            {n.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
                 <div className="bg-white rounded-lg shadow p-4 flex-1">
                     <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
@@ -101,21 +148,21 @@ function BlogContent() {
                     <div className="flex justify-center items-end gap-1 h-60">
                         {/* 2º lugar */}
                         <div className="flex flex-col items-center max-md:text-sm">
-                            <div className="w-24 h-36 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                            <div className="w-24 h-36 bg-white flex items-center justify-center rounded-t-lg shadow-lg">
                                 <img src={mostRented[1].img} alt={mostRented[1].title} className="w-20 h-32 object-cover rounded" />
                             </div>
                             <span className="mt-2 max-md:text-sm text-gray-700 font-bold text-lg">🥉 {mostRented[1].title}</span>
                         </div>
                         {/* 1º lugar */}
                         <div className="flex flex-col items-center">
-                            <div className="w-28 h-44  bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                            <div className="w-28 h-44  bg-white flex items-center justify-center rounded-t-lg shadow-lg">
                                 <img src={mostRented[0].img} alt={mostRented[0].title} className="w-24 h-36 object-cover rounded" />
                             </div>
                             <span className="mt-2 max-md:text-sm text-gray-700 font-bold text-xl">🥇 {mostRented[0].title}</span>
                         </div>
                         {/* 3º lugar */}
                         <div className="flex flex-col items-center">
-                            <div className="w-24 h-36 bg-gray-200 flex items-center justify-center rounded-t-lg shadow-lg">
+                            <div className="w-24 h-36 bg-white flex items-center justify-center rounded-t-lg shadow-lg">
                                 <img src={mostRented[2].img} alt={mostRented[2].title} className="w-20 h-32 object-cover rounded" />
                             </div>
                             <span className="mt-2 max-md:text-sm text-gray-700 font-bold text-lg">🥈 {mostRented[2].title}</span>
