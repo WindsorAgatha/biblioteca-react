@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Livros() {
+function Livros(isDarkMode) {
     const [search, setSearch] = useState('');
     const [livros, setLivros] = useState([]);
     const [loading, setLoading] = useState(true);
