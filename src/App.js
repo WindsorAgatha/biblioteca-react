@@ -26,6 +26,7 @@ import LiteraryGenre from './components/dashboard/LiteraryGenre';
 import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
 import CreateEvent from './components/dashboard/CreateEvent';
+import Actives from './components/dashboard/Actives';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/criar-evento/*" element={<CreateEvent />} />
         <Route path="/criar-livro/*" element={<CreateBook />} />
         <Route path="/estudantes/*" element={<Student />} />
+        <Route path='/atividades/*' element={<Actives/>}/>
 
 
         {/* App padrão com header/footer */}
