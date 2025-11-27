@@ -64,8 +64,8 @@ function App() {
                 setBlurBg={setBlurBg}
               />
               <div className='w-full flex justify-center'>
-                <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} />
-                <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} />
+                <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} isDarkMode={isDarkMode} />
+                <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} isDarkMode={isDarkMode} />
                 <WarningModal isWarningModalOpen={isWarningModalOpen} />
                 <CreateStudentModal setBlurBg={setBlurBg} blurBg={blurBg} isCreateStudentOpen={isCreateStudentOpen} />
               </div>
