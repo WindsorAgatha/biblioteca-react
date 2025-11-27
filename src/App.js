@@ -73,7 +73,7 @@ function App() {
                 <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
                 {/* Rotas internas do app */}
                 <Routes>
-                  <Route path="/livros" element={<Books isDarkMode={isDarkMode}/>} />
+                  <Route path="/livros" element={<Books />} />
                   <Route path="/" element={<BlogContent isDarkMode={isDarkMode} />} />
                   <Route path="/perfil" element={<UserProfile />} />
                   <Route path="/livros/:id" element={<BookDetails />} />
