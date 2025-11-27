@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NewsBlog() {
+  const navigate = useNavigate();
   const [noticias, setNoticias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +18,6 @@ export default function NewsBlog() {
       })
       .then((data) => {
         if (!mounted) return;
-        // ordenar por publishedAt (mais recentes primeiro) e manter apenas 3
         const items = Array.isArray(data)
           ? data
               .slice()
@@ -71,7 +72,16 @@ export default function NewsBlog() {
         {noticias.map((n) => (
           <article
             key={n.id}
-            className="bg-white rounded-lg shadow overflow-hidden flex flex-col md:flex-row"
+            role="button"
+            tabIndex={0}
+            onClick={() => navigate(`/noticias/${n.id}`)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(`/noticias/${n.id}`);
+              }
+            }}
+            className="bg-white rounded-lg shadow overflow-hidden flex flex-col md:flex-row cursor-pointer"
           >
             <div className="w-full md:w-44 h-48 bg-gray-100 flex-shrink-0">
               <img
@@ -83,15 +93,28 @@ export default function NewsBlog() {
 
             <div className="p-4 flex-1 flex flex-col justify-between">
               <header>
-                <button
-                  type="button"
-                  onClick={() => setExpandedId(expandedId === n.id ? null : n.id)}
-                  className="text-left w-full"
-                >
-                  <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-700">
-                    {n.title}
-                  </h2>
-                </button>
+                <div className="text-left w-full">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setExpandedId(expandedId === n.id ? null : n.id);
+                    }}
+                    className="w-full text-left"
+                  >
+                    <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-700">
+                      {n.title}
+                    </h2>
+                  </button>
+                  {/* link para a página de detalhe — evita propagação para não duplicar navegação */}
+                  <Link
+                    to={`/noticias/${n.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-sm text-gray-600 hover:underline"
+                  >
+                    Abrir página da notícia
+                  </Link>
+                </div>
                 <div className="text-sm text-gray-500 mt-1">
                   {formatDate(n.publishedAt)} {n.authorName ? `· ${n.authorName}` : ""}
                 </div>
@@ -106,19 +129,18 @@ export default function NewsBlog() {
                         href={`http://localhost:5032/api/News/${n.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="text-sm text-blue-600 hover:underline"
                       >
                         Ver fonte (API)
                       </a>
-                      <a
-                        href={`/noticias/${n.id}`}
+                      <Link
+                        to={`/noticias/${n.id}`}
+                        onClick={(e) => e.stopPropagation()}
                         className="text-sm text-gray-600 hover:underline"
-                        onClick={(e) => {
-                          /* placeholder for future route handling */
-                        }}
                       >
                         Abrir página da notícia
-                      </a>
+                      </Link>
                     </div>
                   </>
                 ) : (
