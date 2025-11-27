@@ -1,108 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-function Classes() {
-    const [classes, setClasses] = useState([]);
-    const [loading, setLoading] = useState(false);
+export default function Classrooms() {
+  const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const elementarySchool = [
-        {
-            id: 1,
-            name: 601
-        },
-        {
-            id: 2,
-            name: 602
-        },
-        {
-            id: 3,
-            name: 701
-        },
-        {
-            id: 4,
-            name: 702
-        },
-        {
-            id: 5,
-            name: 801
-        },
-        {
-            id: 6,
-            name: 802
-        },
-        {
-            id: 7,
-            name: 901
-        },
-        {
-            id: 8,
-            name: 902
-        },
+  useEffect(() => {
+    let mounted = true;
+    const controller = new AbortController();
 
-    ]
+    async function load() {
+      try {
+        setLoading(true);
+        const res = await fetch("http://localhost:5032/api/Classroom", {
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`Servidor retornou ${res.status}`);
+        const data = await res.json();
+        if (mounted) setClasses(data ?? []);
+      } catch (err) {
+        if (mounted) setError(err.message || "Erro desconhecido");
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
 
-    const highSchool = [
-        {
-            id: 9,
-            name: 101
-        },
-        {
-            id: 20,
-            name: 201
-        },
-        {
-            id: 30,
-            name: 301
-        },
-        {
-            id: 9,
-            name: 102
-        },
-        {
-            id: 20,
-            name: 202
-        },
-        {
-            id: 30,
-            name: 302
-        },
+    load();
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
+  }, []);
 
-    ]
+  return (
+    <div className="min-h-screen p-6 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        <header className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800">Turmas</h1>
+          <p className="text-sm text-gray-500">{classes.length} turmas</p>
+        </header>
 
-    // criar um array de objetos com os nomes das atividades, ids e descrições
-    const activities = [
-        {
-            id: 1,
-            name: 'Atividade 1',
-            description: 'Descrição da atividade 1'
-        },]
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="animate-pulse bg-white rounded-lg h-28" />
+            ))}
+          </div>
+        )}
 
-    return (
-        <div className="p-8 bg-gray-50 min-h-screen">
-                <div>
-                    <section className="genre-container mb-10 bg-white" aria-label="Gêneros">
-                        <div className="genre-grid max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
-                            <h2 className="genre-title text-blue-900 text-2xl font-bold mb-4 text-center">Gêneros Literários</h2>
-                            <div className="genre-boxes grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-                                {elementarySchool.map((elementary) => (
-                                    <Link to="#" key={elementary.id} className="genre-box bg-white hover:bg-blue-200 text-blue-900 font-medium rounded-lg px-4 py-2 text-center shadow transition flex items-center justify-center">{elementary.name}</Link>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-                    {/* Atrividades */}
-                    <div>
-                        {activities.map((activity) => (
-                            <div key={activity.id} className="mb-6 p-4 bg-white rounded-lg shadow">
-                                <h3 className="text-xl font-semibold text-blue-900 mb-2">{activity.name}</h3>
-                                <p className="text-gray-700">{activity.description}</p>
-                            </div>
-                        ))}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            Erro ao carregar turmas: {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {classes.map((c) => (
+              <Link
+                key={c.id}
+                to={`/classes/${c.id}`}
+                className="block bg-white rounded-lg p-4 shadow hover:shadow-lg transform hover:-translate-y-1 transition"
+                aria-label={`Abrir detalhes da turma ${c.description ?? c.description}`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-sky-100 text-sky-700 rounded-md flex items-center justify-center font-semibold">
+                    {String(c.id)}
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-lg font-semibold text-gray-800 truncate">
+                      {c.description ?? "Sem descrição"}
                     </div>
+                    <div className="text-sm text-gray-500 mt-1">{c.shift ?? "Turno não informado"}</div>
+                  </div>
                 </div>
-        </div>
-    );
-
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
-
-export default Classes;
