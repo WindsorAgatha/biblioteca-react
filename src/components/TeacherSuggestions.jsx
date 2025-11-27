@@ -21,10 +21,10 @@ const suggestions = [
   },
 ];
 
-export default function TeacherSuggestions() {
+export default function TeacherSuggestions({isDarkMode}) {
   return (
-    <div className="min-h-screen bg-gray-50 py-6 px-2 flex flex-col items-center">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-8 text-center border-b-2 border-blue-700 pb-3 w-full max-w-3xl">
+    <div className={`min-h-screen py-6 px-2 flex flex-col items-center transition duration-300 ${isDarkMode ? 'bg-slate-900' : 'bg-gray-50'}`}>
+      <h1 className={`text-2xl md:text-3xl font-bold  mb-6 md:mb-8 text-center border-b-2 border-blue-700 pb-3 w-full max-w-3xl transition duration-300 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
         Recomendações de Leitura dos Professores
       </h1>
       <div className="w-full max-w-6xl">
@@ -47,9 +47,9 @@ export default function TeacherSuggestions() {
         </div>
         <div className="hidden md:block">
           {/* Desktop table */}
-          <table className="w-full bg-white rounded-lg shadow border border-gray-200">
+          <table className={`w-full  rounded-lg shadow border transition duration-300  ${isDarkMode ? 'bg-slate-200 text-white' : 'bg-white text-gray-800'}`}>
             <thead>
-              <tr className="bg-blue-900 text-white">
+            <tr className={` transition duration-300 ${isDarkMode ? 'bg-blue-950' : 'bg-blue-900'}`}>
                 <th className="py-3 px-2 font-semibold text-left rounded-tl-lg">Professor</th>
                 <th className="py-3 px-2 font-semibold text-left">Livro</th>
                 <th className="py-3 px-2 font-semibold text-left rounded-tr-lg">Descrição</th>
@@ -75,7 +75,7 @@ export default function TeacherSuggestions() {
         </div>
       </div>
       <div className="mt-8 md:mt-10 text-center">
-        <p className="text-base text-gray-700">
+          <p className={`text-base transition duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
           Para enviar uma sugestão, entre em contato com a equipe pedagógica.
         </p>
       </div>

@@ -79,7 +79,7 @@ function App() {
                   <Route path="/livros/:id" element={<BookDetails />} />
                   <Route path="/eventos" element={<Events />} />
                   <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
-                  <Route path="/sugestoes" element={<TeacherSuggestions />} />
+                  <Route path="/sugestoes" element={<TeacherSuggestions isDarkMode={isDarkMode} />} />
                   <Route path="/noticias" element={<NewsBlog />} />
                   <Route path="/classes" element={<Classrooms />} />
                   <Route path="/calendario" element={<Calendar />} />
