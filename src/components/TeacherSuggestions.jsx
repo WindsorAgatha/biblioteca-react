@@ -47,7 +47,7 @@ export default function TeacherSuggestions({isDarkMode}) {
         </div>
         <div className="hidden md:block">
           {/* Desktop table */}
-          <table className={`w-full  rounded-lg shadow border transition duration-300  ${isDarkMode ? 'bg-slate-200 text-white' : 'bg-white text-gray-800'}`}>
+          <table className={`w-full  rounded-lg shadow border transition duration-300  ${isDarkMode ? 'bg-slate-200 text-white' : 'bg-white text-white'}`}>
             <thead>
             <tr className={` transition duration-300 ${isDarkMode ? 'bg-blue-950' : 'bg-blue-900'}`}>
                 <th className="py-3 px-2 font-semibold text-left rounded-tl-lg">Professor</th>
