@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Books() {
+export default function Books({isDarkMode}) {
   const [books, setBooks] = useState([]);
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(""); // "" = todos
@@ -50,12 +50,12 @@ export default function Books() {
   if (error) return <main className="min-h-screen p-6 text-red-600">Erro: {error}</main>;
 
   return (
-    <main className="min-h-screen p-6 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+    <main className={`min-h-screen p-6 transition-colors duration-200 ${isDarkMode ? 'bg-slate-900' : 'bg-gray-50'}`}>
       <div className="max-w-6xl mx-auto">
         <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Catálogo de Livros</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Filtre por gênero ou busque por título/autor.</p>
+            <h1 className={`text-2xl font-bold transition duration-300  ${isDarkMode ? 'text-gray-100':'text-gray-800'}`}>Catálogo de Livros</h1>
+            <p className={`text-sm transition duration-300 ${isDarkMode? 'text-gray-300': 'text-gray-600'}`}>Filtre por gênero ou busque por título/autor.</p>
           </div>
 
           <div className="flex gap-3 w-full sm:w-auto">
@@ -64,13 +64,13 @@ export default function Books() {
               placeholder="Buscar por título ou autor..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 sm:flex-none px-3 py-2 rounded-lg border bg-white dark:bg-slate-800 dark:border-slate-700 text-sm outline-none"
+              className={`flex-1 sm:flex-none px-3 py-2 rounded-lg border text-sm outline-none transition duration-300 ${isDarkMode ? 'text-gray-100 bg-slate-700 border-slate-600' : 'text-gray-800 bg-white border-gray-300'}`}
             />
 
             <select
               value={selectedGenre}
               onChange={(e) => setSelectedGenre(e.target.value)}
-              className="px-3 py-2 rounded-lg border bg-white dark:bg-slate-800 dark:border-slate-700 text-sm outline-none"
+              className={`px-3 py-2 rounded-lg border text-sm outline-none transition duration-300 ${isDarkMode ? 'text-gray-100 bg-slate-700 border-slate-600' : 'text-gray-800 bg-white border-gray-300'}`}
             >
               <option value="">Todos os gêneros</option>
               {genres.map((g) => (
@@ -84,26 +84,25 @@ export default function Books() {
 
         <section>
           {filtered.length === 0 ? (
-            <div className="text-gray-600 dark:text-gray-300">Nenhum livro encontrado.</div>
+            <div className={`  ${isDarkMode? 'text-gray-300': 'text-gray-600'}`}>Nenhum livro encontrado.</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filtered.map((book) => (
                 <article
                   key={book.id}
-                  className="bg-white dark:bg-slate-800 rounded-lg shadow p-4 flex flex-col justify-between transition-colors duration-200"
+                  className={`rounded-lg shadow p-4 flex flex-col justify-between transition-colors duration-200  ${isDarkMode ? 'text-gray-200 bg-slate-800' : 'text-gray-800 bg-white'}`}
                 >
                   <div>
-                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">{book.title}</h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{book.author}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">ISBN: {book.isbn || "—"}</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-200">
+                    <h2 className={`text-lg font-semibold mb-1 transition duration-300 ${isDarkMode?'text-gray-100' : 'text-gray-800'}`}>{book.title}</h2>
+                    <p className={`text-sm mb-2 transition duration-300 ${isDarkMode? 'text-gray-300' : 'text-gray-600'}`}>{book.author}</p>
+                    <p className={`text-xs mb-3 transition duration-300 ${isDarkMode? 'text-gray-400' : 'text-gray-500'}`}>ISBN: {book.isbn || "—"}</p>
+                    <p className={`text-sm mb-3 transition duration-300 ${isDarkMode? 'text-gray-300' : 'text-gray-600'}`}>
                       Gênero: <span className="font-medium">{book.literaryGenreName ?? "—"}</span>
                     </p>
                   </div>
 
                   <div className="mt-4 flex items-center justify-between">
-                    <div className="text-sm text-gray-700 dark:text-gray-200">
-                      <div>Quantidade: <span className="font-semibold">{book.quantity ?? 0}</span></div>
+                    <div className={`text-sm  mb-3 transition duration-300 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
                       <div>Disponíveis: <span className="font-semibold">{book.availableCopies ?? 0}</span></div>
                     </div>
                     <Link
