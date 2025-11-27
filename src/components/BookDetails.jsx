@@ -18,7 +18,7 @@ export default function BookDetails() {
   useEffect(() => {
     setLoading(true);
     setNotFound(false);
-    fetch(`http://localhost:5287/api/Book/${id}`)
+    fetch(`http://localhost:5032/api/Book/${id}`)
       .then(async (res) => {
         if (!res.ok) {
           setNotFound(true);
