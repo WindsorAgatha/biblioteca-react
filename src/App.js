@@ -27,6 +27,7 @@ import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
 import CreateEvent from './components/dashboard/CreateEvent';
 import Actives from './components/dashboard/Actives';
+import TeacherDetails from './components/TeacherDetails';
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
         <Route path="/genre/*" element={<LiteraryGenre />} />
         <Route path="/criar-classes/*" element={< CreateClassroom />} />
         <Route path="/aluno/*" element={<Student />} />
-        <Route path="/professor/*" element={<Teacher />} />
+        <Route path="/professor/" element={<Teacher />} />
         <Route path="/criar-evento/*" element={<CreateEvent />} />
         <Route path="/criar-livro/*" element={<CreateBook />} />
         <Route path="/estudantes/*" element={<Student />} />
@@ -77,6 +78,7 @@ function App() {
                   <Route path="/" element={<BlogContent isDarkMode={isDarkMode} />} />
                   <Route path="/perfil" element={<UserProfile />} />
                   <Route path="/livros/:id" element={<BookDetails />} />
+                  <Route path="/professor/:id" element={<TeacherDetails />} />
                   <Route path="/eventos" element={<Events />} />
                   <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
                   <Route path="/sugestoes" element={<TeacherSuggestions />} />
