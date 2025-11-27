@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Books() {
   const [books, setBooks] = useState([]);
@@ -105,9 +106,12 @@ export default function Books() {
                       <div>Quantidade: <span className="font-semibold">{book.quantity ?? 0}</span></div>
                       <div>Disponíveis: <span className="font-semibold">{book.availableCopies ?? 0}</span></div>
                     </div>
-                    <button className="px-3 py-1 rounded bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
+                    <Link
+                      to={`/livros/${book.id}`}
+                      className="px-3 py-1 rounded bg-blue-600 text-white text-sm hover:bg-blue-700 transition inline-block text-center"
+                    >
                       Ver
-                    </button>
+                    </Link>
                   </div>
                 </article>
               ))}
