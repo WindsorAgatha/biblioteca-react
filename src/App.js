@@ -31,6 +31,7 @@ import Actives from './components/dashboard/Actives';
 import TeacherDetails from './components/TeacherDetails';
 
 import ClassroomDetails from './components/ClassroomDetails';
+import NewsDetails from './components/NewsDetails';
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
                   <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
                   <Route path="/sugestoes" element={<TeacherSuggestions isDarkMode={isDarkMode} />} />
                   <Route path="/noticias" element={<NewsBlog />} />
+                  <Route path="/noticias/:id" element={<NewsDetails />} />
                   <Route path="/classes" element={<Classrooms />} />
                   <Route path="/classes/:id" element={<ClassroomDetails />} />
                   <Route path="/calendario" element={<Calendar />} />
