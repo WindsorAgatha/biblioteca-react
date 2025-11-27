@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import ProfessorImg from "../assets/wander.png"
@@ -25,6 +25,45 @@ const mostRented = [
 function BlogContent({ isDarkMode }) {
     const [start, setStart] = useState(0);
 
+    const [noticias, setNoticias] = useState([]);
+    const [loadingNoticias, setLoadingNoticias] = useState(true);
+    const [errorNoticias, setErrorNoticias] = useState(null);
+
+    useEffect(() => {
+        let mounted = true;
+        setLoadingNoticias(true);
+        setErrorNoticias(null);
+
+        fetch("http://localhost:5032/api/News")
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then((data) => {
+                if (!mounted) return;
+                const items = Array.isArray(data)
+                    ? data
+                        .slice()
+                        .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+                        .slice(0, 3)
+                    : [];
+                setNoticias(items);
+            })
+            .catch((err) => {
+                if (!mounted) return;
+                setErrorNoticias(err.message || "Erro ao carregar notícias");
+                setNoticias([]);
+            })
+            .finally(() => {
+                if (!mounted) return;
+                setLoadingNoticias(false);
+            });
+
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
     // SWIPE HANDLERS
     const handlers = useSwipeable({
         onSwipedLeft: () => setStart((prev) => prev + 1 < newBooks.length - 2 ? prev + 1 : prev),
@@ -43,17 +82,29 @@ function BlogContent({ isDarkMode }) {
             <section className="flex flex-col md:flex-row gap-4">
                 <div className={`transition duration-300 rounded-lg shadow p-4 flex-1 ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
                     <h2 className="text-xl font-bold mb-2">📰 Notícias</h2>
-                    <p className="text-sm mx-4">
-                        <li>
-                            <Link to="#" className={`hover:underline ${isDarkMode ? 'text-blue-300 hover:text-blue-400' : 'text-blue-900 hover:text-blue-700'}`}>Chegando o dia da entrega de boletins 02/10</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className={`hover:underline ${isDarkMode ? 'text-blue-300 hover:text-blue-400' : 'text-blue-900 hover:text-blue-700'}`}>Reunião de pais nesta terça-feira 07/10</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className={`hover:underline ${isDarkMode ? 'text-blue-300 hover:text-blue-400' : 'text-blue-900 hover:text-blue-700'}`}>Palestra sobre a inteligência artificial 21/11</Link>
-                        </li>
-                    </p>
+                    <div className="text-sm mx-4">
+                        {loadingNoticias && <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Carregando notícias...</div>}
+                        {!loadingNoticias && errorNoticias && (
+                            <div className="text-red-600">Erro: {errorNoticias}</div>
+                        )}
+                        {!loadingNoticias && !errorNoticias && noticias.length === 0 && (
+                            <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Nenhuma notícia encontrada.</div>
+                        )}
+                        {!loadingNoticias && !errorNoticias && noticias.length > 0 && (
+                            <ul className="space-y-1">
+                                {noticias.map((n) => (
+                                    <li key={n.id}>
+                                        <Link
+                                            to="/noticias"
+                                            className={`hover:underline ${isDarkMode ? 'text-blue-300 hover:text-blue-400' : 'text-blue-900 hover:text-blue-700'}`}
+                                        >
+                                            {n.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
                 <div className={`transition duration-300 rounded-lg shadow p-4 flex-1 ${isDarkMode ? 'bg-slate-800' : 'bg-white'}`}>
                     <h2 className="text-xl font-bold mb-2">📅 Próximos Eventos</h2>
