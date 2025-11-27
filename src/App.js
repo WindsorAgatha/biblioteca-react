@@ -81,7 +81,7 @@ function App() {
                   <Route path="/livros" element={<Books isDarkMode={isDarkMode}/>} />
                   <Route path="/" element={<BlogContent isDarkMode={isDarkMode} />} />
                   <Route path="/perfil" element={<UserProfile />} />
-                  <Route path="/livros/:id" element={<BookDetails />} />
+                  <Route path="/livros/:id" element={<BookDetails isDarkMode={isDarkMode} />} />
                   <Route path="/professor/:id" element={<TeacherDetails />} />
                   <Route path="/eventos" element={<Events />} />
                   <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
