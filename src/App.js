@@ -31,7 +31,7 @@ import Actives from './components/dashboard/Actives';
 import TeacherDetails from './components/TeacherDetails';
 
 import ClassroomDetails from './components/ClassroomDetails';
-
+import EventDetails from './components/EventDetails';
 
 function App() {
 
@@ -78,12 +78,13 @@ function App() {
                 <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
                 {/* Rotas internas do app */}
                 <Routes>
-                  <Route path="/livros" element={<Books isDarkMode={isDarkMode}/>} />
+                  <Route path="/livros" element={<Books isDarkMode={isDarkMode} />} />
                   <Route path="/" element={<BlogContent isDarkMode={isDarkMode} />} />
                   <Route path="/perfil" element={<UserProfile />} />
                   <Route path="/livros/:id" element={<BookDetails />} />
                   <Route path="/professor/:id" element={<TeacherDetails />} />
                   <Route path="/eventos" element={<Events />} />
+                  <Route path="/eventos/:id" element={<EventDetails />} />
                   <Route path="/criar-sugestoes" element={<TeacherDashboard />} />
                   <Route path="/sugestoes" element={<TeacherSuggestions isDarkMode={isDarkMode} />} />
                   <Route path="/noticias" element={<NewsBlog />} />
