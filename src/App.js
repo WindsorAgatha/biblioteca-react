@@ -27,6 +27,7 @@ import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
 import CreateEvent from './components/dashboard/CreateEvent';
 import Actives from './components/dashboard/Actives';
+import ClassroomDetails from './components/ClassroomDetails';
 
 function App() {
 
@@ -50,7 +51,7 @@ function App() {
         <Route path="/criar-evento/*" element={<CreateEvent />} />
         <Route path="/criar-livro/*" element={<CreateBook />} />
         <Route path="/estudantes/*" element={<Student />} />
-        <Route path='/atividades/*' element={<Actives/>}/>
+        <Route path='/atividades/*' element={<Actives />} />
 
 
         {/* App padrão com header/footer */}
@@ -70,7 +71,7 @@ function App() {
                 <CreateStudentModal setBlurBg={setBlurBg} blurBg={blurBg} isCreateStudentOpen={isCreateStudentOpen} />
               </div>
               <BlurBg blurBg={blurBg}>
-                <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode}/>
+                <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
                 {/* Rotas internas do app */}
                 <Routes>
                   <Route path="/livros" element={<Books isDarkMode={isDarkMode}/>} />
@@ -82,6 +83,7 @@ function App() {
                   <Route path="/sugestoes" element={<TeacherSuggestions isDarkMode={isDarkMode} />} />
                   <Route path="/noticias" element={<NewsBlog />} />
                   <Route path="/classes" element={<Classrooms />} />
+                  <Route path="/classes/:id" element={<ClassroomDetails />} />
                   <Route path="/calendario" element={<Calendar />} />
                   <Route path="/genre" element={<LiteraryGenre />} />
                 </Routes>
