@@ -96,9 +96,9 @@ function Header({ setLoginOpen, setRegisterOpen, setBlurBg, setIsDarkMode, isDar
             src={schoolLogo}
             alt="Logo da escola"
           />
-          <div className='bg-slate-400 w-20 rounded-md flex h-6 justify-between items-center'>
+          <div onClick={()=>  setIsDarkMode(!isDarkMode)} className='bg-slate-400 w-16 rounded-md flex h-6 justify-between items-center relative p-1 cursor-pointer'>
             <FontAwesomeIcon icon={faMoon} className="text-sky-500" />
-            <button onClick={()=>  setIsDarkMode(!isDarkMode)} className={`bg-slate-700 h-5 rounded-full w-5 ${isDarkMode ? 'translate-x-0 ' : ''}`}></button>
+            <button className={`bg-slate-700 h-5 rounded-full w-5 absolute transition 300s ${isDarkMode ? 'translate-x-0 ' : 'translate-x-9'}`}></button>
             <FontAwesomeIcon icon={faSun} className="text-amber-400" />
           </div>
 

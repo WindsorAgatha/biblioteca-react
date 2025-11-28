@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function BookDetails() {
+export default function BookDetails({ isDarkMode }) {
   const { id } = useParams();
   const [livro, setLivro] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ export default function BookDetails() {
   useEffect(() => {
     setLoading(true);
     setNotFound(false);
-    fetch(`http://localhost:5287/api/Book/${id}`)
+    fetch(`http://localhost:5032/api/Book/${id}`)
       .then(async (res) => {
         if (!res.ok) {
           setNotFound(true);
@@ -84,58 +84,102 @@ export default function BookDetails() {
   }
 
   return (
-    <div className="bg-slate-200 rounded-xl shadow-lg p-8 mx-8 my-4 font-serif min-h-[80vh] flex flex-col items-center">
-      <div className="flex flex-col md:flex-row gap-8 items-start w-full">
-        {livro.imageUrl || livro.imagem ? (
-          <img
-            src={livro.imageUrl || livro.imagem}
-            alt={livro.title}
-            className="w-48 h-64 object-cover rounded-lg shadow min-h-[200px]"
-          />
-        ) : (
-          <div className="w-48 h-64 bg-gray-200 rounded-lg shadow flex items-center justify-center text-gray-400 min-h-[200px]">
-            Sem imagem
+    <div className={`${isDarkMode ? 'bg-slate-900' : 'bg-gray-100'}`}>
+      <div className={`shadow-lg p-8 W- font-serif min-h-[80vh] flex flex-col items-center transition duration-300 ${isDarkMode ? 'bg-slate-800' : 'bg-gray-50'}`}>
+        <div className="flex flex-col md:flex-row gap-8 items-start w-full">
+          {livro.imageUrl || livro.imagem ? (
+            <img
+              src={livro.imageUrl || livro.imagem}
+              alt={livro.title}
+              className="w-48 h-64 object-cover rounded-lg shadow min-h-[200px]"
+            />
+          ) : (
+            <div className={`w-48 h-64 rounded-lg shadow flex items-center justify-center min-h-[200px] transition duration-300 ${isDarkMode ? 'bg-slate-700 text-gray-500' : 'bg-white text-gray-400'}`}>
+              Sem imagem
+            </div>
+          )}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2">
+              <h1 className={`text-3xl font-bold  ${isDarkMode? 'text-gray-200':'text-gray-800'}`}>{livro.title}</h1>
+              <button
+                onClick={() => setFavorito(!favorito)}
+                className="text-yellow-400 text-2xl focus:outline-none"
+                title={favorito ? "Desfavoritar" : "Favoritar"}
+              >
+                {favorito ? '★' : '☆'}
+              </button>
+            </div>
+            <p className={`text-lg mb-1  ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Autor: <span className="font-semibold">{livro.authors?.join(', ') || 'Desconhecido'}</span>
+            </p>
+            <p className={`text-md mb-1 transition duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              Páginas: {livro.pages || livro.paginas || 'N/A'}
+            </p>
+            <p className={`text-md mb-4 transition duration-300 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              Gênero: {livro.literaryGenre?.name || 'N/A'}
+            </p>
+            <div className="mb-4">
+              <h2 className={`text-lg font-semibold  mb-1 ${isDarkMode? 'text-gray-400':'text-gray-700'}`}>Descrição</h2>
+              <p className={`${isDarkMode? 'text-gray-400':'text-gray-700'}`}>{livro.summary || livro.descricao || 'Sem descrição.'}</p>
+            </div>
+            <div>
+              <h2 className={`text-lg font-semibold mb-1 ${isDarkMode? 'text-gray-400':'text-gray-700'}`}>Avaliação dos Usuários</h2>
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <button
+                    key={num}
+                    onClick={() => setAvaliacao(num)}
+                    className="focus:outline-none"
+                    title={`Avaliar com ${num} estrela${num > 1 ? 's' : ''}`}
+                  >
+                    <span
+                      className={
+                        num <= avaliacao
+                          ? 'text-yellow-400 text-2xl'
+                          : 'text-gray-300 text-2xl'
+                      }
+                    >
+                      ★
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-        )}
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-2">
-            <h1 className="text-3xl font-bold text-gray-800">{livro.title}</h1>
-            <button
-              onClick={() => setFavorito(!favorito)}
-              className="text-yellow-400 text-2xl focus:outline-none"
-              title={favorito ? "Desfavoritar" : "Favoritar"}
-            >
-              {favorito ? '★' : '☆'}
-            </button>
-          </div>
-          <p className="text-lg text-gray-600 mb-1">
-            Autor: <span className="font-semibold">{livro.authors?.join(', ') || 'Desconhecido'}</span>
-          </p>
-          <p className="text-md text-gray-500 mb-1">
-            Páginas: {livro.pages || livro.paginas || 'N/A'}
-          </p>
-          <p className="text-md text-gray-500 mb-4">
-            Gênero: {livro.literaryGenre?.name || 'N/A'}
-          </p>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold text-gray-700 mb-1">Descrição</h2>
-            <p className="text-gray-700">{livro.summary || livro.descricao || 'Sem descrição.'}</p>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-700 mb-1">Avaliação dos Usuários</h2>
-            <div className="flex items-center gap-1">
+        </div>
+        {/* Comentários dos usuários */}
+        <div className="w-full mt-10">
+          <h2 className={`text-xl font-bold  mb-4 ${isDarkMode? 'text-gray-400':'text-gray-800'}`}>Comentários dos Usuários</h2>
+          <form
+            onSubmit={handleAddComentario}
+            className={` rounded-lg shadow p-4 mb-6 flex flex-col gap-3 transition duration-300 ${isDarkMode ? 'bg-slate-700' : 'bg-white'}`}
+          >
+            <input
+              type="text"
+              placeholder="Seu nome"
+              className={`border rounded px-3 py-2 outline-none transition duration-300 ${isDarkMode ? 'bg-slate-600 text-gray-200 border-slate-500' : 'bg-white text-gray-800 border-gray-300'}`}
+              value={novoComentario.nome}
+              onChange={(e) =>
+                setNovoComentario({ ...novoComentario, nome: e.target.value })
+              }
+              required
+            />
+            <div className={`flex items-center gap-2  ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+              <span className={`${isDarkMode? 'text-white':'text-gray-700'}`}>Sua avaliação:</span>
               {[1, 2, 3, 4, 5].map((num) => (
                 <button
+                  type="button"
                   key={num}
-                  onClick={() => setAvaliacao(num)}
+                  onClick={() =>
+                    setNovoComentario({ ...novoComentario, estrelas: num })
+                  }
                   className="focus:outline-none"
-                  title={`Avaliar com ${num} estrela${num > 1 ? 's' : ''}`}
                 >
                   <span
                     className={
-                      num <= avaliacao
-                        ? 'text-yellow-400 text-2xl'
-                        : 'text-gray-300 text-2xl'
+                      num <= novoComentario.estrelas
+                        ? 'text-yellow-400 text-xl'
+                        : 'text-gray-300 text-xl'
                     }
                   >
                     ★
@@ -143,96 +187,53 @@ export default function BookDetails() {
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Comentários dos usuários */}
-      <div className="w-full mt-10">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">Comentários dos Usuários</h2>
-        <form
-          onSubmit={handleAddComentario}
-          className="bg-white rounded-lg shadow p-4 mb-6 flex flex-col gap-3"
-        >
-          <input
-            type="text"
-            placeholder="Seu nome"
-            className="border rounded px-3 py-2"
-            value={novoComentario.nome}
-            onChange={(e) =>
-              setNovoComentario({ ...novoComentario, nome: e.target.value })
-            }
-            required
-          />
-          <div className="flex items-center gap-2">
-            <span className="text-gray-700">Sua avaliação:</span>
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button
-                type="button"
-                key={num}
-                onClick={() =>
-                  setNovoComentario({ ...novoComentario, estrelas: num })
-                }
-                className="focus:outline-none"
+            <textarea
+              placeholder="Escreva seu comentário"
+              className={`border rounded px-3 py-2 resize-none outline-none transition duration-300 ${isDarkMode ? 'bg-slate-600 text-gray-200 border-slate-500' : 'bg-white text-gray-800 border-gray-300'}`}
+              rows={3}
+              value={novoComentario.texto}
+              onChange={(e) =>
+                setNovoComentario({ ...novoComentario, texto: e.target.value })
+              }
+              required
+            />
+            <button
+              type="submit"
+              className="self-end bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Enviar comentário
+            </button>
+          </form>
+          <div className="flex flex-col gap-4">
+            {comentarios.length === 0 && (
+              <p className="text-gray-500">Nenhum comentário ainda.</p>
+            )}
+            {comentarios.map((comentario) => (
+              <div
+                key={comentario.id}
+                className="bg-white rounded-lg shadow p-4 flex flex-col"
               >
-                <span
-                  className={
-                    num <= novoComentario.estrelas
-                      ? 'text-yellow-400 text-xl'
-                      : 'text-gray-300 text-xl'
-                  }
-                >
-                  ★
-                </span>
-              </button>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-semibold text-gray-800">{comentario.nome}</span>
+                  <span className="flex">
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <span
+                        key={num}
+                        className={
+                          num <= comentario.estrelas
+                            ? 'text-yellow-400 text-lg'
+                            : 'text-gray-300 text-lg'
+                        }
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </span>
+                </div>
+                <p className="text-gray-700">{comentario.texto}</p>
+              </div>
             ))}
           </div>
-          <textarea
-            placeholder="Escreva seu comentário"
-            className="border rounded px-3 py-2 resize-none"
-            rows={3}
-            value={novoComentario.texto}
-            onChange={(e) =>
-              setNovoComentario({ ...novoComentario, texto: e.target.value })
-            }
-            required
-          />
-          <button
-            type="submit"
-            className="self-end bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Enviar comentário
-          </button>
-        </form>
-        <div className="flex flex-col gap-4">
-          {comentarios.length === 0 && (
-            <p className="text-gray-500">Nenhum comentário ainda.</p>
-          )}
-          {comentarios.map((comentario) => (
-            <div
-              key={comentario.id}
-              className="bg-white rounded-lg shadow p-4 flex flex-col"
-            >
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-semibold text-gray-800">{comentario.nome}</span>
-                <span className="flex">
-                  {[1, 2, 3, 4, 5].map((num) => (
-                    <span
-                      key={num}
-                      className={
-                        num <= comentario.estrelas
-                          ? 'text-yellow-400 text-lg'
-                          : 'text-gray-300 text-lg'
-                      }
-                    >
-                      ★
-                    </span>
-                  ))}
-                </span>
-              </div>
-              <p className="text-gray-700">{comentario.texto}</p>
-            </div>
-          ))}
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 
 
-function LoginModal({ isLoginOpen, setLoginOpen, setBlurBg }) {
+function LoginModal({ isLoginOpen, setLoginOpen, setBlurBg, isDarkMode }) {
     return (
-        <form className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-slate-100 rounded-lg shadow-lg w-72 h-96 p-5 ' style={{ display: isLoginOpen ? 'block' : 'none' }} action="login">
+        <form className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50  rounded-lg shadow-lg w-72 h-96 p-5 ${isDarkMode? 'bg-slate-600':'bg-gray-50'}`} style={{ display: isLoginOpen ? 'block' : 'none' }} action="login">
             <div className='w-full flex justify-end'>
                 <p onClick={e => {
                     e.preventDefault();
@@ -12,10 +12,10 @@ function LoginModal({ isLoginOpen, setLoginOpen, setBlurBg }) {
                     <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg></p>
             </div>
             <div className='flex flex-col'>
-            <h1 className='text-3xl flex justify-center  mb-8'>Entrar</h1>
-            <label className='' htmlFor="">Nome de usuário:</label>
+            <h1 className={`text-3xl flex justify-center  mb-8 ${isDarkMode? 'text-gray-200':'text-black'}`}>Entrar</h1>
+            <label className={`${isDarkMode? 'text-gray-200':'text-black'}`} htmlFor="">Nome de usuário:</label>
             <input type="text" placeholder='Username' />
-            <label className='' htmlFor="">Senha:</label>
+            <label className={`${isDarkMode? 'text-gray-200':'text-black'}`} htmlFor="">Senha:</label>
             <input type="text" placeholder='*' />
             <button className='w-full h-10 bg-blue-600 text-white rounded-lg mt-5 hover:bg-blue-700'>Entrar</button>
             </div>

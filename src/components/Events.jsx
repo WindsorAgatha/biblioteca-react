@@ -1,79 +1,107 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Events() {
-  const [eventos, setEventos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  // Exemplo: substitua pelo seu endpoint real se desejar
   useEffect(() => {
-    // Simulação de fetch, troque por sua API se necessário
-    setTimeout(() => {
-      setEventos([
-        {
-          id: 1,
-          nome: "Feira de Ciências",
-          data: "2025-10-15",
-          descrição: "Apresente seu projeto científico e participe de oficinas interativas.",
-          instrucoes: "Traga seu crachá escolar e chegue 15 minutos antes do início.",
-          imagem: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
-        },
-        {
-          id: 2,
-          nome: "Semana Literária",
-          data: "2025-11-05",
-          descrição: "Palestras com autores, troca de livros e concurso de poesia.",
-          instrucoes: "Inscreva-se na secretaria até 01/11. Leve um livro para troca.",
-          imagem: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
-        },
-        {
-          id: 3,
-          nome: "Gincana Esportiva",
-          data: "2025-12-01",
-          descrição: "Competições esportivas entre turmas e premiação para os vencedores.",
-          instrucoes: "Vista o uniforme da escola e traga garrafa de água.",
-          imagem: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=80",
-        },
-      ]);
-      setLoading(false);
-    }, 800);
-  }, []);
+    let mounted = true
+    const controller = new AbortController()
+
+    async function load() {
+      try {
+        setLoading(true)
+        const res = await fetch('http://localhost:5032/api/Event', { signal: controller.signal })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = await res.json()
+        if (mounted) setEvents(Array.isArray(json) ? json : [json])
+      } catch (err) {
+        if (mounted) setError(err.message || 'Erro ao carregar eventos')
+      } finally {
+        if (mounted) setLoading(false)
+      }
+    }
+
+    load()
+    return () => {
+      mounted = false
+      controller.abort()
+    }
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen p-6 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl font-semibold text-gray-800 mb-6">Eventos</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="animate-pulse bg-white h-36 rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen p-6 bg-slate-50">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl font-semibold text-gray-800 mb-6">Eventos</h1>
+          <div className="text-red-600">Erro: {error}</div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50 py-10">
-      <div className="max-w-4xl mx-auto p-6 font-serif">
-        <h1 className="text-3xl font-bold text-blue-900 mb-8 text-center">Eventos da Escola</h1>
-        {loading ? (
-          <div className="text-center text-gray-500 py-20">Carregando eventos...</div>
+    <div className="min-h-screen p-6 bg-slate-50">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-semibold text-blue-900 mb-6">Eventos</h1>
+
+        {events.length === 0 ? (
+          <div className="bg-white p-6 rounded-lg shadow text-gray-700">Nenhum evento disponível.</div>
         ) : (
-          <div className="flex flex-col gap-10">
-            {eventos.map(evento => (
-              <div key={evento.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
-                <img
-                  src={evento.imagem}
-                  alt={evento.nome}
-                  className="w-full md:w-72 h-60 object-cover"
-                />
-                <div className="flex-1 p-6 flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">{evento.nome}</h2>
-                    <p className="text-blue-700 font-semibold mb-2">
-                      {new Date(evento.data).toLocaleDateString()}
-                    </p>
-                    <p className="text-gray-700 mb-3">
-                      <span className="font-semibold">Detalhes: </span>
-                      {evento.detalhes}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold">Instruções: </span>
-                      {evento.instrucoes}
-                    </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {events.map((ev) => {
+              const title = ev.title ?? ev.name ?? 'Evento'
+              const description = ev.description ?? ''
+              const start = ev.startDate ? new Date(ev.startDate).toLocaleString() : null
+              const end = ev.endDate ? new Date(ev.endDate).toLocaleString() : null
+              const location = ev.location ?? 'Não informado'
+              const classrooms = Array.isArray(ev.classrooms) ? ev.classrooms : []
+
+              return (
+                <Link
+                  key={ev.id}
+                  to={`/eventos/${ev.id}`}
+                  className="block bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden"
+                  aria-label={`Abrir detalhes do evento ${title}`}
+                >
+                  <div className="p-4 h-full flex flex-col justify-between">
+                    <div>
+                      <h2 className="text-lg font-semibold text-gray-800 truncate">{title}</h2>
+                      <p className="text-sm text-gray-500 mt-1">{location}</p>
+                      <p className="text-sm text-gray-600 mt-2 line-clamp-3">{description}</p>
+                    </div>
+
+                    <div className="mt-4 text-xs text-gray-500">
+                      {start && <span className="mr-2">Início: {start}</span>}
+                      {end && <span>Fim: {end}</span>}
+                      <div className="mt-2 text-gray-600">
+                        Turmas: {classrooms.length > 0 ? classrooms.map(c => c.description).join(', ') : '—'}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                </Link>
+              )
+            })}
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }
