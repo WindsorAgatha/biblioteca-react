@@ -1,0 +1,56 @@
+import { useState } from 'react';
+import axios from 'axios';
+
+export default function BookForm() {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [isbn, setIsbn] = useState('');
+  const [genreId, setGenreId] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMsg('');
+    setLoading(true);
+
+    try {
+      const fd = new FormData();
+      fd.append('Title', title);
+      fd.append('Author', author);
+      fd.append('ISBN', isbn);
+      fd.append('LiteraryGenreId', genreId);
+      fd.append('Quantity', quantity);
+      // o nome do campo deve ser o esperado pelo endpoint (ex.: "Image")
+      fd.append('Image', image);
+
+      // NÃO definir headers Content-Type — o browser faz isso com boundary
+      const res = await axios.post(
+        'https://localhost:5032/api/Book/create-with-image',
+        fd,
+        { withCredentials: false } // evitar cookies se não precisar
+      );
+
+      setMsg('Livro criado com sucesso!');
+    } catch (err) {
+      setMsg('Falha ao criar livro. Verifique HTTPS, CORS e tamanho/tipo da imagem (<5MB, jpg/png/webp).');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Título" required />
+      <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Autor" required />
+      <input value={isbn} onChange={(e) => setIsbn(e.target.value)} placeholder="ISBN" required />
+      <input value={genreId} onChange={(e) => setGenreId(e.target.value)} placeholder="ID do Gênero" required />
+      <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Quantidade" min={1} required />
+      <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} required />
+      <button type="submit" disabled={loading}>{loading ? 'Enviando...' : 'Salvar'}</button>
+      {msg && <p>{msg}</p>}
+    </form>
+  );
+}
