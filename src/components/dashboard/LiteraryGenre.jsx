@@ -24,7 +24,7 @@ function LiteraryGenre() {
     const handleAddGenre = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5287/api/LiteraryGenre', {
+            const response = await fetch('http://localhost:5032/api/LiteraryGenre', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,10 +44,6 @@ function LiteraryGenre() {
     }
     return (
         <form onSubmit={handleAddGenre} className="min-w-full relative mx-auto bg-white rounded-lg shadow p-8 space-y-6">
-            <div>
-                <label htmlFor="id" className="block font-semibold mb-1">ID</label>
-                <input type="number" id="id" name="id" className="w-full border rounded px-3 py-2" required />
-            </div>
             <div>
                 <label htmlFor="name" className="block font-semibold mb-1">Nome do Gênero Literário</label>
                 <input onChange={handleGenreChange} type='text' id="name" name="name" className="w-full border rounded px-3 py-2" required />
