@@ -37,7 +37,6 @@ import EventDetails from './components/EventDetails';
 import NewsDetails from './components/NewsDetails';
 
 
-
 function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
