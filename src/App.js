@@ -27,6 +27,7 @@ import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
 import CreateEvent from './components/dashboard/CreateEvent';
 import Actives from './components/dashboard/Actives';
+import CreateStudent from "./components/CreateStudentModal";
 
 import TeacherDetails from './components/TeacherDetails';
 
@@ -98,6 +99,7 @@ function App() {
                   <Route path="/classes/:id" element={<ClassroomDetails />} />
                   <Route path="/calendario" element={<Calendar />} />
                   <Route path="/genre" element={<LiteraryGenre />} />
+                  <Route path="/criar-estudante" element={<CreateStudent />} />
                 </Routes>
               </BlurBg>
               <Footer />
