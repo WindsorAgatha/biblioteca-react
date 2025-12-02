@@ -20,21 +20,15 @@ import WarningModal from './components/WarningModal';
 import NewsBlog from './components/NewsBlog';
 import Classrooms from './components/Classrooms';
 import Calendar from './components/Calendar';
-import CreateStudentModal from './components/CreateStudentModal';
 import Student from './components/dashboard/Student';
 import LiteraryGenre from './components/dashboard/LiteraryGenre';
 import Teacher from './components/dashboard/Teacher';
 import CreateBook from './components/dashboard/CreateBook';
 import CreateEvent from './components/dashboard/CreateEvent';
 import Actives from './components/dashboard/Actives';
-import CreateStudent from "./components/CreateStudentModal";
-
 import TeacherDetails from './components/TeacherDetails';
-
 import ClassroomDetails from './components/ClassroomDetails';
-
 import EventDetails from './components/EventDetails';
-
 import NewsDetails from './components/NewsDetails';
 
 
@@ -46,7 +40,6 @@ function App() {
   const [blurBg, setBlurBg] = useState(false);
   const [isCreateBookOpen, setIsCreateBookOpen] = useState(false)
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false)
-  const [isCreateStudentOpen, setIsCreateStudentOpen] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   return (
@@ -78,7 +71,6 @@ function App() {
                 <LoginModal setLoginOpen={setIsLoginOpen} isLoginOpen={isLoginOpen} setBlurBg={setBlurBg} isDarkMode={isDarkMode} />
                 <RegisterModal setRegisterOpen={setRegisterOpen} isRegisterOpen={isRegisterOpen} setBlurBg={setBlurBg} isDarkMode={isDarkMode} />
                 <WarningModal isWarningModalOpen={isWarningModalOpen} />
-                <CreateStudentModal setBlurBg={setBlurBg} blurBg={blurBg} isCreateStudentOpen={isCreateStudentOpen} />
               </div>
               <BlurBg blurBg={blurBg}>
                 <Header setLoginOpen={setIsLoginOpen} setRegisterOpen={setRegisterOpen} setBlurBg={setBlurBg} setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
@@ -99,7 +91,6 @@ function App() {
                   <Route path="/classes/:id" element={<ClassroomDetails />} />
                   <Route path="/calendario" element={<Calendar />} />
                   <Route path="/genre" element={<LiteraryGenre />} />
-                  <Route path="/criar-estudante" element={<CreateStudent />} />
                 </Routes>
               </BlurBg>
               <Footer />
